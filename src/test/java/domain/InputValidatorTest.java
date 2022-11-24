@@ -27,4 +27,19 @@ class InputValidatorTest {
     void validateRightPlayersInput(String input) {
         assertDoesNotThrow(() -> InputValidator.validatePlayersInput(input));
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"1,3,2,", "1a", "a1"})
+    void validateWrongBettingMoney(String input) {
+        assertThatThrownBy(() ->
+                InputValidator.validateBettingMoney(input))
+                .isInstanceOf(IllegalArgumentException.class
+                );
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"132", "11", "30000"})
+    void validateRightBettingMoney(String input) {
+        assertDoesNotThrow(() -> InputValidator.validateBettingMoney(input));
+    }
 }
