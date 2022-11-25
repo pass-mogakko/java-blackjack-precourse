@@ -20,10 +20,11 @@ public class BlackjackController {
     }
 
     public void run() {
-        initPlayers();
+        blackJackService.initCards();
+        createPlayers();
     }
 
-    private void initPlayers() {
+    private void createPlayers() {
         String playersName = inputView.requestPlayerName();
         PlayersNameDto parsedPlayersName = blackJackService.parsePlayersName(playersName);
         List<String> names = parsedPlayersName.get();

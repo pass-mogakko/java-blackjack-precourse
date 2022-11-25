@@ -1,22 +1,36 @@
 package service;
 
+import domain.card.Card;
+import domain.card.CardFactory;
+import domain.card.Cards;
 import domain.user.BettingMoney;
 import domain.user.Player;
 import domain.user.Players;
 import domain.user.PlayersName;
 import dto.BettingMoneyDto;
 import dto.PlayersNameDto;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class BlackjackService {
 
     private static final BlackjackService blackJackService = new BlackjackService();
     private static final Players players = new Players();
+    private static Cards cards;
+
 
     private BlackjackService() {
     }
 
     public static BlackjackService getInstance() {
         return blackJackService;
+    }
+
+    public void initCards() {
+        List<Card> randomCards = new ArrayList<>(CardFactory.create());
+        Collections.shuffle(randomCards);
+        this.cards = new Cards(randomCards);
     }
 
     public PlayersNameDto parsePlayersName(String playersName) {
