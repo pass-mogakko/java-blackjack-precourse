@@ -2,10 +2,10 @@ package service;
 
 import domain.user.BettingMoney;
 import domain.user.Player;
+import domain.user.Players;
 import domain.user.PlayersName;
 import dto.BettingMoneyDto;
 import dto.PlayersNameDto;
-import repository.Players;
 
 public class BlackjackService {
 
@@ -33,4 +33,5 @@ public class BlackjackService {
         Player player = new Player(name, bettingMoney);
         players.addPlayer(player);
     }
+
 }

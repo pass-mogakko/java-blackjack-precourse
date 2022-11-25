@@ -1,6 +1,5 @@
-package repository;
+package domain.user;
 
-import domain.user.Player;
 import java.util.ArrayList;
 import java.util.List;
 
