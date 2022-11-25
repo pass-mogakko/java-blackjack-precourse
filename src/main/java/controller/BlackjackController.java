@@ -1,8 +1,13 @@
 package controller;
 
+import service.BlackjackService;
+import view.InputView;
+
 public class BlackjackController {
 
     private static final BlackjackController blackjackController = new BlackjackController();
+    private static final BlackjackService blackJackService = BlackjackService.getInstance();
+    private static final InputView inputView = new InputView();
 
     private BlackjackController() {
     }
@@ -12,6 +17,6 @@ public class BlackjackController {
     }
 
     public void run() {
-
+        String playerName = inputView.requestPlayerName();
     }
 }
