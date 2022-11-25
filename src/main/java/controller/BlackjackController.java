@@ -1,6 +1,7 @@
 package controller;
 
 import dto.PlayersNameDto;
+import java.util.List;
 import service.BlackjackService;
 import view.InputView;
 
@@ -20,5 +21,9 @@ public class BlackjackController {
     public void run() {
         String playersName = inputView.requestPlayerName();
         PlayersNameDto parsePlayersName = blackJackService.parsePlayersName(playersName);
+        List<String> names = parsePlayersName.get();
+        names.forEach(name -> {
+            String playerBettingMoney = inputView.requestPlayerBettingMoney(name);
+        });
     }
 }
