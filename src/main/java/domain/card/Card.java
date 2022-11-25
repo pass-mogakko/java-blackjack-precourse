@@ -16,6 +16,11 @@ public class Card {
         this.type = type;
     }
 
+    public Card(Symbol symbol) {
+        this.symbol = symbol;
+        type = Type.HEART;
+    }
+
     // TODO Card 관련 추가 기능 구현
 
     public String cardToString() {

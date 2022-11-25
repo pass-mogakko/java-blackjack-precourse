@@ -7,9 +7,14 @@ import java.util.stream.Collectors;
 
 public class Cards {
 
-    private final List<Card> cards = new ArrayList<>();
+    private final List<Card> cards;
 
     public Cards() {
+        cards = new ArrayList<>();
+    }
+
+    public Cards(List<Card> cards) {
+        this.cards = cards;
     }
 
     public List<String> collectCardToString() {
