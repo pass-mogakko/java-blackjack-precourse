@@ -53,4 +53,8 @@ public class Cards {
     private boolean isNeedScoreAdjustment(int cardsScore, int aceCount) {
         return cardsScore > Constant.BLACKJACK_SCORE && aceCount > Constant.ZERO;
     }
+
+    public boolean isPossibleDrawCard() {
+        return computeCardsScore() <= Constant.BLACKJACK_SCORE;
+    }
 }

@@ -28,4 +28,8 @@ public class Player {
         return cards.collectCardToString();
     }
 
+    public boolean isPossibleDrawCard() {
+        return cards.isPossibleDrawCard();
+    }
+
 }
