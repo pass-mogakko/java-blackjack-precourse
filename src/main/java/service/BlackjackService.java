@@ -9,6 +9,7 @@ import domain.user.Player;
 import domain.user.Players;
 import domain.user.PlayersName;
 import dto.BettingMoneyDto;
+import dto.CardsDto;
 import dto.PlayersNameDto;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,14 +44,13 @@ public class BlackjackService {
         players.addPlayer(player);
     }
 
-    public String initCards() {
+    public CardsDto initCards() {
         List<Card> cards = new ArrayList<>(CardFactory.create());
         Collections.shuffle(cards);
         randomCards = RandomCards.newInstance(cards);
-        String dealerHasFirstCard = dealer.initCards();
-        players.initCards();
-
-        return dealerHasFirstCard;
+        List<String> dealerHasCard = dealer.initCards();
+        List<List<String>> playersHasCard = players.initCards();
+        return new CardsDto(dealerHasCard, playersHasCard);
     }
 
 

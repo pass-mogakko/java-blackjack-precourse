@@ -3,6 +3,7 @@ package domain.user;
 import domain.card.RandomCards;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Players {
 
@@ -17,13 +18,20 @@ public class Players {
         players.add(player);
     }
 
-    public void initCards() {
-        players.forEach(player -> drawTwoCards(randomCards, player));
+    public List<List<String>> initCards() {
+        players.forEach(player -> drawTwoCards(player));
+        return collectAllPlayerCardsToString();
     }
 
-    private void drawTwoCards(RandomCards randomCards, Player player) {
+    private void drawTwoCards(Player player) {
         randomCards = RandomCards.getInstance();
         player.addCard(randomCards.drawCard());
         player.addCard(randomCards.drawCard());
+    }
+
+    private List<List<String>> collectAllPlayerCardsToString() {
+        return players.stream()
+                .map(Player::collectCardToString)
+                .collect(Collectors.toList());
     }
 }

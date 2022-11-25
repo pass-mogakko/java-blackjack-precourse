@@ -3,7 +3,6 @@ package domain.user;
 import domain.card.Card;
 import domain.card.Cards;
 import domain.card.RandomCards;
-import domain.constant.Constant;
 import java.util.List;
 
 /**
@@ -23,12 +22,12 @@ public class Dealer {
 
     // TODO 추가 기능 구현
 
-    public String initCards() {
+    public List<String> initCards() {
         randomCards = RandomCards.getInstance();
         addCard(randomCards.drawCard());
-        addCard(randomCards.drawCard());
         List<String> dealerHasCards = cards.collectCardToString();
-        return dealerHasCards.get(Constant.CARDS_FRONT_INDEX);
+        addCard(randomCards.drawCard());
+        return dealerHasCards;
     }
 
 }

@@ -7,4 +7,5 @@ public class Message {
     public static String DRAW_TWO_CARDS_EVERYONE = "%s와 %s에게 2장의 카드를 나누었습니다.";
     public static String DEALER = "딜러";
     public static String DEALER_CARDS = DEALER + ": %s";
+    public static String PLAYER_CARDS = "%s카드: %s";
 }

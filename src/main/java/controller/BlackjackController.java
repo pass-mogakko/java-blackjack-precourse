@@ -1,6 +1,7 @@
 package controller;
 
 import dto.BettingMoneyDto;
+import dto.CardsDto;
 import dto.PlayersNameDto;
 import java.util.List;
 import service.BlackjackService;
@@ -41,10 +42,7 @@ public class BlackjackController {
     }
 
     private void initCards(List<String> playersName) {
-        String dealerHasFirstCard = blackJackService.initCards();
-        outputView.printDrawTwoCardsEveryone(playersName);
-
-        outputView.printDealerHasFirstCard(dealerHasFirstCard);
-
+        CardsDto cardsDto = blackJackService.initCards();
+        outputView.printDrawTwoCards(playersName, cardsDto);
     }
 }
