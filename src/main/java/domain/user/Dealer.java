@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.RandomCards;
 import java.util.ArrayList;
 import java.util.List;
 
