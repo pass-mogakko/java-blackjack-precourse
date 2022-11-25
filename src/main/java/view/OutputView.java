@@ -9,24 +9,15 @@ import view.constant.Message;
 
 public class OutputView {
 
-    public void printDrawTwoCards(List<String> playersName, CardsDto cardsDto) {
+    public void printDrawTwoCard(List<String> playersName, CardsDto cardsDto) {
         List<String> dealerHasCard = cardsDto.getDealerHasCard();
         List<List<String>> playersHasCard = cardsDto.getPlayersHasCard();
         String parsedPlayersName = parsePlayersName(playersName);
         String parsedDealerHasCard = parseCards(dealerHasCard);
 
-        System.out.println();
-        System.out.printf(Message.DRAW_TWO_CARDS_EVERYONE, Message.DEALER, parsedPlayersName);
-        System.out.println();
-        System.out.printf(Message.DEALER_CARDS, parsedDealerHasCard);
-        System.out.println();
-        IntStream.range(Constant.INITIAL_INDEX, playersName.size())
-                .forEach(index -> {
-                    List<String> playerHasCard = playersHasCard.get(index);
-                    String parsedPlayerHasCard = parseCards(playerHasCard);
-                    System.out.printf(Message.PLAYER_CARDS, playersName.get(index), parsedPlayerHasCard);
-                    System.out.println();
-                });
+        printDrawTwoCardEveryone(parsedPlayersName);
+        printDealerHasCard(parsedDealerHasCard);
+        printPlayersHasCard(playersName, playersHasCard);
     }
 
     private String parsePlayersName(List<String> playersName) {
@@ -37,5 +28,28 @@ public class OutputView {
     private String parseCards(List<String> cards) {
         return cards.stream()
                 .collect(Collectors.joining(Constant.CARDS_JOINING_DELIMITER));
+    }
+
+    private void printDrawTwoCardEveryone(String playersName) {
+        System.out.println();
+        System.out.printf(Message.DRAW_TWO_CARDS_EVERYONE, Message.DEALER, playersName);
+    }
+
+    private void printDealerHasCard(String dealerHasCard) {
+        System.out.println();
+        System.out.printf(Message.DEALER_CARDS, dealerHasCard);
+    }
+
+    private void printPlayersHasCard(List<String> playersName, List<List<String>> playersHasCard) {
+        System.out.println();
+        IntStream.range(Constant.INITIAL_INDEX, playersName.size())
+                .forEach(index -> printPlayerHasCard(playersHasCard, playersName, index));
+    }
+
+    private void printPlayerHasCard(List<List<String>> playersHasCard, List<String> playersName, int index) {
+        List<String> playerHasCard = playersHasCard.get(index);
+        String parsedPlayerHasCard = parseCards(playerHasCard);
+        System.out.printf(Message.PLAYER_CARDS, playersName.get(index), parsedPlayerHasCard);
+        System.out.println();
     }
 }

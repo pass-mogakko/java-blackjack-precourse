@@ -43,6 +43,6 @@ public class BlackjackController {
 
     private void initCards(List<String> playersName) {
         CardsDto cardsDto = blackJackService.initCards();
-        outputView.printDrawTwoCards(playersName, cardsDto);
+        outputView.printDrawTwoCard(playersName, cardsDto);
     }
 }
