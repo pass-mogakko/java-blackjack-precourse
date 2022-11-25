@@ -30,4 +30,8 @@ public enum Symbol {
     public String getKorean() {
         return korean;
     }
+
+    public boolean isAce() {
+        return this == ACE;
+    }
 }

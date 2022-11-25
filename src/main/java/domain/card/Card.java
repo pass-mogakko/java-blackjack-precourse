@@ -22,6 +22,14 @@ public class Card {
         return symbol.getKorean() + type.getKorean();
     }
 
+    public int getScore() {
+        return symbol.getScore();
+    }
+
+    public boolean isAce() {
+        return symbol.isAce();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
