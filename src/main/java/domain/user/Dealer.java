@@ -1,23 +1,16 @@
 package domain.user;
 
-import domain.card.Card;
-import domain.card.Cards;
 import domain.card.RandomCards;
 import java.util.List;
 
 /**
  * 게임 딜러를 의미하는 객체
  */
-public class Dealer {
+public class Dealer extends User {
 
     private static RandomCards randomCards;
-    private Cards cards = new Cards();
 
     public Dealer() {
-    }
-
-    public void addCard(Card card) {
-        cards.addCard(card);
     }
 
     // TODO 추가 기능 구현
