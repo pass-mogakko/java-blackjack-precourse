@@ -47,8 +47,7 @@ public class BlackjackService {
         List<Card> cards = new ArrayList<>(CardFactory.create());
         Collections.shuffle(cards);
         randomCards = new RandomCards(cards);
-        dealer.addCard(randomCards.drawCard());
-        dealer.addCard(randomCards.drawCard());
+        dealer.initCard(randomCards);
     }
 
 
