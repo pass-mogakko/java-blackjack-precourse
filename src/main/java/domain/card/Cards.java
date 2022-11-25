@@ -1,5 +1,6 @@
 package domain.card;
 
+import domain.constant.Constant;
 import java.util.List;
 
 public class Cards {
@@ -8,5 +9,9 @@ public class Cards {
 
     public Cards(List<Card> cards) {
         this.cards = cards;
+    }
+
+    public Card drawCard() {
+        return cards.remove(Constant.CARDS_FRONT_INDEX);
     }
 }

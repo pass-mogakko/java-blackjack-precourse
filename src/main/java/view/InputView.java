@@ -13,7 +13,8 @@ public class InputView {
     }
 
     public String requestPlayerBettingMoney(String playerName) {
-        System.out.printf(Message.REQUEST_PLAYER_NAME, playerName);
+        System.out.println();
+        System.out.printf(Message.REQUEST_PLAYER_BETTING_MONEY, playerName);
         System.out.println();
         return scanner.nextLine();
     }
