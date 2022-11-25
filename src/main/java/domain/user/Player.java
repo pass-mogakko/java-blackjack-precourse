@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import model.validator.GameRuleValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ public class Player {
     private final List<Card> cards = new ArrayList<>();
 
     public Player(String name, double bettingMoney) {
+        GameRuleValidator.validateInitialBettingMoney(bettingMoney);
         this.name = name;
         this.bettingMoney = bettingMoney;
     }
