@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class Dealer {
 
+    private static final RandomCards randomCards = RandomCards.getInstance();
     private final List<Card> cards = new ArrayList<>();
 
     public Dealer() {
@@ -21,7 +22,7 @@ public class Dealer {
 
     // TODO 추가 기능 구현
 
-    public void initCards(RandomCards randomCards) {
+    public void initCards() {
         addCard(randomCards.drawCard());
         addCard(randomCards.drawCard());
     }

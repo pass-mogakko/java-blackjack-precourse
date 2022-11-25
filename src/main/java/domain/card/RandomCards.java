@@ -5,13 +5,26 @@ import java.util.List;
 
 public class RandomCards {
 
-    private final List<Card> randomCards;
+    private static RandomCards randomCards = new RandomCards();
 
-    public RandomCards(List<Card> randomCards) {
-        this.randomCards = randomCards;
+    private List<Card> cards;
+
+    private RandomCards() {
+    }
+
+    private RandomCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
+    public static RandomCards newInstance(List<Card> cards) {
+        return new RandomCards(cards);
+    }
+
+    public static RandomCards getInstance() {
+        return randomCards;
     }
 
     public Card drawCard() {
-        return randomCards.remove(Constant.CARDS_FRONT_INDEX);
+        return cards.remove(Constant.CARDS_FRONT_INDEX);
     }
 }
