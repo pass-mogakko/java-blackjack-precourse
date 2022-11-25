@@ -27,10 +27,10 @@ public class BlackjackController {
         String playersName = inputView.requestPlayerName();
         PlayersNameDto parsedPlayersName = blackJackService.parsePlayersName(playersName);
         List<String> names = parsedPlayersName.get();
-        names.forEach(this::requestPlayerBettingMoney);
+        names.forEach(this::createPlayer);
     }
 
-    private void requestPlayerBettingMoney(String name) {
+    private void createPlayer(String name) {
         String bettingMoney = inputView.requestPlayerBettingMoney(name);
         BettingMoneyDto parsedBettingMoney = blackJackService.parsePlayerBettingMoney(bettingMoney);
         blackJackService.createPlayer(name, parsedBettingMoney.get());
