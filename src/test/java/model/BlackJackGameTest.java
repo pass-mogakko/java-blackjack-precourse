@@ -2,7 +2,6 @@ package model;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import domain.card.CardFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -17,7 +16,8 @@ class BlackJackGameTest {
     @ParameterizedTest
     @MethodSource("generateStreamWithInvalidCount")
     void enrollWithInvalidCount(Map<String, Integer> namesWithBettingMoney) {
-        BlackJackGame blackJackGame = new BlackJackGame(CardFactory.create());
+        BlackJackGame blackJackGame = new BlackJackGame();
+
         assertThatThrownBy(() -> blackJackGame.enrollParticipants(namesWithBettingMoney))
                 .isInstanceOf(IllegalArgumentException.class);
     }
@@ -35,7 +35,8 @@ class BlackJackGameTest {
     @ParameterizedTest
     @MethodSource("generateStreamWithInvalidBettingMoney")
     void enrollWithInvalidBettingMoney(Map<String, Integer> namesWithBettingMoney) {
-        BlackJackGame blackJackGame = new BlackJackGame(CardFactory.create());
+        BlackJackGame blackJackGame = new BlackJackGame();
+
         assertThatThrownBy(() -> blackJackGame.enrollParticipants(namesWithBettingMoney))
                 .isInstanceOf(IllegalArgumentException.class);
     }

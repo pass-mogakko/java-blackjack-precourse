@@ -1,6 +1,6 @@
 package model;
 
-import domain.card.Card;
+import domain.card.Deck;
 import domain.user.Dealer;
 import domain.user.Player;
 import model.validator.GameRuleValidator;
@@ -13,12 +13,12 @@ public class BlackJackGame {
 
     private final List<Player> participants;
     private final Dealer dealer;
-//    private final CardDistributor cardDistributor;
+    private final Deck deck;
 
-    public BlackJackGame(List<Card> trumpCard) {
+    public BlackJackGame() {
         this.participants = new ArrayList<>();
         this.dealer = new Dealer();
-//        this.cardDistributor = new CardDistributor(trumpCard);
+        this.deck = new Deck();
     }
 
     public void enrollParticipants(Map<String, Integer> namesWithBettingMoney) {
