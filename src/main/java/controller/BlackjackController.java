@@ -26,6 +26,7 @@ public class BlackjackController {
         names.forEach(name -> {
             String bettingMoney = inputView.requestPlayerBettingMoney(name);
             BettingMoneyDto parsedBettingMoney = blackJackService.parsePlayerBettingMoney(bettingMoney);
+            blackJackService.createPlayer(name, parsedBettingMoney.get());
         });
     }
 }

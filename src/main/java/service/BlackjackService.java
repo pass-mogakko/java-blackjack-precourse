@@ -1,13 +1,16 @@
 package service;
 
 import domain.user.BettingMoney;
+import domain.user.Player;
 import domain.user.PlayersName;
 import dto.BettingMoneyDto;
 import dto.PlayersNameDto;
+import repository.Players;
 
 public class BlackjackService {
 
     private static final BlackjackService blackJackService = new BlackjackService();
+    private static final Players players = new Players();
 
     private BlackjackService() {
     }
@@ -24,5 +27,10 @@ public class BlackjackService {
     public BettingMoneyDto parsePlayerBettingMoney(String bettingMoney) {
         BettingMoney money = new BettingMoney(bettingMoney);
         return money.toDto();
+    }
+
+    public void createPlayer(String name, int bettingMoney) {
+        Player player = new Player(name, bettingMoney);
+        players.addPlayer(player);
     }
 }
