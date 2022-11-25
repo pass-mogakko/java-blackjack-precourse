@@ -21,7 +21,7 @@ public class Dealer {
 
     // TODO 추가 기능 구현
 
-    public void initCard(RandomCards randomCards) {
+    public void initCards(RandomCards randomCards) {
         addCard(randomCards.drawCard());
         addCard(randomCards.drawCard());
     }
