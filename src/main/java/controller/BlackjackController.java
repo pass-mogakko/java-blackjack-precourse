@@ -20,13 +20,19 @@ public class BlackjackController {
     }
 
     public void run() {
+        initPlayers();
+    }
+
+    private void initPlayers() {
         String playersName = inputView.requestPlayerName();
         PlayersNameDto parsedPlayersName = blackJackService.parsePlayersName(playersName);
         List<String> names = parsedPlayersName.get();
-        names.forEach(name -> {
-            String bettingMoney = inputView.requestPlayerBettingMoney(name);
-            BettingMoneyDto parsedBettingMoney = blackJackService.parsePlayerBettingMoney(bettingMoney);
-            blackJackService.createPlayer(name, parsedBettingMoney.get());
-        });
+        names.forEach(this::requestPlayerBettingMoney);
+    }
+
+    private void requestPlayerBettingMoney(String name) {
+        String bettingMoney = inputView.requestPlayerBettingMoney(name);
+        BettingMoneyDto parsedBettingMoney = blackJackService.parsePlayerBettingMoney(bettingMoney);
+        blackJackService.createPlayer(name, parsedBettingMoney.get());
     }
 }
