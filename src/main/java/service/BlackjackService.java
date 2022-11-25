@@ -1,6 +1,8 @@
 package service;
 
+import domain.user.BettingMoney;
 import domain.user.PlayersName;
+import dto.BettingMoneyDto;
 import dto.PlayersNameDto;
 
 public class BlackjackService {
@@ -17,5 +19,10 @@ public class BlackjackService {
     public PlayersNameDto parsePlayersName(String playersName) {
         PlayersName parsedPlayersName = new PlayersName(playersName);
         return parsedPlayersName.toDto();
+    }
+
+    public BettingMoneyDto parsePlayerBettingMoney(String bettingMoney) {
+        BettingMoney money = new BettingMoney(bettingMoney);
+        return money.toDto();
     }
 }
