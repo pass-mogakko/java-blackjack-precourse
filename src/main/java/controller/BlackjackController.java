@@ -41,9 +41,10 @@ public class BlackjackController {
     }
 
     private void initCards(List<String> playersName) {
-        blackJackService.initCards();
+        String dealerHasFirstCard = blackJackService.initCards();
         outputView.printDrawTwoCardsEveryone(playersName);
 
+        outputView.printDealerHasFirstCard(dealerHasFirstCard);
 
     }
 }

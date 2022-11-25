@@ -19,4 +19,7 @@ public class OutputView {
                 .collect(Collectors.joining(Constant.PLAYERS_NAME_JOINING_DELIMITER));
     }
 
+    public void printDealerHasFirstCard(String dealerHasFirstCard) {
+        System.out.printf(Message.DEALER_CARDS, dealerHasFirstCard);
+    }
 }

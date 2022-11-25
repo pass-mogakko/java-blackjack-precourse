@@ -7,7 +7,7 @@ import java.util.List;
 public class Players {
 
     private static final List<Player> players = new ArrayList<>();
-    private static final RandomCards randomCards = RandomCards.getInstance();
+    private static RandomCards randomCards;
 
 
     public Players() {
@@ -22,6 +22,7 @@ public class Players {
     }
 
     private void drawTwoCards(RandomCards randomCards, Player player) {
+        randomCards = RandomCards.getInstance();
         player.addCard(randomCards.drawCard());
         player.addCard(randomCards.drawCard());
     }

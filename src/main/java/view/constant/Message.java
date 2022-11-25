@@ -6,4 +6,5 @@ public class Message {
     public static String REQUEST_PLAYER_BETTING_MONEY = "%s의 배팅금액은?";
     public static String DRAW_TWO_CARDS_EVERYONE = "%s와 %s에게 2장의 카드를 나누었습니다.";
     public static String DEALER = "딜러";
+    public static String DEALER_CARDS = DEALER + ": %s";
 }

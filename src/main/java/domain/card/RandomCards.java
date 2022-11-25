@@ -5,19 +5,16 @@ import java.util.List;
 
 public class RandomCards {
 
-    private static RandomCards randomCards = new RandomCards();
-
-    private List<Card> cards;
-
-    private RandomCards() {
-    }
+    private static RandomCards randomCards;
+    private static List<Card> cards;
 
     private RandomCards(List<Card> cards) {
         this.cards = cards;
     }
 
     public static RandomCards newInstance(List<Card> cards) {
-        return new RandomCards(cards);
+        randomCards = new RandomCards(cards);
+        return randomCards;
     }
 
     public static RandomCards getInstance() {

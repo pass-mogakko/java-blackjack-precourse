@@ -18,6 +18,10 @@ public class Card {
 
     // TODO Card 관련 추가 기능 구현
 
+    public String cardToString() {
+        return symbol.getKorean() + type.getKorean();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

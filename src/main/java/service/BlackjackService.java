@@ -43,12 +43,14 @@ public class BlackjackService {
         players.addPlayer(player);
     }
 
-    public void initCards() {
+    public String initCards() {
         List<Card> cards = new ArrayList<>(CardFactory.create());
         Collections.shuffle(cards);
         randomCards = RandomCards.newInstance(cards);
-        dealer.initCards();
+        String dealerHasFirstCard = dealer.initCards();
         players.initCards();
+
+        return dealerHasFirstCard;
     }
 
 
