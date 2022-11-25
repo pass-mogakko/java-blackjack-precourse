@@ -18,4 +18,9 @@ public class InputView {
         System.out.println();
         return scanner.nextLine();
     }
+
+    public String requestDrawCard(String playerName) {
+        System.out.printf(Message.REQUEST_DRAW_CARD, playerName);
+        return scanner.nextLine();
+    }
 }

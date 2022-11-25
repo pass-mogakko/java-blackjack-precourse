@@ -25,6 +25,7 @@ public class BlackjackController {
     public void run() {
         List<String> playersName = createPlayers();
         initCards(playersName);
+        drawCards(playersName);
     }
 
     private List<String> createPlayers() {
@@ -44,5 +45,11 @@ public class BlackjackController {
     private void initCards(List<String> playersName) {
         CardsDto cardsDto = blackJackService.initCards();
         outputView.printDrawTwoCard(playersName, cardsDto);
+    }
+
+    private void drawCards(List<String> playersName) {
+        playersName.forEach(playerName -> {
+            String requestDrawCard = inputView.requestDrawCard(playerName);
+        });
     }
 }
