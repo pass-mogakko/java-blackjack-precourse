@@ -37,8 +37,7 @@ public class BlackjackController {
 
     private void createPlayer(String name) {
         String bettingMoney = inputView.requestPlayerBettingMoney(name);
-        int parsedBettingMoney = blackjackService.parsePlayerBettingMoney(bettingMoney);
-        blackjackService.createPlayer(name, parsedBettingMoney);
+        blackjackService.createPlayer(name, bettingMoney);
     }
 
     private void initCards(List<String> playersName) {

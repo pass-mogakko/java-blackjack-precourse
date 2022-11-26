@@ -27,17 +27,24 @@ public class BlackjackService {
         randomCards = RandomCards.newInstance(cards);
     }
 
+    public List<String> parsePlayersName(String playersName) {
+        PlayersName parsedPlayersName = new PlayersName(playersName);
+        return parsedPlayersName.get();
+    }
+
+    public void createPlayer(String name, String bettingMoney) {
+        BettingMoney money = new BettingMoney(bettingMoney);
+        Player player = new Player(name, money.get());
+        players.addPlayer(player);
+    }
+
+
     public static BlackjackService getInstance() {
         return playerService;
     }
 
     public List<List<String>> initPlayersCards() {
         return players.initCards();
-    }
-
-    public void createPlayer(String name, int bettingMoney) {
-        Player player = new Player(name, bettingMoney);
-        players.addPlayer(player);
     }
 
     public List<String> drawPlayerCard(String playerName) {
@@ -59,17 +66,6 @@ public class BlackjackService {
 
     public List<Integer> collectScore() {
         return players.collectScore();
-    }
-
-
-    public List<String> parsePlayersName(String playersName) {
-        PlayersName parsedPlayersName = new PlayersName(playersName);
-        return parsedPlayersName.get();
-    }
-
-    public int parsePlayerBettingMoney(String bettingMoney) {
-        BettingMoney money = new BettingMoney(bettingMoney);
-        return money.get();
     }
 
 
