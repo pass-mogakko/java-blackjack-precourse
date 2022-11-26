@@ -17,6 +17,16 @@ import java.util.stream.Stream;
 
 class UserTest {
 
+    @DisplayName("사용자 카드 지급: 이미 가지고 있는 카드와 동일한 카드를 지급받았을 경우 예외 발생")
+    @Test
+    void addCard() {
+        User user = new User();
+        Card duplicatedCard = new Card(Symbol.KING, Type.CLUB);
+        user.addCard(duplicatedCard);
+
+        assertThatThrownBy(() -> user.addCard(duplicatedCard)).isInstanceOf(IllegalArgumentException.class);
+    }
+
     @DisplayName("카드 합 계산: Ace를 가지고 있는 경우, 21을 넘지 않거나 21에 더 가까운 합으로 계산")
     @ParameterizedTest
     @MethodSource("generateStreamOfCardsAndExpectedScore")

@@ -10,7 +10,14 @@ public class User {
     private final List<Card> cards = new ArrayList<>();
 
     public void addCard(Card card) {
+        validateDuplicatedCard(card);
         cards.add(card);
+    }
+
+    private void validateDuplicatedCard(Card card) {
+        if (cards.contains(card)) {
+            throw new IllegalArgumentException("중복된 카드를 받을 수 없습니다.");
+        }
     }
 
     public int addAllScore() {
