@@ -48,10 +48,10 @@ public class Dealer {
         player.addCard(card);
     }
 
-    public void giveCardsToDealer(Dealer dealer, List<Card> cardDeck) {
+    public void giveCardsToDealer(List<Card> cardDeck) {
         for (int i = 0; i < 2; i++) {
             Card card = giveTopCard(cardDeck);
-            dealer.addCard(card);
+            addCard(card);
         }
     }
 
@@ -69,5 +69,13 @@ public class Dealer {
 
     public boolean isBlackjack() {
         return calculator.addAllCardScore(cards) == 21;
+    }
+
+    public boolean getAdditionalCard(List<Card> cardDeck) {
+        if (calculator.addAllCardScore(cards) <= 16) {
+            giveCardsToDealer(cardDeck);
+            return true;
+        }
+        return false;
     }
 }

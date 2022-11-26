@@ -33,23 +33,19 @@ public class GameController {
     private final Dealer dealer = new Dealer();
     private final List<Card> cardDeck = new ArrayList<>(CardFactory.create());
 
-    public void run() {
+    public void startGame() {
         blackjackGame.start(players, dealer, cardDeck);
         printFirstResult(players, dealer);
+    }
 
-//        Object result = blackjackGame.play(players, dealer);
-//        printFinalResult(result, players, dealer);
-//    }
-//
-//    public void playGame() {
-        Object result = blackjackGame.play(players, dealer);
-        if (result.getClass() == BlackjackResultDto.class) {
-            printFinalResult(result, players, dealer);
-            return;
-        }
-        if (result.getClass() != null) {
-            askAboutNewCard((List<Player>) result);
-        }
+    public void playGame() {
+        if (isBlackjackAndFinish()) return;
+
+        List<Player> affordablePlayers = blackjackGame.findAffordablePlayers(players);
+        if (affordablePlayers.size() > 0)
+            askAboutNewCard(affordablePlayers);
+
+        updateDealerCards();
     }
 
     private List<Player> createPlayers() {
@@ -63,8 +59,13 @@ public class GameController {
         return players;
     }
 
-    private void doProperAction() {
-
+    private boolean isBlackjackAndFinish() {
+        if (blackjackGame.isBlackjack(players, dealer)) {
+            BlackjackResultDto gameResult = blackjackGame.buildBlackjackResult(players, dealer);
+            printFinalResult(gameResult, players, dealer);
+            return true;
+        }
+        return false;
     }
 
     private void askAboutNewCard(List<Player> players) {
@@ -76,6 +77,14 @@ public class GameController {
             }
             outputView.printPlayerCardValue(player.getName(), dtoBuilder.buildCardValueInfo(List.of(player), dealer));
         }
+    }
+
+    private void updateDealerCards() {
+        if (dealer.getAdditionalCard(cardDeck)) {
+            outputView.printDealerGotCard();
+            return;
+        }
+        outputView.printDealerDidNotGetCard();
     }
 
     private List<String> getPlayerNames() {
