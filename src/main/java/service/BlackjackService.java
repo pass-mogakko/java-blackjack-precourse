@@ -3,6 +3,8 @@ package service;
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.card.RandomCards;
+import domain.dto.BenefitResultDto;
+import domain.dto.PlayerBenefitResultDto;
 import domain.user.BettingMoney;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -89,5 +91,11 @@ public class BlackjackService {
 
     public int computeDealerScore() {
         return dealer.computeScore();
+    }
+
+    public BenefitResultDto computeBenefit() {
+        List<PlayerBenefitResultDto> playerBenefitResultDtos = players.computePlayersBenefitResult(dealer);
+        int dealerBenefit = -players.sumPlayersBenefit(dealer);
+        return new BenefitResultDto(dealerBenefit, playerBenefitResultDtos);
     }
 }

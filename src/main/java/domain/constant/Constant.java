@@ -11,4 +11,6 @@ public class Constant {
     public static final int SIXTEEN = 16;
     public static final int TWENTY_ONE = 21;
     public static final int ADJUSTMENT_ACE_SCORE = 10;
+
+    public static final double BLACKJACK_BONUS_RATE = 1.5;
 }

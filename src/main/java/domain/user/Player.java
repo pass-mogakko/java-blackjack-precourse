@@ -1,5 +1,8 @@
 package domain.user;
 
+import domain.constant.Constant;
+import domain.constant.GameResult;
+
 /**
  * 게임 참여자를 의미하는 객체
  */
@@ -23,4 +26,21 @@ public class Player extends User {
         return this.name.equals(name);
     }
 
+    public double computeBenefit(User dealer) {
+        GameResult gameResult = cards.computeGameResult(dealer.cards);
+        if (gameResult == GameResult.BLACKJACK) {
+            return bettingMoney * Constant.BLACKJACK_BONUS_RATE;
+        }
+        if (gameResult == GameResult.WIN) {
+            return bettingMoney;
+        }
+        if (gameResult == GameResult.LOSE) {
+            return -bettingMoney;
+        }
+        return 0;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

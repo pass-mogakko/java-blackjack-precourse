@@ -1,6 +1,7 @@
 package controller;
 
 import domain.constant.Constant;
+import domain.dto.BenefitResultDto;
 import java.util.List;
 import service.BlackjackService;
 import view.InputView;
@@ -95,6 +96,9 @@ public class BlackjackController {
         List<List<String>> playersHasCards = blackjackService.collectPlayersCardsToString();
         List<Integer> playersScore = blackjackService.collectScore();
         outputView.printPlayersCardsResult(playersName, playersHasCards, playersScore);
+
+        BenefitResultDto benefitResultDto = blackjackService.computeBenefit();
+        outputView.printBenefitResult(benefitResultDto);
     }
 
 }

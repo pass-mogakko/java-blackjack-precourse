@@ -2,6 +2,7 @@ package domain.user;
 
 import domain.card.RandomCards;
 import domain.constant.ErrorMessage;
+import domain.dto.PlayerBenefitResultDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -63,4 +64,25 @@ public class Players {
                 .map(Player::computeScore)
                 .collect(Collectors.toList());
     }
+
+    public List<PlayerBenefitResultDto> computePlayersBenefitResult(Dealer dealer) {
+        return players.stream()
+                .map(player -> createPlayerBenefitResultDto(player, dealer))
+                .collect(Collectors.toList());
+    }
+
+    private PlayerBenefitResultDto createPlayerBenefitResultDto(Player player, Dealer dealer) {
+        String name = player.getName();
+        int benefit = (int) player.computeBenefit(dealer);
+        return new PlayerBenefitResultDto(name, benefit);
+    }
+
+    public int sumPlayersBenefit(Dealer dealer) {
+        return players.stream()
+                .map(player -> player.computeBenefit(dealer))
+                .mapToInt(benefit -> benefit.intValue())
+                .sum();
+    }
+
+
 }

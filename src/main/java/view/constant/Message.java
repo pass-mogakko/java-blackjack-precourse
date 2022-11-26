@@ -11,4 +11,7 @@ public class Message {
     public static String DEALER_DRAW_CARD = "딜러는 16이하라 한장의 카드를 더받았습니다.";
     public static String DEALER_CARDS_RESULT = "딜러 카드: %s - 결과: %d";
     public static String PLAYER_CARDS_RESULT = "%s카드: %s - 결과: %d";
+    public static String BENEFIT_RESULT = "## 최종 수익";
+    public static String DEALER_BENEFIT = "딜러: %d";
+    public static String PLAYER_BENEFIT = "%s: %d";
 }

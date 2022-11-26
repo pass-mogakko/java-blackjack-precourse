@@ -1,5 +1,7 @@
 package view;
 
+import domain.dto.BenefitResultDto;
+import domain.dto.PlayerBenefitResultDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -76,6 +78,23 @@ public class OutputView {
     private void printPlayerCardsResult(String playerName, List<String> playerHasCards, int CardsScore) {
         String parsedPlayerHasCards = parseCards(playerHasCards);
         System.out.printf(Message.PLAYER_CARDS_RESULT, playerName, parsedPlayerHasCards, CardsScore);
+        System.out.println();
+    }
+
+    public void printBenefitResult(BenefitResultDto benefitResultDto) {
+        int dealerBenefit = benefitResultDto.getDealerBenefit();
+        List<PlayerBenefitResultDto> playerBenefitResultDtos = benefitResultDto.getPlayerBenefitResultDtos();
+        System.out.println();
+        System.out.println(Message.BENEFIT_RESULT);
+        System.out.printf(Message.DEALER_BENEFIT, dealerBenefit);
+        System.out.println();
+        playerBenefitResultDtos.forEach(this::printPlayerBenefitResult);
+    }
+
+    private void printPlayerBenefitResult(PlayerBenefitResultDto playerBenefitResultDto) {
+        String name = playerBenefitResultDto.getName();
+        int playerBenefit = playerBenefitResultDto.getPlayerBenefit();
+        System.out.printf(Message.PLAYER_BENEFIT, name, playerBenefit);
         System.out.println();
     }
 }
