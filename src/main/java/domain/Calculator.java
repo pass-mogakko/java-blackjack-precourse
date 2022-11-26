@@ -24,7 +24,7 @@ public class Calculator {
         int aceCount = getAceCount(cards);
 
         // 그 후, 21이 초과되지 않을 때 까지 11로 취급하고 더함
-        totalScore = calculateAceCards(totalScore, aceCount);
+        totalScore = calculateAceCards(aceCount, totalScore);
 
         return totalScore;
     }
