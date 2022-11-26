@@ -22,7 +22,7 @@ class PlayersNameTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "  "})
-    void 플레이어의_이름이_공백인_경우(String input) {
+    void 플레이어의_이름이_비정상적인_입력인_경우(String input) {
         Assertions.assertThatThrownBy(() -> new PlayersName(input))
                 .isInstanceOf(IllegalArgumentException.class);
     }
