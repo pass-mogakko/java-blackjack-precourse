@@ -8,6 +8,7 @@ import static view.resource.OutputContent.FORMAT_ASK_BETTING_MONEY;
 import static view.resource.OutputContent.MESSAGE_ASK_PLAYERS_NAME;
 
 import model.BlackJackGame;
+import model.OpenedCardsDto;
 import view.InputView;
 import view.OutputView;
 
@@ -22,6 +23,10 @@ public class GameController {
     public void run() {
         List<String> playerNames = askPlayersName();
         playerNames.forEach(this::enrollWithBettingMoney);
+        blackJackGame.distributeCardsForStart();
+        // TODO 형식에 맞게 안내메시지 출력
+        OpenedCardsDto cards = blackJackGame.openCards(false);
+        // TODO 형식에 맞게 카드 오픈 출력
     }
 
     private List<String> askPlayersName() {

@@ -9,6 +9,10 @@ public class User {
 
     private final List<Card> cards = new ArrayList<>();
 
+    public List<Card> getCards() {
+        return cards;
+    }
+
     public void addCard(Card card) {
         validateDuplicatedCard(card);
         cards.add(card);

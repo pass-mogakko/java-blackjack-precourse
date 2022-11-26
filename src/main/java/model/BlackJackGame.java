@@ -1,5 +1,6 @@
 package model;
 
+import domain.card.Card;
 import domain.card.Deck;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -41,5 +42,23 @@ public class BlackJackGame {
         if (playerIndex > participants.size() - 1) {
             throw new IndexOutOfBoundsException("플레이어 정보가 존재하지 않습니다.");
         }
+    }
+
+    public void distributeCardsForStart() {
+        for (int index = 0; index < participants.size(); index++) {
+            addCardToPlayer(index);
+            addCardToPlayer(index);
+        }
+        addCardToDealer();
+        addCardToDealer();
+
+    }
+
+    public OpenedCardsDto openCards(boolean showAllDealerCards) {
+        List<Card> dealerCards = dealer.getCards();
+        if (!showAllDealerCards) {
+            dealerCards = new ArrayList<>(dealerCards.subList(0, 1));
+        }
+        return new OpenedCardsDto(dealerCards, participants);
     }
 }

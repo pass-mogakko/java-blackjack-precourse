@@ -1,5 +1,6 @@
 package model;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
@@ -17,14 +18,14 @@ class BlackJackGameTest {
     @ParameterizedTest
     @MethodSource("generateStreamWithFullGame")
     void enrollWithFullGame(BlackJackGame fullGame) {
-        assertThatThrownBy(() -> fullGame.enrollPlayer("test8", 10_000))
+        assertThatThrownBy(() -> fullGame.enrollPlayer("testPlayer8", 10_000))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     private static Stream<Arguments> generateStreamWithFullGame() {
         BlackJackGame fullGame = new BlackJackGame();
         for (int index = 1; index < 8; index++) {
-            fullGame.enrollPlayer("test" + index, 10_000);
+            fullGame.enrollPlayer("testPlayer" + index, 10_000);
         }
         return Stream.of(Arguments.of(fullGame));
     }
@@ -56,5 +57,28 @@ class BlackJackGameTest {
         blackJackGame.enrollPlayer("pobi", 10_000);
 
         assertThatThrownBy(() -> blackJackGame.addCardToPlayer(1)).isInstanceOf(IndexOutOfBoundsException.class);
+    }
+
+    @DisplayName("카드 오픈: 딜러 카드 전체공개 여부가 참이면 딜러의 카드를 모두 공개")
+    @ParameterizedTest
+    @MethodSource("generateStreamWithStartedGame")
+    void openAllCards(BlackJackGame startedGame) {
+        OpenedCardsDto openedCards = startedGame.openCards(true);
+        assertThat(openedCards.getDealerCards()).hasSize(2);
+    }
+
+    @DisplayName("카드 오픈: 딜러 카드 전체공개 여부가 거짓이면 딜러의 카드 중 첫번째 카드만 공개")
+    @ParameterizedTest
+    @MethodSource("generateStreamWithStartedGame")
+    void openCardsExcept2ndDealerCard(BlackJackGame startedGame) {
+        OpenedCardsDto openedCards = startedGame.openCards(false);
+        assertThat(openedCards.getDealerCards()).hasSize(1);
+    }
+
+    private static Stream<Arguments> generateStreamWithStartedGame() {
+        BlackJackGame blackJackGame = new BlackJackGame();
+        blackJackGame.enrollPlayer("testPlayer", 10_000);
+        blackJackGame.distributeCardsForStart();
+        return Stream.of(Arguments.of(blackJackGame));
     }
 }
