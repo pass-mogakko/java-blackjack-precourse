@@ -2,6 +2,7 @@ package domain;
 
 import domain.View.InputView;
 import domain.View.OutputView;
+import domain.card.Deck;
 import domain.user.Dealer;
 import domain.user.Player;
 import java.util.ArrayList;
@@ -32,26 +33,32 @@ public class Application {
         return Collections.unmodifiableList(players);
     }
 
-    private static void giveFirstCards(Dealer dealer, List<Player> players) {
-        dealer.giveCardToSelf();
-        outputView.printDealerCards(dealer.getCards());
-        dealer.giveCardToSelf();
 
-        for (Player player : players) {
-            giveFirstCardsToPlayer(dealer, player);
-        }
+    private static void setDealerState(Deck deck, Dealer dealer) {
+        dealer.addCard(deck.drawCard());
+        outputView.printDealerCards(dealer.getCards());
+        dealer.addCard(deck.drawCard());
     }
 
-    private static void giveFirstCardsToPlayer (Dealer dealer, Player player) {
-        dealer.giveCardToPlayer(player);
-        dealer.giveCardToPlayer(player);
+    private static void setPlayerState(Deck deck, Player player) {
+        player.addCard(deck.drawCard());
+        player.addCard(deck.drawCard());
         outputView.printPlayerCards(player.getCards(), player.getName());
+
+    }
+    private static void setFirstState(Deck deck, Dealer dealer, List<Player> players) {
+        setDealerState(deck, dealer);
+
+        for (Player player : players) {
+            setPlayerState(deck, player);
+        }
     }
 
     public static void main(String[] args) {
         Dealer dealer = new Dealer();
         List<Player> players = createPlayers();
+        Deck deck = new Deck();
 
-        giveFirstCards(dealer, players);
+        setFirstState(deck, dealer, players);
     }
 }
