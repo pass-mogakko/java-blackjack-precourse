@@ -29,7 +29,7 @@ public class OutputView {
 
     private void printDrawTwoCardEveryone(String playersName) {
         System.out.println();
-        System.out.printf(Message.DRAW_TWO_CARDS_EVERYONE, Message.DEALER, playersName);
+        System.out.printf(Message.DRAW_TWO_CARDS_EVERYONE, playersName);
     }
 
     private void printDealerHasCards(String dealerHasCards) {
@@ -58,5 +58,11 @@ public class OutputView {
 
     public void printDealerDrawCard() {
         System.out.println(Message.DEALER_DRAW_CARD);
+    }
+
+    public void printDealerCardsResult(List<String> dealerHasCards, int dealerCardsScore) {
+        String parsedDealerHasCards = parseCards(dealerHasCards);
+        System.out.println();
+        System.out.printf(Message.DEALER_CARDS_RESULT, parsedDealerHasCards, dealerCardsScore);
     }
 }

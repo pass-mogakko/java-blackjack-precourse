@@ -28,6 +28,7 @@ public class BlackjackController {
         List<String> playersName = createPlayers();
         initCards(playersName);
         drawCards(playersName);
+        printResult();
     }
 
     private List<String> createPlayers() {
@@ -88,6 +89,13 @@ public class BlackjackController {
             outputView.printDealerDrawCard();
             isPossibleDrawCard = dealerService.isPossibleDrawCard();
         }
+    }
+
+    private void printResult() {
+        List<String> dealerHasCards = dealerService.findDealerHasCards();
+        int dealerScore = dealerService.computeScore();
+        outputView.printDealerCardsResult(dealerHasCards, dealerScore);
+
     }
 
 }

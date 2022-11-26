@@ -29,4 +29,12 @@ public class DealerService {
     public void drawCard() {
         dealer.addCard(randomCards.drawCard());
     }
+
+    public List<String> findDealerHasCards() {
+        return dealer.collectCardToString();
+    }
+
+    public int computeScore() {
+        return dealer.computeScore();
+    }
 }

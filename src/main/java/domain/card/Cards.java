@@ -27,7 +27,7 @@ public class Cards {
         cards.add(card);
     }
 
-    public int computeCardsScore() {
+    public int computeScore() {
         int cardsScore = sumCardsScoreRegardlessAce();
         int aceCount = countAce();
 
@@ -51,10 +51,14 @@ public class Cards {
     }
 
     private boolean isNeedScoreAdjustment(int cardsScore, int aceCount) {
-        return cardsScore > Constant.BLACKJACK_SCORE && aceCount > Constant.ZERO;
+        return cardsScore > Constant.TWENTY_ONE && aceCount > Constant.ZERO;
     }
 
-    public boolean isPossibleDrawCard() {
-        return computeCardsScore() <= Constant.BLACKJACK_SCORE;
+    public boolean isSmallerThan21() {
+        return computeScore() <= Constant.TWENTY_ONE;
+    }
+
+    public boolean isSmallerThan16() {
+        return computeScore() <= Constant.SIXTEEN;
     }
 }

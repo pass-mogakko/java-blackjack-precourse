@@ -23,4 +23,8 @@ public class Dealer extends User {
         return dealerHasCards;
     }
 
+    @Override
+    public boolean isPossibleDrawCard() {
+        return cards.isSmallerThan16();
+    }
 }
