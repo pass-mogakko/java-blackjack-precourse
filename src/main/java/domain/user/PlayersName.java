@@ -18,7 +18,13 @@ public class PlayersName {
     }
 
     private void validate(String playersName) {
-        if (Pattern.matches(Constant.ONLY_SPACE_REGEX, playersName)) {
+        List<String> parsedPlayersName = Arrays.stream(playersName.split(Constant.PLAYERS_NAME_SPLIT_DELIMITER))
+                .collect(Collectors.toList());
+        parsedPlayersName.forEach(this::validatePlayerName);
+    }
+
+    private void validatePlayerName(String playerName) {
+        if (Pattern.matches(Constant.ONLY_SPACE_REGEX, playerName)) {
             throw new IllegalArgumentException(ErrorMessage.WRONG_PLAYER_NAME);
         }
     }

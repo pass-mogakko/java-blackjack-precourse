@@ -4,6 +4,8 @@ package domain.user;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class PlayersNameTest {
 
@@ -16,5 +18,12 @@ class PlayersNameTest {
 
         Assertions.assertThat(names)
                 .containsExactly("가", "나다", "라마바", "사아자차");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", " ", "  "})
+    void 플레이어의_이름이_공백인_경우(String input) {
+        Assertions.assertThatThrownBy(() -> new PlayersName(input))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
