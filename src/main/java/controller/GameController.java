@@ -8,6 +8,7 @@ import domain.dto.PlayerNameDto;
 import domain.user.Dealer;
 import domain.user.Player;
 import util.Converter;
+import util.DtoBuilder;
 import util.Validator;
 import view.InputView;
 import view.OutputView;
@@ -21,16 +22,16 @@ public class GameController {
     private final OutputView outputView = new OutputView();
     private final Converter converter = new Converter();
     private final Validator validator = new Validator();
+    private final DtoBuilder dtoBuilder = new DtoBuilder();
     private final BlackjackGame blackjackGame = new BlackjackGame();
 
     public void startGame() {
         List<Player> players = createPlayers();
         Dealer dealer = new Dealer();
-        List<Card> cardDeck = new ArrayList<>(CardFactory.create());
+        blackjackGame.start(players, dealer);
 
-        blackjackGame.start(players, dealer, cardDeck);
-        PlayerNameDto playerInfo = blackjackGame.buildPlayerInfo(players);
-        CardValueDto firstResult = blackjackGame.buildCardValueInfo(players, dealer);
+        PlayerNameDto playerInfo = dtoBuilder.buildPlayerInfo(players);
+        CardValueDto firstResult = dtoBuilder.buildCardValueInfo(players, dealer);
         outputView.printFirstCards(playerInfo, firstResult);
     }
 

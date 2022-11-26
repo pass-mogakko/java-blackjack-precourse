@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import util.Converter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,8 @@ public class Player {
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
+
+    private final Converter converter = new Converter();
 
     public Player(String name, double bettingMoney) {
         this.name = name;
@@ -35,4 +38,11 @@ public class Player {
         return cards;
     }
 
+    public String getCardValues() {
+        List<String> cardValues = new ArrayList<>();
+        for (Card card : cards) {
+            cardValues.add(card.getCardValue());
+        }
+        return converter.convertListToStirng(cardValues);
+    }
 }
