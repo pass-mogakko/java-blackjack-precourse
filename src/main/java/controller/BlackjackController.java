@@ -48,7 +48,8 @@ public class BlackjackController {
 
     private void drawCards(List<String> playersName) {
         playersName.forEach(this::playerDrawCard);
-        dealerDrawCard();
+        int drawCount = blackjackService.dealerDrawCard();
+        outputView.printDealerDrawCard(drawCount);
     }
 
     private void playerDrawCard(String playerName) {
@@ -78,15 +79,6 @@ public class BlackjackController {
         return false;
     }
 
-
-    private void dealerDrawCard() {
-        boolean isPossibleDrawCard = blackjackService.isDealerPossibleDrawCard();
-        while (isPossibleDrawCard) {
-            blackjackService.drawDealerCard();
-            outputView.printDealerDrawCard();
-            isPossibleDrawCard = blackjackService.isDealerPossibleDrawCard();
-        }
-    }
 
     //    private void printResult(List<String> playersName) {
     //        List<String> dealerHasCards = blackjackService.findDealerHasCards();

@@ -6,6 +6,7 @@ import domain.dto.PlayerBenefitResultDto;
 import domain.dto.PlayerCardsToStringDto;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import view.constant.Constant;
 import view.constant.Message;
 
@@ -65,8 +66,9 @@ public class OutputView {
     //        System.out.println();
     //    }
 
-    public void printDealerDrawCard() {
-        System.out.println(Message.DEALER_DRAW_CARD);
+    public void printDealerDrawCard(int drawCount) {
+        IntStream.range(0, drawCount)
+                .forEach(i -> System.out.println(Message.DEALER_DRAW_CARD));
     }
 
     public void printDealerCardsResult(List<String> dealerHasCards, int CardsScore) {

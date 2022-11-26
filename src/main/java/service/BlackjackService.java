@@ -59,6 +59,18 @@ public class BlackjackService {
         return players.collectCardToStringByPlayerName(playerName);
     }
 
+    public int dealerDrawCard() {
+        boolean isPossibleDrawCard = dealer.isPossibleDrawCard();
+        int drawCount = 0;
+        while (isPossibleDrawCard) {
+            dealer.addCard(randomCards.drawCard());
+            isPossibleDrawCard = dealer.isPossibleDrawCard();
+            drawCount++;
+        }
+        return drawCount;
+    }
+
+
     public boolean isPlayerPossibleDrawCard(String playerName) {
         return players.isPossibleDrawCard(playerName);
     }
@@ -71,13 +83,6 @@ public class BlackjackService {
         return players.collectScore();
     }
 
-    public boolean isDealerPossibleDrawCard() {
-        return dealer.isPossibleDrawCard();
-    }
-
-    public void drawDealerCard() {
-        dealer.addCard(randomCards.drawCard());
-    }
 
     public List<String> findDealerHasCards() {
         return dealer.collectCardToString();
@@ -92,5 +97,6 @@ public class BlackjackService {
         int dealerBenefit = -players.sumPlayersBenefit(dealer);
         return new BenefitResultDto(dealerBenefit, playerBenefitResultDtos);
     }
+
 
 }
