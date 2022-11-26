@@ -50,7 +50,7 @@ public class OutputView {
 
     }
 
-    private void printPlayerHasCards(PlayerCardsToStringDto playerCardsToStringDto) {
+    public void printPlayerHasCards(PlayerCardsToStringDto playerCardsToStringDto) {
         String name = playerCardsToStringDto.getName();
         List<String> playerHasCards = playerCardsToStringDto.getPlayerHasCards();
         String parsedPlayerHasCards = parseCards(playerHasCards);
@@ -58,13 +58,12 @@ public class OutputView {
         System.out.println();
     }
 
-
-    private void printPlayerHasCards(List<List<String>> playersHasCards, List<String> playersName, int index) {
-        List<String> playerHasCards = playersHasCards.get(index);
-        String parsedPlayerHasCards = parseCards(playerHasCards);
-        System.out.printf(Message.PLAYER_CARDS, playersName.get(index), parsedPlayerHasCards);
-        System.out.println();
-    }
+    //    private void printPlayerHasCards(List<List<String>> playersHasCards, List<String> playersName, int index) {
+    //        List<String> playerHasCards = playersHasCards.get(index);
+    //        String parsedPlayerHasCards = parseCards(playerHasCards);
+    //        System.out.printf(Message.PLAYER_CARDS, playersName.get(index), parsedPlayerHasCards);
+    //        System.out.println();
+    //    }
 
     public void printDealerDrawCard() {
         System.out.println(Message.DEALER_DRAW_CARD);

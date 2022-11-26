@@ -61,9 +61,11 @@ public class Players {
         player.addCard(randomCards.drawCard());
     }
 
-    public List<String> collectCardToStringByPlayerName(String playerName) {
+    public PlayerCardsToStringDto collectCardToStringByPlayerName(String playerName) {
         Player player = findPlayerByName(playerName);
-        return player.collectCardToString();
+        String name = player.getName();
+        List<String> playerHasCards = player.collectCardToString();
+        return new PlayerCardsToStringDto(name, playerHasCards);
     }
 
     public List<Integer> collectScore() {

@@ -2,6 +2,7 @@ package controller;
 
 import domain.constant.Constant;
 import domain.dto.CardsToStringDto;
+import domain.dto.PlayerCardsToStringDto;
 import java.util.List;
 import service.BlackjackService;
 import view.InputView;
@@ -66,16 +67,17 @@ public class BlackjackController {
     }
 
     private boolean yesDrawCard(String playerName) {
-        List<String> playerHasCards = blackjackService.drawPlayerCard(playerName);
-        //        outputView.printPlayerHasCards(playerHasCards, playerName);
+        PlayerCardsToStringDto playerCardsToStringDto = blackjackService.drawPlayerCard(playerName);
+        outputView.printPlayerHasCards(playerCardsToStringDto);
         return blackjackService.isPlayerPossibleDrawCard(playerName);
     }
 
     private boolean noDrawCard(String playerName) {
-        List<String> playerHasCards = blackjackService.findPlayerHasCards(playerName);
-        //        outputView.printPlayerHasCards(playerHasCards, playerName);
+        PlayerCardsToStringDto playerCardsToStringDto = blackjackService.findPlayerHasCards(playerName);
+        outputView.printPlayerHasCards(playerCardsToStringDto);
         return false;
     }
+
 
     private void dealerDrawCard() {
         boolean isPossibleDrawCard = blackjackService.isDealerPossibleDrawCard();

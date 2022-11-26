@@ -50,12 +50,12 @@ public class BlackjackService {
         return new CardsToStringDto(playerCardsToStringDtos, dealerHasCards);
     }
 
-    public List<String> drawPlayerCard(String playerName) {
+    public PlayerCardsToStringDto drawPlayerCard(String playerName) {
         players.drawCard(playerName);
         return findPlayerHasCards(playerName);
     }
 
-    public List<String> findPlayerHasCards(String playerName) {
+    public PlayerCardsToStringDto findPlayerHasCards(String playerName) {
         return players.collectCardToStringByPlayerName(playerName);
     }
 
