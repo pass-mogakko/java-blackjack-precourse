@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.RandomCards;
+import domain.constant.ErrorMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,5 +34,27 @@ public class Players {
         return players.stream()
                 .map(Player::collectCardToString)
                 .collect(Collectors.toList());
+    }
+
+    public boolean isPossibleDrawCard(String playerName) {
+        Player player = findPlayerByName(playerName);
+        return player.isPossibleDrawCard();
+    }
+
+    private Player findPlayerByName(String name) {
+        return players.stream()
+                .filter(player -> player.isSameName(name))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.NON_EXISTENT_PLAYER_NAME));
+    }
+
+    public void drawCard(String playerName) {
+        Player player = findPlayerByName(playerName);
+        player.addCard(randomCards.drawCard());
+    }
+
+    public List<String> collectCardToStringByPlayerName(String playerName) {
+        Player player = findPlayerByName(playerName);
+        return player.collectCardToString();
     }
 }

@@ -10,6 +10,8 @@ import domain.user.Players;
 import domain.user.PlayersName;
 import dto.BettingMoneyDto;
 import dto.CardsDto;
+import dto.IsPossibleDrawCardDto;
+import dto.PlayerHasCardDto;
 import dto.PlayersNameDto;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,5 +55,18 @@ public class BlackjackService {
         return new CardsDto(dealerHasCard, playersHasCard);
     }
 
+    public PlayerHasCardDto drawCard(String playerName) {
+        players.drawCard(playerName);
+        return findPlayerHasCard(playerName);
+    }
 
+    public PlayerHasCardDto findPlayerHasCard(String playerName) {
+        List<String> playersHasCard = players.collectCardToStringByPlayerName(playerName);
+        return new PlayerHasCardDto(playersHasCard);
+    }
+
+    public IsPossibleDrawCardDto isPossibleDrawCard(String playerName) {
+        boolean isPossibleDrawCard = players.isPossibleDrawCard(playerName);
+        return new IsPossibleDrawCardDto(isPossibleDrawCard);
+    }
 }

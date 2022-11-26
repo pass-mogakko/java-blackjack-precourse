@@ -21,4 +21,8 @@ public class Player extends User {
         return cards.collectCardToString();
     }
 
+    public boolean isSameName(String name) {
+        return this.name.equals(name);
+    }
+
 }

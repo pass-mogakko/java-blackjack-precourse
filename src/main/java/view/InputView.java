@@ -21,6 +21,7 @@ public class InputView {
 
     public String requestDrawCard(String playerName) {
         System.out.printf(Message.REQUEST_DRAW_CARD, playerName);
+        System.out.println();
         return scanner.nextLine();
     }
 }

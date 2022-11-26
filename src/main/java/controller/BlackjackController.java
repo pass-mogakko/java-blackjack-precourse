@@ -1,7 +1,10 @@
 package controller;
 
+import domain.constant.Constant;
 import dto.BettingMoneyDto;
 import dto.CardsDto;
+import dto.IsPossibleDrawCardDto;
+import dto.PlayerHasCardDto;
 import dto.PlayersNameDto;
 import java.util.List;
 import service.BlackjackService;
@@ -48,8 +51,35 @@ public class BlackjackController {
     }
 
     private void drawCards(List<String> playersName) {
-        playersName.forEach(playerName -> {
-            String requestDrawCard = inputView.requestDrawCard(playerName);
-        });
+        playersName.forEach(this::drawCard);
     }
+
+    private void drawCard(String playerName) {
+        boolean isPossibleDrawCard = true;
+        while (isPossibleDrawCard) {
+            String requestDrawCard = inputView.requestDrawCard(playerName);
+            isPossibleDrawCard = requestDrawCardBranch(requestDrawCard, playerName);
+        }
+    }
+
+    private boolean requestDrawCardBranch(String requestDrawCard, String playerName) {
+        if (requestDrawCard.equals(Constant.YES)) {
+            return yesDrawCard(playerName);
+        }
+        return noDrawCard(playerName);
+    }
+
+    private boolean yesDrawCard(String playerName) {
+        PlayerHasCardDto playerHasCard = blackJackService.drawCard(playerName);
+        outputView.printPlayerHasCard(playerHasCard.getPlayersHasCard(), playerName);
+        IsPossibleDrawCardDto possibleDrawCard = blackJackService.isPossibleDrawCard(playerName);
+        return possibleDrawCard.isPossibleDrawCard();
+    }
+
+    private boolean noDrawCard(String playerName) {
+        PlayerHasCardDto playerHasCard = blackJackService.findPlayerHasCard(playerName);
+        outputView.printPlayerHasCard(playerHasCard.getPlayersHasCard(), playerName);
+        return false;
+    }
+
 }

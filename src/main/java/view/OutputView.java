@@ -52,4 +52,10 @@ public class OutputView {
         System.out.printf(Message.PLAYER_CARDS, playersName.get(index), parsedPlayerHasCard);
         System.out.println();
     }
+
+    public void printPlayerHasCard(List<String> playerHasCard, String playerName) {
+        String parsedPlayerHasCard = parseCards(playerHasCard);
+        System.out.printf(Message.PLAYER_CARDS, playerName, parsedPlayerHasCard);
+        System.out.println();
+    }
 }
