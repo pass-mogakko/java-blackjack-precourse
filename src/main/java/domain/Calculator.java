@@ -5,7 +5,7 @@ import java.util.List;
 
 
 
-public class Game {
+public class Calculator {
     private static final int BLACKJACK_NUMBER = 21;
 
     public static int calculateAceCards(int aceCount, int totalScore) {
