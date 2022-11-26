@@ -38,4 +38,12 @@ public class PlayersService {
     public boolean isPossibleDrawCard(String playerName) {
         return players.isPossibleDrawCard(playerName);
     }
+
+    public List<List<String>> collectPlayersCardsToString() {
+        return players.collectPlayersCardsToString();
+    }
+
+    public List<Integer> collectScore() {
+        return players.collectScore();
+    }
 }

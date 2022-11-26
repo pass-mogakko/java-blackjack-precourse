@@ -28,7 +28,7 @@ public class BlackjackController {
         List<String> playersName = createPlayers();
         initCards(playersName);
         drawCards(playersName);
-        printResult();
+        printResult(playersName);
     }
 
     private List<String> createPlayers() {
@@ -91,11 +91,14 @@ public class BlackjackController {
         }
     }
 
-    private void printResult() {
+    private void printResult(List<String> playersName) {
         List<String> dealerHasCards = dealerService.findDealerHasCards();
         int dealerScore = dealerService.computeScore();
         outputView.printDealerCardsResult(dealerHasCards, dealerScore);
 
+        List<List<String>> playersHasCards = playersService.collectPlayersCardsToString();
+        List<Integer> playersScore = playersService.collectScore();
+        outputView.printPlayersCardsResult(playersName, playersHasCards, playersScore);
     }
 
 }

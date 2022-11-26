@@ -16,7 +16,7 @@ public class Player extends User {
     // TODO 추가 기능 구현
 
     public boolean isPossibleDrawCard() {
-        return cards.isSmallerThan21();
+        return cards.isLessThan21();
     }
 
     public boolean isSameName(String name) {

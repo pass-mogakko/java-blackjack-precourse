@@ -54,11 +54,11 @@ public class Cards {
         return cardsScore > Constant.TWENTY_ONE && aceCount > Constant.ZERO;
     }
 
-    public boolean isSmallerThan21() {
-        return computeScore() <= Constant.TWENTY_ONE;
+    public boolean isLessThan21() {
+        return computeScore() < Constant.TWENTY_ONE;
     }
 
-    public boolean isSmallerThan16() {
+    public boolean isLessThanOrEqualTo16() {
         return computeScore() <= Constant.SIXTEEN;
     }
 }

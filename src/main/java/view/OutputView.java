@@ -60,9 +60,22 @@ public class OutputView {
         System.out.println(Message.DEALER_DRAW_CARD);
     }
 
-    public void printDealerCardsResult(List<String> dealerHasCards, int dealerCardsScore) {
+    public void printDealerCardsResult(List<String> dealerHasCards, int CardsScore) {
         String parsedDealerHasCards = parseCards(dealerHasCards);
         System.out.println();
-        System.out.printf(Message.DEALER_CARDS_RESULT, parsedDealerHasCards, dealerCardsScore);
+        System.out.printf(Message.DEALER_CARDS_RESULT, parsedDealerHasCards, CardsScore);
+        System.out.println();
+    }
+
+    public void printPlayersCardsResult(List<String> playersName, List<List<String>> playersHasCards, List<Integer> playersScore) {
+        for (int i = 0; i < playersName.size(); i++) {
+            printPlayerCardsResult(playersName.get(i), playersHasCards.get(i), playersScore.get(i));
+        }
+    }
+
+    private void printPlayerCardsResult(String playerName, List<String> playerHasCards, int CardsScore) {
+        String parsedPlayerHasCards = parseCards(playerHasCards);
+        System.out.printf(Message.PLAYER_CARDS_RESULT, playerName, parsedPlayerHasCards, CardsScore);
+        System.out.println();
     }
 }

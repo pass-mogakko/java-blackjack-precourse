@@ -21,7 +21,7 @@ public class Players {
 
     public List<List<String>> initCards() {
         players.forEach(player -> drawTwoCards(player));
-        return collectAllPlayerCardsToString();
+        return collectPlayersCardsToString();
     }
 
     private void drawTwoCards(Player player) {
@@ -30,7 +30,7 @@ public class Players {
         player.addCard(randomCards.drawCard());
     }
 
-    private List<List<String>> collectAllPlayerCardsToString() {
+    public List<List<String>> collectPlayersCardsToString() {
         return players.stream()
                 .map(Player::collectCardToString)
                 .collect(Collectors.toList());
@@ -56,5 +56,11 @@ public class Players {
     public List<String> collectCardToStringByPlayerName(String playerName) {
         Player player = findPlayerByName(playerName);
         return player.collectCardToString();
+    }
+
+    public List<Integer> collectScore() {
+        return players.stream()
+                .map(Player::computeScore)
+                .collect(Collectors.toList());
     }
 }
