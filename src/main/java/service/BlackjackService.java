@@ -59,10 +59,6 @@ public class BlackjackService {
         return players.collectCardToStringByPlayerName(playerName);
     }
 
-    public boolean isPlayerPossibleDrawCard(String playerName) {
-        return players.isPossibleDrawCard(playerName);
-    }
-
     public int dealerDrawCard() {
         boolean isPossibleDrawCard = dealer.isPossibleDrawCard();
         int drawCount = 0;

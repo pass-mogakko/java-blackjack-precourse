@@ -7,17 +7,20 @@ public class PlayerCardsToStringDto {
     private final String name;
     private final List<String> playerHasCards;
     private final int score;
+    private final boolean isPossibleDrawCard;
 
-    public PlayerCardsToStringDto(String name, List<String> playerHasCards) {
+    public PlayerCardsToStringDto(String name, List<String> playerHasCards, boolean isPossibleDrawCard) {
         this.name = name;
         this.playerHasCards = playerHasCards;
-        score = 0;
+        this.score = 0;
+        this.isPossibleDrawCard = isPossibleDrawCard;
     }
 
     public PlayerCardsToStringDto(String name, List<String> playerHasCards, int score) {
         this.name = name;
         this.playerHasCards = playerHasCards;
         this.score = score;
+        isPossibleDrawCard = false;
     }
 
     public String getName() {
@@ -30,5 +33,9 @@ public class PlayerCardsToStringDto {
 
     public int getScore() {
         return score;
+    }
+
+    public boolean isPossibleDrawCard() {
+        return isPossibleDrawCard;
     }
 }

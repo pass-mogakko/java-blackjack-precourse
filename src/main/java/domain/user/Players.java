@@ -66,7 +66,8 @@ public class Players {
         Player player = findPlayerByName(playerName);
         String name = player.getName();
         List<String> playerHasCards = player.collectCardToString();
-        return new PlayerCardsToStringDto(name, playerHasCards);
+        boolean isPossibleDrawCard = player.isPossibleDrawCard();
+        return new PlayerCardsToStringDto(name, playerHasCards, isPossibleDrawCard);
     }
 
     public List<PlayerBenefitResultDto> computePlayersBenefitResult(Dealer dealer) {

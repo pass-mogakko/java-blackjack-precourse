@@ -71,7 +71,7 @@ public class BlackjackController {
     private boolean yesDrawCard(String playerName) {
         PlayerCardsToStringDto playerCardsToStringDto = blackjackService.drawPlayerCard(playerName);
         outputView.printPlayerHasCards(playerCardsToStringDto);
-        return blackjackService.isPlayerPossibleDrawCard(playerName);
+        return playerCardsToStringDto.isPossibleDrawCard();
     }
 
     private boolean noDrawCard(String playerName) {
