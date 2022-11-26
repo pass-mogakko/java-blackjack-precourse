@@ -1,9 +1,9 @@
 package model.validator;
 
-import static domain.rule.GameRule.INITIAL_BETTING_MAX_VALUE;
-import static domain.rule.GameRule.INITIAL_BETTING_MIN_VALUE;
-import static domain.rule.GameRule.PARTICIPANTS_MAX_COUNT;
-import static domain.rule.GameRule.PARTICIPANTS_MIN_COUNT;
+import static domain.rule.BettingRule.INITIAL_MAX_VALUE;
+import static domain.rule.BettingRule.INITIAL_MIN_VALUE;
+import static domain.rule.ParticipantsRule.PARTICIPANTS_MAX_COUNT;
+import static domain.rule.ParticipantsRule.PARTICIPANTS_MIN_COUNT;
 
 public class GameRuleValidator {
 
@@ -19,11 +19,11 @@ public class GameRuleValidator {
     }
 
     public static void validateInitialBettingMoney(double bettingMoney) {
-        if (bettingMoney < INITIAL_BETTING_MIN_VALUE.getValue()) {
-            throw new IllegalArgumentException("베팅 가능 금액은 최소 " + INITIAL_BETTING_MIN_VALUE.getValue() + "원입니다.");
+        if (bettingMoney < INITIAL_MIN_VALUE.getValue()) {
+            throw new IllegalArgumentException("베팅 가능 금액은 최소 " + INITIAL_MIN_VALUE.getValue() + "원입니다.");
         }
-        if (bettingMoney > INITIAL_BETTING_MAX_VALUE.getValue()) {
-            throw new IllegalArgumentException("베팅 가능 금액은 최대 " + INITIAL_BETTING_MAX_VALUE.getValue() + "원입니다.");
+        if (bettingMoney > INITIAL_MAX_VALUE.getValue()) {
+            throw new IllegalArgumentException("베팅 가능 금액은 최대 " + INITIAL_MAX_VALUE.getValue() + "원입니다.");
         }
     }
 }

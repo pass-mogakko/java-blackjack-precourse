@@ -21,7 +21,7 @@ public class BlackJackGame {
         this.deck = new Deck();
     }
 
-    public void enrollPlayers(Map<String, Integer> namesWithBettingMoney) {
+    public void enrollPlayers(Map<String, Double> namesWithBettingMoney) {
         GameRuleValidator.validateParticipantsCount(namesWithBettingMoney.size());
         namesWithBettingMoney.keySet()
                 .forEach(name -> participants.add(new Player(name, namesWithBettingMoney.get(name))));
