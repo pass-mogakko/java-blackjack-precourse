@@ -1,7 +1,9 @@
 package controller;
 
 import domain.BlackjackGame;
+import domain.dto.BlackjackResultDto;
 import domain.dto.CardValueDto;
+import domain.dto.GameScoreDto;
 import domain.dto.PlayerNameDto;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -26,10 +28,12 @@ public class GameController {
     public void run() {
         List<Player> players = createPlayers();
         Dealer dealer = new Dealer();
+
         blackjackGame.start(players, dealer);
         printFirstResult(players, dealer);
 
         Object result = blackjackGame.play(players, dealer);
+        printFinalResult(result, players, dealer);
     }
 
     private List<Player> createPlayers() {
@@ -81,6 +85,16 @@ public class GameController {
         PlayerNameDto playerInfo = dtoBuilder.buildPlayerInfo(players);
         CardValueDto firstResult = dtoBuilder.buildCardValueInfo(players, dealer);
         outputView.printFirstCards(playerInfo, firstResult);
+    }
+
+    private void printFinalResult(Object resultDto, List<Player> players, Dealer dealer) {
+        if (resultDto.getClass() == BlackjackResultDto.class) {
+            outputView.printBlackjackMessage();
+        }
+        PlayerNameDto playerNameDto = dtoBuilder.buildPlayerInfo(players);
+        CardValueDto cardValueDto = dtoBuilder.buildCardValueInfo(players, dealer);
+        GameScoreDto gameScoreDto = dtoBuilder.buildGameScore(players, dealer);
+        outputView.printGameResult(playerNameDto, cardValueDto, gameScoreDto);
     }
 
 }

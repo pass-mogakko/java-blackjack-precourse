@@ -3,6 +3,7 @@ package domain;
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.dto.BlackjackResultDto;
+import domain.dto.GameResultDto;
 import domain.user.Dealer;
 import domain.user.Player;
 
