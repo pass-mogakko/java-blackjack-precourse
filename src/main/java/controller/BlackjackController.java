@@ -46,7 +46,12 @@ public class BlackjackController {
 
     private void createPlayer(String name) {
         String bettingMoney = inputView.requestPlayerBettingMoney(name);
-        blackjackService.createPlayer(name, bettingMoney);
+        try {
+            blackjackService.createPlayer(name, bettingMoney);
+        } catch (IllegalArgumentException e) {
+            outputView.printErrorMessage(e.getMessage());
+            createPlayer(name);
+        }
     }
 
 

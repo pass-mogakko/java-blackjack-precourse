@@ -25,7 +25,7 @@ public class PlayersName {
 
     private void validatePlayerName(String playerName) {
         if (Pattern.matches(Constant.ONLY_SPACE_REGEX, playerName)) {
-            throw new IllegalArgumentException(ErrorMessage.WRONG_PLAYER_NAME);
+            throw new IllegalArgumentException(ErrorMessage.WRONG_PLAYER_NAME_FORM);
         }
     }
 
