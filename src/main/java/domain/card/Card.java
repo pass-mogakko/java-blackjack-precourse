@@ -15,7 +15,15 @@ public class Card {
         this.type = type;
     }
 
-    // TODO Card 관련 추가 기능 구현
+
+
+    public boolean isAce() {
+        return symbol == Symbol.ACE;
+    }
+
+    public int getScore() {
+        return symbol.getScore();
+    }
 
     @Override
     public boolean equals(Object o) {
