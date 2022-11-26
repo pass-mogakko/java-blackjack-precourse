@@ -6,7 +6,7 @@ public enum Type {
     HEART("하트"),
     CLUB("클로버");
 
-    private String korean;
+    private final String korean;
 
     Type(String korean) {
         this.korean = korean;

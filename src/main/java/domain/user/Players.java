@@ -22,7 +22,7 @@ public class Players {
     }
 
     public List<PlayerCardsToStringDto> initCards() {
-        players.forEach(player -> drawTwoCards(player));
+        players.forEach(this::drawTwoCards);
         return collectPlayersCardsToString();
     }
 
@@ -80,7 +80,7 @@ public class Players {
     public int sumPlayersBenefit(Dealer dealer) {
         return players.stream()
                 .map(player -> player.computeBenefit(dealer))
-                .mapToInt(benefit -> benefit.intValue())
+                .mapToInt(Double::intValue)
                 .sum();
     }
 

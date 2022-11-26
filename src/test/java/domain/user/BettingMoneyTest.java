@@ -21,7 +21,7 @@ class BettingMoneyTest {
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "  ", "a", "1a", "0", "-1"})
     void 베팅_금액이_비정상적인_입력인_경우(String input) {
-        Assertions.assertThatThrownBy(() ->  new BettingMoney(input))
+        Assertions.assertThatThrownBy(() -> new BettingMoney(input))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

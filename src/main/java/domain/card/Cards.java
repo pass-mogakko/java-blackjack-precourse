@@ -41,7 +41,7 @@ public class Cards {
 
     private int countAce() {
         return (int) cards.stream()
-                .filter(card -> card.isAce())
+                .filter(Card::isAce)
                 .count();
     }
 

@@ -9,7 +9,7 @@ public class RandomCards {
     private static List<Card> cards;
 
     private RandomCards(List<Card> cards) {
-        this.cards = cards;
+        RandomCards.cards = cards;
     }
 
     public static RandomCards newInstance(List<Card> cards) {

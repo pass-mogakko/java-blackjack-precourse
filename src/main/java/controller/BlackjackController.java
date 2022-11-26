@@ -79,7 +79,7 @@ public class BlackjackController {
         String requestDrawCard = inputView.requestDrawCard(playerName);
         try {
             validateRequestDrawCard(requestDrawCard);
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             outputView.printErrorMessage(e.getMessage());
             return requestDrawCard(playerName);
         }

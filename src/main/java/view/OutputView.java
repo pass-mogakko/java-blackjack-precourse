@@ -31,8 +31,7 @@ public class OutputView {
     }
 
     private String parseCards(List<String> cards) {
-        return cards.stream()
-                .collect(Collectors.joining(Constant.CARDS_JOINING_DELIMITER));
+        return String.join(Constant.CARDS_JOINING_DELIMITER, cards);
     }
 
     private void printDrawTwoCardEveryone(String playersName) {

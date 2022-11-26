@@ -8,15 +8,13 @@ import java.util.List;
  */
 public class Dealer extends User {
 
-    private static RandomCards randomCards;
-
     public Dealer() {
     }
 
     // TODO 추가 기능 구현
 
     public List<String> initCards() {
-        randomCards = RandomCards.getInstance();
+        RandomCards randomCards = RandomCards.getInstance();
         addCard(randomCards.drawCard());
         List<String> dealerHasCards = cards.collectCardToString();
         addCard(randomCards.drawCard());

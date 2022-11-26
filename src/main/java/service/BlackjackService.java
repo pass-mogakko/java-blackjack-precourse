@@ -20,7 +20,7 @@ public class BlackjackService {
 
     private static final BlackjackService playerService = new BlackjackService();
     private static final Players players = new Players();
-    private static Dealer dealer = new Dealer();
+    private static final Dealer dealer = new Dealer();
     private static RandomCards randomCards;
 
     private BlackjackService() {
