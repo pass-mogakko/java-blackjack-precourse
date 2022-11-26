@@ -12,18 +12,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BlackjackService {
+public class GameInitService {
 
-    private static final BlackjackService blackJackService = new BlackjackService();
+    private static final GameInitService gameInitService = new GameInitService();
     private static final Players players = new Players();
     private static final Dealer dealer = new Dealer();
     private static RandomCards randomCards;
 
-    private BlackjackService() {
+    private GameInitService() {
     }
 
-    public static BlackjackService getInstance() {
-        return blackJackService;
+    public static GameInitService getInstance() {
+        return gameInitService;
     }
 
     public List<String> parsePlayersName(String playersName) {

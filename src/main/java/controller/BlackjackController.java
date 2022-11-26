@@ -3,7 +3,7 @@ package controller;
 import domain.constant.Constant;
 import dto.CardsDto;
 import java.util.List;
-import service.BlackjackService;
+import service.GameInitService;
 import service.PlayersService;
 import view.InputView;
 import view.OutputView;
@@ -11,7 +11,7 @@ import view.OutputView;
 public class BlackjackController {
 
     private static final BlackjackController blackjackController = new BlackjackController();
-    private static final BlackjackService blackJackService = BlackjackService.getInstance();
+    private static final GameInitService gameInitService = GameInitService.getInstance();
     private static final PlayersService playersService = PlayersService.getInstance();
     private static final InputView inputView = new InputView();
     private static final OutputView outputView = new OutputView();
@@ -31,19 +31,19 @@ public class BlackjackController {
 
     private List<String> createPlayers() {
         String playersName = inputView.requestPlayerName();
-        List<String> parsedPlayersName = blackJackService.parsePlayersName(playersName);
+        List<String> parsedPlayersName = gameInitService.parsePlayersName(playersName);
         parsedPlayersName.forEach(this::createPlayer);
         return parsedPlayersName;
     }
 
     private void createPlayer(String name) {
         String bettingMoney = inputView.requestPlayerBettingMoney(name);
-        int parsedBettingMoney = blackJackService.parsePlayerBettingMoney(bettingMoney);
+        int parsedBettingMoney = gameInitService.parsePlayerBettingMoney(bettingMoney);
         playersService.createPlayer(name, parsedBettingMoney);
     }
 
     private void initCards(List<String> playersName) {
-        CardsDto cardsDto = blackJackService.initCards();
+        CardsDto cardsDto = gameInitService.initCards();
         outputView.printDrawTwoCard(playersName, cardsDto);
     }
 
