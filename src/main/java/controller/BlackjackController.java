@@ -2,18 +2,14 @@ package controller;
 
 import domain.constant.Constant;
 import java.util.List;
-import service.DealerService;
-import service.GameInitService;
-import service.PlayersService;
+import service.BlackjackService;
 import view.InputView;
 import view.OutputView;
 
 public class BlackjackController {
 
     private static final BlackjackController blackjackController = new BlackjackController();
-    private static final GameInitService gameInitService = GameInitService.getInstance();
-    private static final PlayersService playersService = PlayersService.getInstance();
-    private static final DealerService dealerService = DealerService.getInstance();
+    private static final BlackjackService blackjackService = BlackjackService.getInstance();
     private static final InputView inputView = new InputView();
     private static final OutputView outputView = new OutputView();
 
@@ -33,20 +29,20 @@ public class BlackjackController {
 
     private List<String> createPlayers() {
         String playersName = inputView.requestPlayerName();
-        List<String> parsedPlayersName = gameInitService.parsePlayersName(playersName);
+        List<String> parsedPlayersName = blackjackService.parsePlayersName(playersName);
         parsedPlayersName.forEach(this::createPlayer);
         return parsedPlayersName;
     }
 
     private void createPlayer(String name) {
         String bettingMoney = inputView.requestPlayerBettingMoney(name);
-        int parsedBettingMoney = gameInitService.parsePlayerBettingMoney(bettingMoney);
-        playersService.createPlayer(name, parsedBettingMoney);
+        int parsedBettingMoney = blackjackService.parsePlayerBettingMoney(bettingMoney);
+        blackjackService.createPlayer(name, parsedBettingMoney);
     }
 
     private void initCards(List<String> playersName) {
-        List<List<String>> playersHasCards = playersService.initCards();
-        List<String> dealerHasCards = dealerService.initCards();
+        List<List<String>> playersHasCards = blackjackService.initPlayersCards();
+        List<String> dealerHasCards = blackjackService.initDealerCards();
         outputView.printDrawTwoCard(playersName, playersHasCards, dealerHasCards);
     }
 
@@ -71,33 +67,33 @@ public class BlackjackController {
     }
 
     private boolean yesDrawCard(String playerName) {
-        List<String> playerHasCards = playersService.drawCard(playerName);
+        List<String> playerHasCards = blackjackService.drawPlayerCard(playerName);
         outputView.printPlayerHasCards(playerHasCards, playerName);
-        return playersService.isPossibleDrawCard(playerName);
+        return blackjackService.isPlayerPossibleDrawCard(playerName);
     }
 
     private boolean noDrawCard(String playerName) {
-        List<String> playerHasCards = playersService.findPlayerHasCards(playerName);
+        List<String> playerHasCards = blackjackService.findPlayerHasCards(playerName);
         outputView.printPlayerHasCards(playerHasCards, playerName);
         return false;
     }
 
     private void dealerDrawCard() {
-        boolean isPossibleDrawCard = dealerService.isPossibleDrawCard();
+        boolean isPossibleDrawCard = blackjackService.isDealerPossibleDrawCard();
         while (isPossibleDrawCard) {
-            dealerService.drawCard();
+            blackjackService.drawDealerCard();
             outputView.printDealerDrawCard();
-            isPossibleDrawCard = dealerService.isPossibleDrawCard();
+            isPossibleDrawCard = blackjackService.isDealerPossibleDrawCard();
         }
     }
 
     private void printResult(List<String> playersName) {
-        List<String> dealerHasCards = dealerService.findDealerHasCards();
-        int dealerScore = dealerService.computeScore();
+        List<String> dealerHasCards = blackjackService.findDealerHasCards();
+        int dealerScore = blackjackService.computeDealerScore();
         outputView.printDealerCardsResult(dealerHasCards, dealerScore);
 
-        List<List<String>> playersHasCards = playersService.collectPlayersCardsToString();
-        List<Integer> playersScore = playersService.collectScore();
+        List<List<String>> playersHasCards = blackjackService.collectPlayersCardsToString();
+        List<Integer> playersScore = blackjackService.collectScore();
         outputView.printPlayersCardsResult(playersName, playersHasCards, playersScore);
     }
 
