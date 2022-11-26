@@ -90,5 +90,7 @@ public class Application {
         setFirstState(deck, dealer, players);
         hitPlayers(deck, players);
         hitDealer(deck, dealer);
+
+        outputView.printResultCards(dealer, players);
     }
 }

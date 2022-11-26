@@ -30,4 +30,28 @@ class OutputViewTest {
 
         outputView.printPlayerCards(cards, "pobi");
     }
+
+    @Test
+    void printPlayerResultCards() {
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Symbol.ACE, Type.CLUB));
+        cards.add(new Card(Symbol.ACE, Type.HEART));
+        cards.add(new Card(Symbol.ACE, Type.SPADE));
+        cards.add(new Card(Symbol.ACE, Type.DIAMOND));
+
+        // 14 출력되어야 함
+        outputView.printPlayerResultCards(cards, "pobi");
+    }
+
+    @Test
+    void printDealerResultCards() {
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Symbol.ACE, Type.CLUB));
+        cards.add(new Card(Symbol.NINE, Type.HEART));
+        cards.add(new Card(Symbol.ACE, Type.SPADE));
+
+        // 21 출력되어야 함
+        outputView.printDealerResultCards(cards);
+    }
+
 }
