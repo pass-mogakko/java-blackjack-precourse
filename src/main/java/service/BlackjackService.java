@@ -5,7 +5,6 @@ import domain.card.CardFactory;
 import domain.card.RandomCards;
 import domain.user.BettingMoney;
 import domain.user.Dealer;
-import domain.user.Player;
 import domain.user.Players;
 import domain.user.PlayersName;
 import dto.CardsDto;
@@ -37,11 +36,6 @@ public class BlackjackService {
         return money.get();
     }
 
-    public void createPlayer(String name, int bettingMoney) {
-        Player player = new Player(name, bettingMoney);
-        players.addPlayer(player);
-    }
-
     public CardsDto initCards() {
         List<Card> cards = new ArrayList<>(CardFactory.create());
         Collections.shuffle(cards);
@@ -49,18 +43,5 @@ public class BlackjackService {
         List<String> dealerHasCard = dealer.initCards();
         List<List<String>> playersHasCard = players.initCards();
         return new CardsDto(dealerHasCard, playersHasCard);
-    }
-
-    public List<String> drawCard(String playerName) {
-        players.drawCard(playerName);
-        return findPlayerHasCard(playerName);
-    }
-
-    public List<String> findPlayerHasCard(String playerName) {
-        return players.collectCardToStringByPlayerName(playerName);
-    }
-
-    public boolean isPossibleDrawCard(String playerName) {
-        return players.isPossibleDrawCard(playerName);
     }
 }

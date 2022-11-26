@@ -4,6 +4,7 @@ import domain.constant.Constant;
 import dto.CardsDto;
 import java.util.List;
 import service.BlackjackService;
+import service.PlayersService;
 import view.InputView;
 import view.OutputView;
 
@@ -11,6 +12,7 @@ public class BlackjackController {
 
     private static final BlackjackController blackjackController = new BlackjackController();
     private static final BlackjackService blackJackService = BlackjackService.getInstance();
+    private static final PlayersService playersService = PlayersService.getInstance();
     private static final InputView inputView = new InputView();
     private static final OutputView outputView = new OutputView();
 
@@ -37,7 +39,7 @@ public class BlackjackController {
     private void createPlayer(String name) {
         String bettingMoney = inputView.requestPlayerBettingMoney(name);
         int parsedBettingMoney = blackJackService.parsePlayerBettingMoney(bettingMoney);
-        blackJackService.createPlayer(name, parsedBettingMoney);
+        playersService.createPlayer(name, parsedBettingMoney);
     }
 
     private void initCards(List<String> playersName) {
@@ -46,10 +48,10 @@ public class BlackjackController {
     }
 
     private void drawCards(List<String> playersName) {
-        playersName.forEach(this::drawCard);
+        playersName.forEach(this::playerDrawCard);
     }
 
-    private void drawCard(String playerName) {
+    private void playerDrawCard(String playerName) {
         boolean isPossibleDrawCard = true;
         while (isPossibleDrawCard) {
             String requestDrawCard = inputView.requestDrawCard(playerName);
@@ -65,13 +67,13 @@ public class BlackjackController {
     }
 
     private boolean yesDrawCard(String playerName) {
-        List<String> playerHasCard = blackJackService.drawCard(playerName);
+        List<String> playerHasCard = playersService.drawCard(playerName);
         outputView.printPlayerHasCard(playerHasCard, playerName);
-        return blackJackService.isPossibleDrawCard(playerName);
+        return playersService.isPossibleDrawCard(playerName);
     }
 
     private boolean noDrawCard(String playerName) {
-        List<String> playerHasCard = blackJackService.findPlayerHasCard(playerName);
+        List<String> playerHasCard = playersService.findPlayerHasCard(playerName);
         outputView.printPlayerHasCard(playerHasCard, playerName);
         return false;
     }
