@@ -1,17 +1,18 @@
 package domain.dto;
 
 import java.util.List;
+import java.util.Map;
 
 public class CardValueDto {
-    private final List<String> playerCards;
+    private final Map<String, String> playerCards;
     private final String dealerCards;
 
-    public CardValueDto(List<String> playerCards, String dealerCards) {
+    public CardValueDto(Map<String, String> playerCards, String dealerCards) {
         this.playerCards = playerCards;
         this.dealerCards = dealerCards;
     }
 
-    public List<String> getPlayerCards() {
+    public Map<String, String> getPlayerCards() {
          return playerCards;
     }
 

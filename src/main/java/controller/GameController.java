@@ -29,15 +29,11 @@ public class GameController {
         List<Card> cardDeck = new ArrayList<>(CardFactory.create());
 
         blackjackGame.start(players, dealer, cardDeck);
-        PlayerNameDto playerInfo = buildPlayerInfo(players);
-        CardValueDto firstResult = blackjackGame.getCardValues(players, dealer);
+        PlayerNameDto playerInfo = blackjackGame.buildPlayerInfo(players);
+        CardValueDto firstResult = blackjackGame.buildCardValueInfo(players, dealer);
         outputView.printFirstCards(playerInfo, firstResult);
     }
 
-    private PlayerNameDto buildPlayerInfo(List<Player> players) {
-        List<String> playerNames = blackjackGame.getPlayerNameList(players);
-        return new PlayerNameDto(playerNames);
-    }
 
     private List<Player> createPlayers() {
         List<String> names = getPlayerNames();

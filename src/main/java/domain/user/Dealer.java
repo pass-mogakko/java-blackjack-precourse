@@ -40,8 +40,10 @@ public class Dealer {
     }
 
     public void giveCardsToDealer(Dealer dealer, List<Card> cardDeck) {
-        Card card = giveTopCard(cardDeck);
-        dealer.addCard(card);
+        for (int i = 0; i < 2; i++) {
+            Card card = giveTopCard(cardDeck);
+            dealer.addCard(card);
+        }
     }
 
     public List<Card> getCards() {

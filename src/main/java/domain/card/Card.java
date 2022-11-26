@@ -16,7 +16,7 @@ public class Card {
     }
 
     public String getCardValue() {
-        return symbol.getScore() + type.toString();
+        return symbol.getScore() + type.getKoreanName();
     }
 
     // TODO Card 관련 추가 기능 구현
