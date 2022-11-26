@@ -3,6 +3,7 @@ package domain.user;
 import domain.card.Card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,6 +23,8 @@ public class Player {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
+    public List<Card> getCards() {
+        return Collections.unmodifiableList(cards);
+    }
 
 }

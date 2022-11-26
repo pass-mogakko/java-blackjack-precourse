@@ -2,7 +2,10 @@ package domain.user;
 
 import domain.card.Card;
 
+import domain.card.CardFactory;
+import domain.card.Deck;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -10,6 +13,7 @@ import java.util.List;
  */
 public class Dealer {
     private final List<Card> cards = new ArrayList<>();
+    private final Deck deck = new Deck();
 
     public Dealer() {}
 
@@ -17,5 +21,20 @@ public class Dealer {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
+    public void giveCardToSelf() {
+        Card card = deck.drawCard();
+
+        addCard(card);
+    }
+
+    public void giveCardToPlayer(Player player) {
+        Card card = deck.drawCard();
+
+        player.addCard(card);
+    }
+
+    //getter
+    public List<Card> getCards() {
+        return Collections.unmodifiableList(cards);
+    }
 }
