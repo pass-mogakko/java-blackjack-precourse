@@ -1,7 +1,7 @@
 package domain.user;
 
-import domain.constant.Constant;
-import domain.constant.GameResult;
+import constant.Constant;
+import constant.GameResult;
 
 /**
  * 게임 참여자를 의미하는 객체

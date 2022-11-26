@@ -1,6 +1,6 @@
 package domain.card;
 
-import domain.constant.Constant;
+import constant.Constant;
 import java.util.List;
 
 public class RandomCards {

@@ -1,7 +1,7 @@
 package domain.card;
 
-import domain.constant.Constant;
-import domain.constant.GameResult;
+import constant.Constant;
+import constant.GameResult;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

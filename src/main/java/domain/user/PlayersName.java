@@ -1,7 +1,7 @@
 package domain.user;
 
-import domain.constant.Constant;
-import domain.constant.ErrorMessage;
+import constant.Constant;
+import constant.ErrorMessage;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;

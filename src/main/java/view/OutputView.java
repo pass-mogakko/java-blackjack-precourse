@@ -1,15 +1,15 @@
 package view;
 
-import domain.constant.ErrorMessage;
-import domain.dto.CardsToStringDto;
-import domain.dto.GameResultDto;
-import domain.dto.PlayerBenefitResultDto;
-import domain.dto.PlayerCardsToStringDto;
+import constant.Constant;
+import constant.ErrorMessage;
+import constant.Message;
+import dto.CardsToStringDto;
+import dto.GameResultDto;
+import dto.PlayerBenefitResultDto;
+import dto.PlayerCardsToStringDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import view.constant.Constant;
-import view.constant.Message;
 
 public class OutputView {
 

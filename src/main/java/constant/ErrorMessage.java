@@ -1,4 +1,4 @@
-package domain.constant;
+package constant;
 
 public class ErrorMessage {
 

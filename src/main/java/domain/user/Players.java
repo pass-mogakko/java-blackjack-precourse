@@ -1,9 +1,9 @@
 package domain.user;
 
+import constant.ErrorMessage;
 import domain.card.RandomCards;
-import domain.constant.ErrorMessage;
-import domain.dto.PlayerBenefitResultDto;
-import domain.dto.PlayerCardsToStringDto;
+import dto.PlayerBenefitResultDto;
+import dto.PlayerCardsToStringDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

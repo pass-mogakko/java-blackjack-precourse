@@ -1,4 +1,4 @@
-package view.constant;
+package constant;
 
 public class Message {
 
