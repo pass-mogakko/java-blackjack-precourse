@@ -28,10 +28,10 @@ public class PlayersService {
 
     public List<String> drawCard(String playerName) {
         players.drawCard(playerName);
-        return findPlayerHasCard(playerName);
+        return findPlayerHasCards(playerName);
     }
 
-    public List<String> findPlayerHasCard(String playerName) {
+    public List<String> findPlayerHasCards(String playerName) {
         return players.collectCardToStringByPlayerName(playerName);
     }
 

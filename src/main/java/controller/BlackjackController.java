@@ -44,9 +44,9 @@ public class BlackjackController {
     }
 
     private void initCards(List<String> playersName) {
-        List<List<String>> playersHasCard = playersService.initCards();
-        List<String> dealerHasCard = dealerService.initCards();
-        outputView.printDrawTwoCard(playersName, playersHasCard, dealerHasCard);
+        List<List<String>> playersHasCards = playersService.initCards();
+        List<String> dealerHasCards = dealerService.initCards();
+        outputView.printDrawTwoCard(playersName, playersHasCards, dealerHasCards);
     }
 
     private void drawCards(List<String> playersName) {
@@ -70,14 +70,14 @@ public class BlackjackController {
     }
 
     private boolean yesDrawCard(String playerName) {
-        List<String> playerHasCard = playersService.drawCard(playerName);
-        outputView.printPlayerHasCard(playerHasCard, playerName);
+        List<String> playerHasCards = playersService.drawCard(playerName);
+        outputView.printPlayerHasCards(playerHasCards, playerName);
         return playersService.isPossibleDrawCard(playerName);
     }
 
     private boolean noDrawCard(String playerName) {
-        List<String> playerHasCard = playersService.findPlayerHasCard(playerName);
-        outputView.printPlayerHasCard(playerHasCard, playerName);
+        List<String> playerHasCards = playersService.findPlayerHasCards(playerName);
+        outputView.printPlayerHasCards(playerHasCards, playerName);
         return false;
     }
 
