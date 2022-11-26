@@ -7,7 +7,6 @@ import model.validator.GameRuleValidator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class BlackJackGame {
 
@@ -21,10 +20,11 @@ public class BlackJackGame {
         this.deck = new Deck();
     }
 
-    public void enrollPlayers(Map<String, Double> namesWithBettingMoney) {
-        GameRuleValidator.validateParticipantsCount(namesWithBettingMoney.size());
-        namesWithBettingMoney.keySet()
-                .forEach(name -> participants.add(new Player(name, namesWithBettingMoney.get(name))));
+    public void enrollPlayer(String name, double bettingMoney) {
+        GameRuleValidator.validateEnrolledCount(participants.size());
+        Player player = new Player(name, bettingMoney);
+        GameRuleValidator.validateDuplicatedPlayer(participants.contains(player));
+        participants.add(player);
     }
 
     public void addCardToPlayer(int playerIndex) {
