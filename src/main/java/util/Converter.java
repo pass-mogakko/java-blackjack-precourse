@@ -34,4 +34,15 @@ public class Converter {
         }
     }
 
+    public String convertListToStirng(List<String> strs) {
+        StringBuilder result = new StringBuilder();
+        for (String str : strs) {
+            if (!result.toString().equals("")) {
+                result.append(", ");
+            }
+            result.append(str);
+        }
+        return String.valueOf(result);
+    }
+
 }

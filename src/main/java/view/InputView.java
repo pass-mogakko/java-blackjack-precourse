@@ -12,7 +12,7 @@ public class InputView {
         return Console.readLine();
     }
 
-    public Object readBattingPrice(String playerName) {
+    public Object readBettingPrice(String playerName) {
         System.out.println(playerName + REQUEST_PLAYER_BATTING_MESSAGE);
         return Console.readLine();
     }

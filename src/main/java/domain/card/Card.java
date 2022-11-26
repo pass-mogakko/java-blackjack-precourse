@@ -15,6 +15,10 @@ public class Card {
         this.type = type;
     }
 
+    public String getCardValue() {
+        return symbol.getScore() + type.toString();
+    }
+
     // TODO Card 관련 추가 기능 구현
 
     @Override

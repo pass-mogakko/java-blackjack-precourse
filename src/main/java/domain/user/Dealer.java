@@ -35,16 +35,16 @@ public class Dealer {
             for (int i = 0; i < 2; i++) {
                 Card card = giveTopCard(cardDeck);
                 player.addCard(card);
-//                System.out.println(card.toString());
             }
         }
     }
 
     public void giveCardsToDealer(Dealer dealer, List<Card> cardDeck) {
-        for (int i=0; i < 2; i++) {
-            Card card = giveTopCard(cardDeck);
-            dealer.addCard(card);
-//            System.out.println(card.toString());
-        }
+        Card card = giveTopCard(cardDeck);
+        dealer.addCard(card);
+    }
+
+    public List<Card> getCards() {
+        return cards;
     }
 }

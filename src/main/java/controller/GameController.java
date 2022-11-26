@@ -1,7 +1,10 @@
 package controller;
 
+import domain.BlackjackGame;
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.dto.CardValueDto;
+import domain.dto.PlayerNameDto;
 import domain.user.Dealer;
 import domain.user.Player;
 import util.Converter;
@@ -18,19 +21,22 @@ public class GameController {
     private final OutputView outputView = new OutputView();
     private final Converter converter = new Converter();
     private final Validator validator = new Validator();
+    private final BlackjackGame blackjackGame = new BlackjackGame();
 
     public void startGame() {
         List<Player> players = createPlayers();
         Dealer dealer = new Dealer();
         List<Card> cardDeck = new ArrayList<>(CardFactory.create());
 
-        dealer.shuffleCards(cardDeck);
-        dealer.giveCardsToPlayers(players, cardDeck);
-        dealer.giveCardsToDealer(dealer, cardDeck);
+        blackjackGame.start(players, dealer, cardDeck);
+        PlayerNameDto playerInfo = buildPlayerInfo(players);
+        CardValueDto firstResult = blackjackGame.getCardValues(players, dealer);
+        outputView.printFirstCards(playerInfo, firstResult);
     }
 
-    public void playGame() {
-
+    private PlayerNameDto buildPlayerInfo(List<Player> players) {
+        List<String> playerNames = blackjackGame.getPlayerNameList(players);
+        return new PlayerNameDto(playerNames);
     }
 
     private List<Player> createPlayers() {
@@ -72,7 +78,7 @@ public class GameController {
     }
 
     private double getInputBettingMoney(String name) {
-        Object input = inputView.readBattingPrice(name);
+        Object input = inputView.readBettingPrice(name);
         double bettingMoney = converter.convertToDouble(input);
         validator.validateBettingPrice(bettingMoney);
         return bettingMoney;
