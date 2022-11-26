@@ -27,4 +27,7 @@ public class Player {
         return Collections.unmodifiableList(cards);
     }
 
+    public String getName() {
+        return name;
+    }
 }
