@@ -29,13 +29,41 @@ public class Player {
     }
 
     public boolean isBust() {
-        System.out.println(Calculator.calculateCards(cards));
         if (Calculator.calculateCards(cards) > 21) {
 
             return true;
         }
 
         return false;
+    }
+
+    public boolean isBlackjack() {
+        return Calculator.isBlackjack(cards);
+    }
+
+    public int getScore() {
+        return Calculator.calculateCards(cards);
+    }
+
+    public double calculateProfit(Dealer dealer) {
+        if (isBlackjack() && !dealer.isBlackjack()) {
+            return bettingMoney * 1.5;
+        }
+
+        if (isBust() ||
+                (!dealer.isBust() && getScore() < dealer.getScore())) {
+            return -bettingMoney;
+        }
+
+        if (dealer.isBust() || getScore() > dealer.getScore()) {
+            return bettingMoney;
+        }
+
+        return 0;
+    }
+
+    public double getBettingMoney() {
+        return bettingMoney;
     }
 
     public String getName() {

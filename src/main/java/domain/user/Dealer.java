@@ -37,6 +37,40 @@ public class Dealer {
         return false;
     }
 
+    public boolean isBlackjack() {
+        return Calculator.isBlackjack(cards);
+    }
+    public int getScore() {
+        return Calculator.calculateCards(cards);
+    }
+
+    private double calculatePerProfit(Player player) {
+        if (!isBlackjack() && player.isBlackjack()) {
+            return -(player.getBettingMoney() * 1.5);
+        }
+
+        if (player.isBust() ||
+                (!isBust() && player.getScore() < getScore())) {
+            return player.getBettingMoney();
+        }
+
+        if (isBust() || player.getScore() > getScore()) {
+            return -player.getBettingMoney();
+        }
+
+        return 0;
+    }
+
+    public double calculateProfit(List<Player> players) {
+        double profit = 0;
+
+        for (Player player : players) {
+            profit += calculatePerProfit(player);
+        }
+
+        return profit;
+    }
+
     //getter
     public List<Card> getCards() {
         return Collections.unmodifiableList(cards);
