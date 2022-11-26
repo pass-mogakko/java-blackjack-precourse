@@ -24,13 +24,17 @@ public class BlackjackService {
     private static RandomCards randomCards;
 
     private BlackjackService() {
-        List<Card> cards = new ArrayList<>(CardFactory.create());
-        Collections.shuffle(cards);
-        randomCards = RandomCards.newInstance(cards);
+        initRandomCards();
     }
 
     public static BlackjackService getInstance() {
         return playerService;
+    }
+
+    private void initRandomCards() {
+        List<Card> cards = new ArrayList<>(CardFactory.create());
+        Collections.shuffle(cards);
+        randomCards = RandomCards.newInstance(cards);
     }
 
     public List<String> parsePlayersName(String playersName) {
