@@ -1,7 +1,5 @@
 package domain.user;
 
-import dto.BettingMoneyDto;
-
 public class BettingMoney {
 
     private final int money;
@@ -10,7 +8,8 @@ public class BettingMoney {
         this.money = Integer.parseInt(money);
     }
 
-    public BettingMoneyDto toDto() {
-        return new BettingMoneyDto(money);
+
+    public int get() {
+        return money;
     }
 }

@@ -1,6 +1,5 @@
 package domain.user;
 
-import dto.BettingMoneyDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,8 +10,7 @@ class BettingMoneyTest {
         String input = "3000";
 
         BettingMoney bettingMoney = new BettingMoney(input);
-        BettingMoneyDto bettingMoneyDto = bettingMoney.toDto();
-        int money = bettingMoneyDto.get();
+        int money = bettingMoney.get();
 
         Assertions.assertThat(money)
                 .isEqualTo(3000);

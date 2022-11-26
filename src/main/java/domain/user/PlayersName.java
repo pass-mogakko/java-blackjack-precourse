@@ -1,7 +1,6 @@
 package domain.user;
 
 import domain.constant.Constant;
-import dto.PlayersNameDto;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,7 +14,7 @@ public class PlayersName {
                 .collect(Collectors.toList());
     }
 
-    public PlayersNameDto toDto() {
-        return new PlayersNameDto(playersName);
+    public List<String> get() {
+        return playersName;
     }
 }

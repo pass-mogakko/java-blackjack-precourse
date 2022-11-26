@@ -1,7 +1,6 @@
 package domain.user;
 
 
-import dto.PlayersNameDto;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,8 +12,7 @@ class PlayersNameTest {
         String input = "가,나다,라마바,사아자차";
 
         PlayersName playersName = new PlayersName(input);
-        PlayersNameDto playersNameDto = playersName.toDto();
-        List<String> names = playersNameDto.get();
+        List<String> names = playersName.get();
 
         Assertions.assertThat(names)
                 .containsExactly("가", "나다", "라마바", "사아자차");

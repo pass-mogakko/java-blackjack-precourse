@@ -8,11 +8,7 @@ import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.Players;
 import domain.user.PlayersName;
-import dto.BettingMoneyDto;
 import dto.CardsDto;
-import dto.IsPossibleDrawCardDto;
-import dto.PlayerHasCardDto;
-import dto.PlayersNameDto;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,14 +27,14 @@ public class BlackjackService {
         return blackJackService;
     }
 
-    public PlayersNameDto parsePlayersName(String playersName) {
+    public List<String> parsePlayersName(String playersName) {
         PlayersName parsedPlayersName = new PlayersName(playersName);
-        return parsedPlayersName.toDto();
+        return parsedPlayersName.get();
     }
 
-    public BettingMoneyDto parsePlayerBettingMoney(String bettingMoney) {
+    public int parsePlayerBettingMoney(String bettingMoney) {
         BettingMoney money = new BettingMoney(bettingMoney);
-        return money.toDto();
+        return money.get();
     }
 
     public void createPlayer(String name, int bettingMoney) {
@@ -55,18 +51,16 @@ public class BlackjackService {
         return new CardsDto(dealerHasCard, playersHasCard);
     }
 
-    public PlayerHasCardDto drawCard(String playerName) {
+    public List<String> drawCard(String playerName) {
         players.drawCard(playerName);
         return findPlayerHasCard(playerName);
     }
 
-    public PlayerHasCardDto findPlayerHasCard(String playerName) {
-        List<String> playersHasCard = players.collectCardToStringByPlayerName(playerName);
-        return new PlayerHasCardDto(playersHasCard);
+    public List<String> findPlayerHasCard(String playerName) {
+        return players.collectCardToStringByPlayerName(playerName);
     }
 
-    public IsPossibleDrawCardDto isPossibleDrawCard(String playerName) {
-        boolean isPossibleDrawCard = players.isPossibleDrawCard(playerName);
-        return new IsPossibleDrawCardDto(isPossibleDrawCard);
+    public boolean isPossibleDrawCard(String playerName) {
+        return players.isPossibleDrawCard(playerName);
     }
 }
