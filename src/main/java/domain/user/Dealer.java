@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import util.Calculator;
 import util.Converter;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class Dealer {
     private final List<Card> cards = new ArrayList<>();
 
     private final Converter converter = new Converter();
+    private final Calculator calculator = new Calculator();
 
     public Dealer() {}
 
@@ -59,5 +61,9 @@ public class Dealer {
             cardValues.add(card.getCardValue());
         }
         return converter.convertListToStirng(cardValues);
+    }
+
+    public boolean isBlackjack() {
+        return calculator.addAllCardScore(cards) == 21;
     }
 }

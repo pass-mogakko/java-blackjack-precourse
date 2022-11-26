@@ -19,7 +19,9 @@ public class Card {
         return symbol.getScore() + type.getKoreanName();
     }
 
-    // TODO Card 관련 추가 기능 구현
+    public int getSymbolScore() {
+        return symbol.getScore();
+    }
 
     @Override
     public boolean equals(Object o) {
