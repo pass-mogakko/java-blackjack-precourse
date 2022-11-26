@@ -1,5 +1,6 @@
 package domain.user;
 
+import domain.Calculator;
 import domain.card.Card;
 
 import domain.card.CardFactory;
@@ -18,6 +19,22 @@ public class Dealer {
 
     public void addCard(Card card) {
         cards.add(card);
+    }
+
+    public boolean isBust() {
+        if (Calculator.calculateCards(cards) > 21) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean isShouldHit() {
+        if (Calculator.calculateCards(cards) <= 16) {
+            return true;
+        }
+
+        return false;
     }
 
     //getter

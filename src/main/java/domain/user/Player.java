@@ -1,5 +1,6 @@
 package domain.user;
 
+import domain.Calculator;
 import domain.card.Card;
 
 import java.util.ArrayList;
@@ -25,6 +26,16 @@ public class Player {
 
     public List<Card> getCards() {
         return Collections.unmodifiableList(cards);
+    }
+
+    public boolean isBust() {
+        System.out.println(Calculator.calculateCards(cards));
+        if (Calculator.calculateCards(cards) > 21) {
+
+            return true;
+        }
+
+        return false;
     }
 
     public String getName() {
