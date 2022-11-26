@@ -52,15 +52,27 @@ public class Cards {
     }
 
     private boolean isNeedScoreAdjustment(int cardsScore, int aceCount) {
-        return cardsScore > Constant.TWENTY_ONE && aceCount > Constant.ZERO;
+        return cardsScore > Constant.BLACKJACK_MAX_SCORE && aceCount > 0;
     }
 
-    public boolean isLessThan21() {
-        return computeScore() < Constant.TWENTY_ONE;
+    public boolean isLessThanMaxScore() {
+        return computeScore() < Constant.BLACKJACK_MAX_SCORE;
     }
 
-    public boolean isLessThanOrEqualTo16() {
-        return computeScore() <= Constant.SIXTEEN;
+    public boolean isLessThanOrEqualToDealerDrawCardStandardScore() {
+        return computeScore() <= Constant.DEALER_DRAW_CARD_STANDARD_SCORE;
+    }
+
+    public boolean isBurst() {
+        return computeScore() > Constant.BLACKJACK_MAX_SCORE;
+    }
+
+    private boolean isBlackjack() {
+        return computeScore() == Constant.BLACKJACK_MAX_SCORE && isSizeTwo();
+    }
+
+    public boolean isSizeTwo() {
+        return cards.size() == 2;
     }
 
     public GameResult computeGameResult(Cards dealerCards) {
@@ -104,17 +116,5 @@ public class Cards {
             return GameResult.BLACKJACK;
         }
         return GameResult.LOSE;
-    }
-
-    private boolean isBurst() {
-        return computeScore() > Constant.TWENTY_ONE;
-    }
-
-    private boolean isBlackjack() {
-        return computeScore() == Constant.TWENTY_ONE && isSizeTwo();
-    }
-
-    public boolean isSizeTwo() {
-        return cards.size() == 2;
     }
 }

@@ -23,12 +23,14 @@ public class BlackjackController {
         return blackjackController;
     }
 
+
     public void run() {
         List<String> playersName = createPlayers();
         initCards();
         drawCards(playersName);
         printResult();
     }
+
 
     private List<String> createPlayers() {
         String playersName = inputView.requestPlayerName();
@@ -42,10 +44,12 @@ public class BlackjackController {
         blackjackService.createPlayer(name, bettingMoney);
     }
 
+
     private void initCards() {
         CardsToStringDto cardsToStringDto = blackjackService.initCards();
         outputView.printDrawTwoCard(cardsToStringDto);
     }
+
 
     private void drawCards(List<String> playersName) {
         playersName.forEach(this::playerDrawCard);
@@ -80,9 +84,9 @@ public class BlackjackController {
         return false;
     }
 
+
     private void printResult() {
         GameResultDto gameResultDto = blackjackService.computeGameResult();
         outputView.printGameResult(gameResultDto);
     }
-
 }

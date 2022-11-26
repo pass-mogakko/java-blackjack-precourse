@@ -25,6 +25,6 @@ public class Dealer extends User {
 
     @Override
     public boolean isPossibleDrawCard() {
-        return cards.isLessThanOrEqualTo16();
+        return cards.isLessThanOrEqualToDealerDrawCardStandardScore();
     }
 }
