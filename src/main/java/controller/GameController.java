@@ -60,6 +60,8 @@ public class GameController {
 
     public double getInputBettingMoney(String name) {
         Object input = inputView.readBattingPrice(name);
-        return converter.convertToDouble(input);
+        double bettingMoney = converter.convertToDouble(input);
+        validator.validateBettingPrice(bettingMoney);
+        return bettingMoney;
     }
 }

@@ -23,4 +23,9 @@ public class Validator {
         }
     }
 
+    public void validateBettingPrice(double price) {
+        if (price <= 0) {
+            throw new IllegalArgumentException(INVALID_BETTING_PRICE.getMessage());
+        }
+    }
 }
