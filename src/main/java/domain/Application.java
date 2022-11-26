@@ -1,5 +1,7 @@
 package domain;
 
+import static domain.Constants.InputValue.SELECTION_NO;
+
 import domain.View.InputView;
 import domain.View.OutputView;
 import domain.card.Deck;
@@ -54,11 +56,39 @@ public class Application {
         }
     }
 
+    private static void hitDealer(Deck deck, Dealer dealer) {
+        do {
+            System.out.println("16 이하라 한장 더");
+            dealer.addCard(deck.drawCard());
+            outputView.printDealerCards(dealer.getCards());
+        } while(!dealer.isBust() && dealer.isShouldHit());
+    }
+
+    private static void hitPlayer(Deck deck, Player player) {
+        do {
+            String selection = inputView.readSelection(player.getName());
+
+            if (selection.equals(SELECTION_NO)) {
+                return;
+            }
+            player.addCard(deck.drawCard());
+            outputView.printPlayerCards(player.getCards(), player.getName());
+        } while (!player.isBust());
+
+        System.out.println("Bust!");
+    }
+
+    private static void hitPlayers(Deck deck, List<Player> players) {
+        players.stream().forEach(player -> hitPlayer(deck, player));
+    }
+
     public static void main(String[] args) {
         Dealer dealer = new Dealer();
         List<Player> players = createPlayers();
         Deck deck = new Deck();
 
         setFirstState(deck, dealer, players);
+        hitPlayers(deck, players);
+        hitDealer(deck, dealer);
     }
 }
