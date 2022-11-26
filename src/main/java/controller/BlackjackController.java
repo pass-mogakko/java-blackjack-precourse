@@ -34,9 +34,14 @@ public class BlackjackController {
 
     private List<String> createPlayers() {
         String playersName = inputView.requestPlayerName();
-        List<String> parsedPlayersName = blackjackService.parsePlayersName(playersName);
-        parsedPlayersName.forEach(this::createPlayer);
-        return parsedPlayersName;
+        try {
+            List<String> parsedPlayersName = blackjackService.parsePlayersName(playersName);
+            parsedPlayersName.forEach(this::createPlayer);
+            return parsedPlayersName;
+        } catch (IllegalArgumentException e) {
+            outputView.printErrorMessage(e.getMessage());
+            return createPlayers();
+        }
     }
 
     private void createPlayer(String name) {

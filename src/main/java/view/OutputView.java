@@ -1,5 +1,6 @@
 package view;
 
+import domain.constant.ErrorMessage;
 import domain.dto.CardsToStringDto;
 import domain.dto.GameResultDto;
 import domain.dto.PlayerBenefitResultDto;
@@ -81,7 +82,7 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printPlayersCardsResult(List<PlayerCardsToStringDto> playerCardsToStringDtos) {
+    private void printPlayersCardsResult(List<PlayerCardsToStringDto> playerCardsToStringDtos) {
         playerCardsToStringDtos.forEach(this::printPlayerCardsResult);
     }
 
@@ -95,7 +96,7 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printBenefitResult(int dealerBenefit, List<PlayerBenefitResultDto> playerBenefitResultDtos) {
+    private void printBenefitResult(int dealerBenefit, List<PlayerBenefitResultDto> playerBenefitResultDtos) {
         System.out.println();
         System.out.println(Message.BENEFIT_RESULT);
         System.out.printf(Message.DEALER_BENEFIT, dealerBenefit);
@@ -107,6 +108,11 @@ public class OutputView {
         String name = playerBenefitResultDto.getName();
         int playerBenefit = playerBenefitResultDto.getPlayerBenefit();
         System.out.printf(Message.PLAYER_BENEFIT, name, playerBenefit);
+        System.out.println();
+    }
+
+    public void printErrorMessage(String message) {
+        System.out.printf(ErrorMessage.ERROR_MESSAGE_FORM, message);
         System.out.println();
     }
 }
