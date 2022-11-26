@@ -38,10 +38,14 @@ public class Dealer {
     public void giveCardsToPlayers(List<Player> players, List<Card> cardDeck) {
         for (Player player : players) {
             for (int i = 0; i < 2; i++) {
-                Card card = giveTopCard(cardDeck);
-                player.addCard(card);
+                giveOneCardToPlayer(player, cardDeck);
             }
         }
+    }
+
+    public void giveOneCardToPlayer(Player player, List<Card> cardDeck) {
+        Card card = giveTopCard(cardDeck);
+        player.addCard(card);
     }
 
     public void giveCardsToDealer(Dealer dealer, List<Card> cardDeck) {

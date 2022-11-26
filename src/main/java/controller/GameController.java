@@ -1,6 +1,8 @@
 package controller;
 
 import domain.BlackjackGame;
+import domain.card.Card;
+import domain.card.CardFactory;
 import domain.dto.BlackjackResultDto;
 import domain.dto.CardValueDto;
 import domain.dto.GameScoreDto;
@@ -25,15 +27,27 @@ public class GameController {
     private final DtoBuilder dtoBuilder = new DtoBuilder();
     private final BlackjackGame blackjackGame = new BlackjackGame();
 
-    public void run() {
-        List<Player> players = createPlayers();
-        Dealer dealer = new Dealer();
+    private final List<Player> players = createPlayers();
+    private final Dealer dealer = new Dealer();
+    private final List<Card> cardDeck = new ArrayList<>(CardFactory.create());
 
-        blackjackGame.start(players, dealer);
+    public void run() {
+        blackjackGame.start(players, dealer, cardDeck);
         printFirstResult(players, dealer);
 
+//        Object result = blackjackGame.play(players, dealer);
+//        printFinalResult(result, players, dealer);
+//    }
+//
+//    public void playGame() {
         Object result = blackjackGame.play(players, dealer);
-        printFinalResult(result, players, dealer);
+        if (result.getClass() == BlackjackResultDto.class) {
+            printFinalResult(result, players, dealer);
+            return;
+        }
+        if (result.getClass() != null) {
+            askAboutNewCard((List<Player>) result);
+        }
     }
 
     private List<Player> createPlayers() {
@@ -45,6 +59,21 @@ public class GameController {
             players.add(player);
         }
         return players;
+    }
+
+    private void doProperAction() {
+
+    }
+
+    private void askAboutNewCard(List<Player> players) {
+        for (Player player : players) {
+            while (true) {
+                boolean wantNewCard = getPlayerCommand(player);
+                if (!wantNewCard)
+                    break;
+                dealer.giveOneCardToPlayer(player, cardDeck);
+            }
+        }
     }
 
     private List<String> getPlayerNames() {
@@ -79,6 +108,21 @@ public class GameController {
         double bettingMoney = converter.convertToDouble(input);
         validator.validateBettingPrice(bettingMoney);
         return bettingMoney;
+    }
+
+    private boolean getPlayerCommand(Player player) {
+        while (true) {
+            try {
+                return getInputPlayerCommand(player);
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e);
+            }
+        }
+    }
+
+    private boolean getInputPlayerCommand(Player player) {
+        Object input = inputView.readPlayerCommand(player.getName());
+        return converter.convertToBoolean(String.valueOf(input));
     }
 
     private void printFirstResult(List<Player> players, Dealer dealer) {

@@ -6,15 +6,16 @@ import domain.dto.BlackjackResultDto;
 import domain.dto.GameResultDto;
 import domain.user.Dealer;
 import domain.user.Player;
+import util.Calculator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BlackjackGame {
 
-    public void start(List<Player> players, Dealer dealer) {
-        List<Card> cardDeck = new ArrayList<>(CardFactory.create());
-        dealer.shuffleCards(cardDeck);
+    Calculator calculator = new Calculator();
+
+    public void start(List<Player> players, Dealer dealer, List<Card> cardDeck) {
         dealer.giveCardsToPlayers(players, cardDeck);
         dealer.giveCardsToDealer(dealer, cardDeck);
     }
@@ -23,8 +24,11 @@ public class BlackjackGame {
         if (gotBlackjack(players, dealer)) {
             return buildBlackjackResult(players, dealer);
         }
-        // 기능 구현 전까지 오류 방지용 임시 설정
-        return new GameResultDto(true, true, List.of(), true);
+        if (findAffordablePlayers(players).size() > 0) {
+            return findAffordablePlayers(players);
+        }
+        return null;
+//        return new GameResultDto(true, true, List.of(), true);
     }
 
     private boolean gotBlackjack(List<Player> players, Dealer dealer) {
@@ -53,5 +57,15 @@ public class BlackjackGame {
             }
         }
         return blackjackPlayers;
+    }
+
+    private List<Player> findAffordablePlayers(List<Player> players) {
+        List<Player> result = new ArrayList<>();
+        for (Player player : players) {
+            if (player.isAffordable()) {
+                result.add(player);
+            }
+        }
+        return result;
     }
 }

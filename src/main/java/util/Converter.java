@@ -45,4 +45,14 @@ public class Converter {
         return String.valueOf(result);
     }
 
+    public boolean convertToBoolean(String input) {
+        if (input.equals("y") || input.equals("Y")) {
+            return true;
+        }
+        if (input.equals("n") || input.equals("N")) {
+            return false;
+        }
+        throw new IllegalArgumentException(INVALID_COMMAND.getMessage());
+    }
+
 }

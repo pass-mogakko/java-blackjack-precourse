@@ -50,4 +50,8 @@ public class Player {
     public boolean isBlackjack() {
         return calculator.addAllCardScore(cards) == 21;
     }
+
+    public boolean isAffordable() {
+        return calculator.addAllCardScore(cards) <= 21;
+    }
 }
