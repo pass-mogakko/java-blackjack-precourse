@@ -24,8 +24,7 @@ public class OutputView {
         System.out.println(FIRST_ANNOUNCEMENT_MESSAGE_FRONT + playerInfo.getNameValues() + FIRST_ANNOUNCEMENT_MESSAGE_BACK);
         System.out.println(DEALER_CARD_INFO_MESSAGE + cardInfo.getDealerCards());
 
-        List<String> playerNames = playerInfo.getNames();
-        for (String playerName : playerNames) {
+        for (String playerName : playerInfo.getNames()) {
             System.out.println(playerName + PLAYER_CARD_INFO_MESSAGE + cardInfo.getPlayerCards().get(playerName));
         }
     }
@@ -39,9 +38,8 @@ public class OutputView {
         System.out.println();
         System.out.println(DEALER_CARD_INFO_MESSAGE + cardValueDto.getDealerCards() + SCORE_RESULT_INFO_MESSAGE + gameScoreDto.getDealerScore());
 
-        Map<String, Integer> playerScores = gameScoreDto.getPlayerScores();
         for (String playerName : playerNameDto.getNames()) {
-            System.out.println(playerName + PLAYER_CARD_INFO_MESSAGE + cardValueDto.getPlayerCards().get(playerName) + playerScores.get(playerName));
+            System.out.println(playerName + PLAYER_CARD_INFO_MESSAGE + cardValueDto.getPlayerCards().get(playerName) + SCORE_RESULT_INFO_MESSAGE + gameScoreDto.getPlayerScore(playerName));
         }
     }
 }

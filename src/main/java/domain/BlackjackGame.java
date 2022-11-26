@@ -23,7 +23,8 @@ public class BlackjackGame {
         if (gotBlackjack(players, dealer)) {
             return buildBlackjackResult(players, dealer);
         }
-        return null;
+        // 기능 구현 전까지 오류 방지용 임시 설정
+        return new GameResultDto(true, true, List.of(), true);
     }
 
     private boolean gotBlackjack(List<Player> players, Dealer dealer) {

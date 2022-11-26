@@ -18,4 +18,8 @@ public class GameScoreDto {
     public Map<String, Integer> getPlayerScores() {
         return playerScores;
     }
+
+    public Integer getPlayerScore(String playerName) {
+        return playerScores.get(playerName);
+    }
 }
