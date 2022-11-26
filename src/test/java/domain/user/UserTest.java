@@ -6,6 +6,7 @@ import domain.card.Card;
 import domain.card.Symbol;
 import domain.card.Type;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -36,5 +37,19 @@ class UserTest {
         arguments.add(Arguments.of(
                 List.of(aceCard1, new Card(Symbol.TEN, Type.CLUB), new Card(Symbol.TEN, Type.DIAMOND)), 21));
         return arguments.stream();
+    }
+
+    @DisplayName("버스트 여부 확인: 가지고 있는 카드의 합이 21을 넘으면 참을 반환")
+    @Test
+    void isBust() {
+        User user = new User();
+        user.addCard(new Card(Symbol.KING, Type.CLUB));
+        user.addCard(new Card(Symbol.KING, Type.DIAMOND));
+
+        assertThat(user.isBust()).isFalse();
+
+        user.addCard(new Card(Symbol.TWO, Type.SPADE));
+
+        assertThat(user.isBust()).isTrue();
     }
 }

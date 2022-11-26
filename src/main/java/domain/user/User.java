@@ -31,4 +31,8 @@ public class User {
         return cards.stream()
                 .anyMatch(Card::isAce);
     }
+
+    public boolean isBust() {
+        return addAllScore() > 21;
+    }
 }
