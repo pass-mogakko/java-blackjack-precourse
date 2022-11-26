@@ -45,9 +45,9 @@ public class Players {
         return new PlayerCardsToStringDto(name, playerHasCards, score);
     }
 
-    public boolean isPossibleDrawCard(String playerName) {
+    public void drawCard(String playerName) {
         Player player = findPlayerByName(playerName);
-        return player.isPossibleDrawCard();
+        player.addCard(randomCards.drawCard());
     }
 
     private Player findPlayerByName(String name) {
@@ -55,11 +55,6 @@ public class Players {
                 .filter(player -> player.isSameName(name))
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.NON_EXISTENT_PLAYER_NAME));
-    }
-
-    public void drawCard(String playerName) {
-        Player player = findPlayerByName(playerName);
-        player.addCard(randomCards.drawCard());
     }
 
     public PlayerCardsToStringDto collectCardToStringByPlayerName(String playerName) {
