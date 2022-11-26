@@ -42,4 +42,8 @@ public class OutputView {
             System.out.println(playerName + PLAYER_CARD_INFO_MESSAGE + cardValueDto.getPlayerCards().get(playerName) + SCORE_RESULT_INFO_MESSAGE + gameScoreDto.getPlayerScore(playerName));
         }
     }
+
+    public void printPlayerCardValue(String playerName, CardValueDto cardInfo) {
+        System.out.println(playerName + PLAYER_CARD_INFO_MESSAGE + cardInfo.getPlayerCards().get(playerName));
+    }
 }

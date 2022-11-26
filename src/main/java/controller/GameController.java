@@ -9,6 +9,7 @@ import domain.dto.GameScoreDto;
 import domain.dto.PlayerNameDto;
 import domain.user.Dealer;
 import domain.user.Player;
+import util.Calculator;
 import util.Converter;
 import util.DtoBuilder;
 import util.Validator;
@@ -24,6 +25,7 @@ public class GameController {
     private final OutputView outputView = new OutputView();
     private final Converter converter = new Converter();
     private final Validator validator = new Validator();
+    private final Calculator calculator = new Calculator();
     private final DtoBuilder dtoBuilder = new DtoBuilder();
     private final BlackjackGame blackjackGame = new BlackjackGame();
 
@@ -67,12 +69,12 @@ public class GameController {
 
     private void askAboutNewCard(List<Player> players) {
         for (Player player : players) {
-            while (true) {
-                boolean wantNewCard = getPlayerCommand(player);
-                if (!wantNewCard)
+            while (calculator.addAllCardScore(player.getCards()) <= 21) {
+                if (!getPlayerCommand(player))
                     break;
                 dealer.giveOneCardToPlayer(player, cardDeck);
             }
+            outputView.printPlayerCardValue(player.getName(), dtoBuilder.buildCardValueInfo(List.of(player), dealer));
         }
     }
 
