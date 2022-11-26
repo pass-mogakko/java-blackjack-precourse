@@ -101,7 +101,7 @@ public class Cards {
             return GameResult.DRAW;
         }
         if (isBlackjack()) {
-            return GameResult.WIN;
+            return GameResult.BLACKJACK;
         }
         return GameResult.LOSE;
     }
