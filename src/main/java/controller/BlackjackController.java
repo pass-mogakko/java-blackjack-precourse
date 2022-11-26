@@ -2,6 +2,7 @@ package controller;
 
 import domain.constant.Constant;
 import domain.dto.CardsToStringDto;
+import domain.dto.GameResultDto;
 import domain.dto.PlayerCardsToStringDto;
 import java.util.List;
 import service.BlackjackService;
@@ -26,7 +27,7 @@ public class BlackjackController {
         List<String> playersName = createPlayers();
         initCards();
         drawCards(playersName);
-        //        printResult(playersName);
+        printResult();
     }
 
     private List<String> createPlayers() {
@@ -79,18 +80,9 @@ public class BlackjackController {
         return false;
     }
 
-
-    //    private void printResult(List<String> playersName) {
-    //        List<String> dealerHasCards = blackjackService.findDealerHasCards();
-    //        int dealerScore = blackjackService.computeDealerScore();
-    //        outputView.printDealerCardsResult(dealerHasCards, dealerScore);
-    //
-    //        List<List<String>> playersHasCards = blackjackService.collectPlayersCardsToString();
-    //        List<Integer> playersScore = blackjackService.collectScore();
-    //        outputView.printPlayersCardsResult(playersName, playersHasCards, playersScore);
-    //
-    //        BenefitResultDto benefitResultDto = blackjackService.computeBenefit();
-    //        outputView.printBenefitResult(benefitResultDto);
-    //    }
+    private void printResult() {
+        GameResultDto gameResultDto = blackjackService.computeGameResult();
+        outputView.printGameResult(gameResultDto);
+    }
 
 }

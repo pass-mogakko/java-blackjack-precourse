@@ -41,7 +41,8 @@ public class Players {
     private PlayerCardsToStringDto createPlayerCardsToStringDto(Player player) {
         String name = player.getName();
         List<String> playerHasCards = player.collectCardToString();
-        return new PlayerCardsToStringDto(name, playerHasCards);
+        int score = player.computeScore();
+        return new PlayerCardsToStringDto(name, playerHasCards, score);
     }
 
     public boolean isPossibleDrawCard(String playerName) {
@@ -68,12 +69,6 @@ public class Players {
         return new PlayerCardsToStringDto(name, playerHasCards);
     }
 
-    public List<Integer> collectScore() {
-        return players.stream()
-                .map(Player::computeScore)
-                .collect(Collectors.toList());
-    }
-
     public List<PlayerBenefitResultDto> computePlayersBenefitResult(Dealer dealer) {
         return players.stream()
                 .map(player -> createPlayerBenefitResultDto(player, dealer))
@@ -92,6 +87,5 @@ public class Players {
                 .mapToInt(benefit -> benefit.intValue())
                 .sum();
     }
-
 
 }

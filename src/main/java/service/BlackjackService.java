@@ -3,8 +3,8 @@ package service;
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.card.RandomCards;
-import domain.dto.BenefitResultDto;
 import domain.dto.CardsToStringDto;
+import domain.dto.GameResultDto;
 import domain.dto.PlayerBenefitResultDto;
 import domain.dto.PlayerCardsToStringDto;
 import domain.user.BettingMoney;
@@ -59,6 +59,10 @@ public class BlackjackService {
         return players.collectCardToStringByPlayerName(playerName);
     }
 
+    public boolean isPlayerPossibleDrawCard(String playerName) {
+        return players.isPossibleDrawCard(playerName);
+    }
+
     public int dealerDrawCard() {
         boolean isPossibleDrawCard = dealer.isPossibleDrawCard();
         int drawCount = 0;
@@ -70,33 +74,13 @@ public class BlackjackService {
         return drawCount;
     }
 
-
-    public boolean isPlayerPossibleDrawCard(String playerName) {
-        return players.isPossibleDrawCard(playerName);
-    }
-
-    public List<PlayerCardsToStringDto> collectPlayersCardsToString() {
-        return players.collectPlayersCardsToString();
-    }
-
-    public List<Integer> collectScore() {
-        return players.collectScore();
-    }
-
-
-    public List<String> findDealerHasCards() {
-        return dealer.collectCardToString();
-    }
-
-    public int computeDealerScore() {
-        return dealer.computeScore();
-    }
-
-    public BenefitResultDto computeBenefit() {
-        List<PlayerBenefitResultDto> playerBenefitResultDtos = players.computePlayersBenefitResult(dealer);
+    public GameResultDto computeGameResult() {
+        List<String> dealerHasCards = dealer.collectCardToString();
+        int dealerScore = dealer.computeScore();
+        List<PlayerCardsToStringDto> playerCardsToStringDtos = players.collectPlayersCardsToString();
         int dealerBenefit = -players.sumPlayersBenefit(dealer);
-        return new BenefitResultDto(dealerBenefit, playerBenefitResultDtos);
+        List<PlayerBenefitResultDto> playerBenefitResultDtos = players.computePlayersBenefitResult(dealer);
+        return new GameResultDto(dealerHasCards, dealerScore, playerCardsToStringDtos, dealerBenefit, playerBenefitResultDtos);
     }
-
 
 }

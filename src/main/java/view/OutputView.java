@@ -1,7 +1,7 @@
 package view;
 
-import domain.dto.BenefitResultDto;
 import domain.dto.CardsToStringDto;
+import domain.dto.GameResultDto;
 import domain.dto.PlayerBenefitResultDto;
 import domain.dto.PlayerCardsToStringDto;
 import java.util.List;
@@ -55,44 +55,47 @@ public class OutputView {
         String name = playerCardsToStringDto.getName();
         List<String> playerHasCards = playerCardsToStringDto.getPlayerHasCards();
         String parsedPlayerHasCards = parseCards(playerHasCards);
+
         System.out.printf(Message.PLAYER_CARDS, name, parsedPlayerHasCards);
         System.out.println();
     }
 
-    //    private void printPlayerHasCards(List<List<String>> playersHasCards, List<String> playersName, int index) {
-    //        List<String> playerHasCards = playersHasCards.get(index);
-    //        String parsedPlayerHasCards = parseCards(playerHasCards);
-    //        System.out.printf(Message.PLAYER_CARDS, playersName.get(index), parsedPlayerHasCards);
-    //        System.out.println();
-    //    }
-
     public void printDealerDrawCard(int drawCount) {
+        System.out.println();
         IntStream.range(0, drawCount)
                 .forEach(i -> System.out.println(Message.DEALER_DRAW_CARD));
     }
 
-    public void printDealerCardsResult(List<String> dealerHasCards, int CardsScore) {
+    public void printGameResult(GameResultDto gameResultDto) {
+        printDealerCardsResult(gameResultDto.getDealerHasCards(), gameResultDto.getDealerScore());
+        printPlayersCardsResult(gameResultDto.getPlayerCardsToStringDtos());
+        printBenefitResult(gameResultDto.getDealerBenefit(), gameResultDto.getPlayerBenefitResultDtos());
+
+    }
+
+    private void printDealerCardsResult(List<String> dealerHasCards, int CardsScore) {
         String parsedDealerHasCards = parseCards(dealerHasCards);
+
         System.out.println();
         System.out.printf(Message.DEALER_CARDS_RESULT, parsedDealerHasCards, CardsScore);
         System.out.println();
     }
 
-    public void printPlayersCardsResult(List<String> playersName, List<List<String>> playersHasCards, List<Integer> playersScore) {
-        for (int i = 0; i < playersName.size(); i++) {
-            printPlayerCardsResult(playersName.get(i), playersHasCards.get(i), playersScore.get(i));
-        }
+    public void printPlayersCardsResult(List<PlayerCardsToStringDto> playerCardsToStringDtos) {
+        playerCardsToStringDtos.forEach(this::printPlayerCardsResult);
     }
 
-    private void printPlayerCardsResult(String playerName, List<String> playerHasCards, int CardsScore) {
+    private void printPlayerCardsResult(PlayerCardsToStringDto playerCardsToStringDto) {
+        String name = playerCardsToStringDto.getName();
+        List<String> playerHasCards = playerCardsToStringDto.getPlayerHasCards();
+        int score = playerCardsToStringDto.getScore();
+
         String parsedPlayerHasCards = parseCards(playerHasCards);
-        System.out.printf(Message.PLAYER_CARDS_RESULT, playerName, parsedPlayerHasCards, CardsScore);
+        System.out.printf(Message.PLAYER_CARDS_RESULT, name, parsedPlayerHasCards, score);
         System.out.println();
     }
 
-    public void printBenefitResult(BenefitResultDto benefitResultDto) {
-        int dealerBenefit = benefitResultDto.getDealerBenefit();
-        List<PlayerBenefitResultDto> playerBenefitResultDtos = benefitResultDto.getPlayerBenefitResultDtos();
+    public void printBenefitResult(int dealerBenefit, List<PlayerBenefitResultDto> playerBenefitResultDtos) {
         System.out.println();
         System.out.println(Message.BENEFIT_RESULT);
         System.out.printf(Message.DEALER_BENEFIT, dealerBenefit);
