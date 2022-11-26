@@ -14,7 +14,12 @@ import java.util.stream.Collectors;
 
 
 public class InputView {
+    private static final String BETTING_MONEY_REQUEST = "%s의 배팅 금액은?" + System.lineSeparator();
+
+
     private Scanner scanner;
+
+
     public List<String> readPlayers() throws IllegalArgumentException {
         System.out.println("플레이어 입력");
 
@@ -31,7 +36,9 @@ public class InputView {
         }
     }
 
-    public double readBettingMoney() throws IllegalArgumentException {
+    public double readBettingMoney(String playerName) throws IllegalArgumentException {
+        System.out.printf(BETTING_MONEY_REQUEST, playerName);
+
         try {
             scanner = new Scanner(System.in);
             String input = scanner.nextLine();

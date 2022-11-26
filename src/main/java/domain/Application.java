@@ -13,7 +13,7 @@ public class Application {
     private static InputView inputView = new InputView();
 
     private static Player createPlayer(String playerName) {
-        double bettingMoney = inputView.readBettingMoney();
+        double bettingMoney = inputView.readBettingMoney(playerName);
 
         return new Player(playerName, bettingMoney);
     }
