@@ -3,6 +3,7 @@ package domain.user;
 import domain.card.Card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -18,4 +19,32 @@ public class Dealer {
     }
 
     // TODO 추가 기능 구현
+
+    public void shuffleCards(List<Card> cardDeck) {
+        Collections.shuffle(cardDeck);
+    }
+
+    public Card giveTopCard(List<Card> cardDeck) {
+        Card nextCard = cardDeck.get(0);
+        cardDeck.remove(0);
+        return nextCard;
+    }
+
+    public void giveCardsToPlayers(List<Player> players, List<Card> cardDeck) {
+        for (Player player : players) {
+            for (int i = 0; i < 2; i++) {
+                Card card = giveTopCard(cardDeck);
+                player.addCard(card);
+//                System.out.println(card.toString());
+            }
+        }
+    }
+
+    public void giveCardsToDealer(Dealer dealer, List<Card> cardDeck) {
+        for (int i=0; i < 2; i++) {
+            Card card = giveTopCard(cardDeck);
+            dealer.addCard(card);
+//            System.out.println(card.toString());
+        }
+    }
 }

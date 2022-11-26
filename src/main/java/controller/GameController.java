@@ -18,16 +18,22 @@ public class GameController {
     private final OutputView outputView = new OutputView();
     private final Converter converter = new Converter();
     private final Validator validator = new Validator();
-    private CardFactory cardFactory;
 
     public void startGame() {
         List<Player> players = createPlayers();
         Dealer dealer = new Dealer();
-        List<Card> cards = CardFactory.create();
+        List<Card> cardDeck = new ArrayList<>(CardFactory.create());
+
+        dealer.shuffleCards(cardDeck);
+        dealer.giveCardsToPlayers(players, cardDeck);
+        dealer.giveCardsToDealer(dealer, cardDeck);
+    }
+
+    public void playGame() {
 
     }
 
-    public List<Player> createPlayers() {
+    private List<Player> createPlayers() {
         List<String> names = getPlayerNames();
         List<Player> players = new ArrayList<>();
         for (String name : names) {
@@ -38,7 +44,7 @@ public class GameController {
         return players;
     }
 
-    public List<String> getPlayerNames() {
+    private List<String> getPlayerNames() {
         while (true) {
             try {
                 return getInputPlayerNames();
@@ -48,14 +54,14 @@ public class GameController {
         }
     }
 
-    public List<String> getInputPlayerNames() {
+    private List<String> getInputPlayerNames() {
         Object input = inputView.readPlayerNames();
         List<String> names = converter.convertToNames(input);
         validator.validatePlayerNames(names);
         return names;
     }
 
-    public double getBettingMoney(String name) {
+    private double getBettingMoney(String name) {
         while (true) {
             try {
                 return getInputBettingMoney(name);
@@ -65,10 +71,11 @@ public class GameController {
         }
     }
 
-    public double getInputBettingMoney(String name) {
+    private double getInputBettingMoney(String name) {
         Object input = inputView.readBattingPrice(name);
         double bettingMoney = converter.convertToDouble(input);
         validator.validateBettingPrice(bettingMoney);
         return bettingMoney;
     }
+
 }
