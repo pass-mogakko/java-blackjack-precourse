@@ -3,6 +3,7 @@ package model;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -18,7 +19,7 @@ class BlackJackGameTest {
     void enrollWithInvalidCount(Map<String, Integer> namesWithBettingMoney) {
         BlackJackGame blackJackGame = new BlackJackGame();
 
-        assertThatThrownBy(() -> blackJackGame.enrollParticipants(namesWithBettingMoney))
+        assertThatThrownBy(() -> blackJackGame.enrollPlayers(namesWithBettingMoney))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -37,7 +38,7 @@ class BlackJackGameTest {
     void enrollWithInvalidBettingMoney(Map<String, Integer> namesWithBettingMoney) {
         BlackJackGame blackJackGame = new BlackJackGame();
 
-        assertThatThrownBy(() -> blackJackGame.enrollParticipants(namesWithBettingMoney))
+        assertThatThrownBy(() -> blackJackGame.enrollPlayers(namesWithBettingMoney))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -45,5 +46,14 @@ class BlackJackGameTest {
         Map<String, Integer> overRangeBettingMoney = Map.of("pobi", 10_000_001);
         Map<String, Integer> underRangeBettingMoney = Map.of("pobi", 4_999);
         return Stream.of(overRangeBettingMoney, underRangeBettingMoney);
+    }
+
+    @DisplayName("사용자 카드 지급: 전달받은 인덱스 번호가 유효하지 않을 경우 예외 발생")
+    @Test
+    void addCardWithIndexOutOfBounds() {
+        BlackJackGame blackJackGame = new BlackJackGame();
+        blackJackGame.enrollPlayers(Map.of("pobi", 10_000, "jason", 20_000));
+
+        assertThatThrownBy(() -> blackJackGame.addCardToPlayer(2)).isInstanceOf(IndexOutOfBoundsException.class);
     }
 }

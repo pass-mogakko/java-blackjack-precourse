@@ -21,9 +21,25 @@ public class BlackJackGame {
         this.deck = new Deck();
     }
 
-    public void enrollParticipants(Map<String, Integer> namesWithBettingMoney) {
+    public void enrollPlayers(Map<String, Integer> namesWithBettingMoney) {
         GameRuleValidator.validateParticipantsCount(namesWithBettingMoney.size());
         namesWithBettingMoney.keySet()
                 .forEach(name -> participants.add(new Player(name, namesWithBettingMoney.get(name))));
+    }
+
+    public void addCardToPlayer(int playerIndex) {
+        validatePlayerIndex(playerIndex);
+        Player player = participants.get(playerIndex);
+        player.addCard(deck.takeOneCard());
+    }
+
+    public void addCardToDealer() {
+        dealer.addCard(deck.takeOneCard());
+    }
+
+    private void validatePlayerIndex(int playerIndex) {
+        if (playerIndex > participants.size() - 1) {
+            throw new IndexOutOfBoundsException("플레이어 정보가 존재하지 않습니다.");
+        }
     }
 }
