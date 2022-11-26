@@ -4,6 +4,7 @@ import static view.resource.Format.NAMES_DELIMITER;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -20,24 +21,45 @@ public class InputView {
         return names;
     }
 
+    public double readBettingMoney(double minimumValue, double maximumValue) {
+        double readValue = ConsoleReader.readLineAsDouble();
+        validateRange(minimumValue, maximumValue, readValue);
+        return readValue;
+    }
+
     private void validateDuplicatedName(List<String> trimmedNames) {
         if (new HashSet<>(trimmedNames).size() != trimmedNames.size()) {
             throw new IllegalArgumentException("중복된 참가자 이름이 존재합니다.");
         }
     }
 
-    private void validateRange(int minimum, int maximum, int count) {
-        if (count < minimum || count > maximum) {
+    private void validateRange(int minimum, int maximum, int value) {
+        if (value < minimum || value > maximum) {
+            throw new IllegalArgumentException("잘못된 범위의 입력값입니다.");
+        }
+    }
+
+    private void validateRange(double minimum, double maximum, double value) {
+        if (value < minimum || value > maximum) {
             throw new IllegalArgumentException("잘못된 범위의 입력값입니다.");
         }
     }
 
     private static class ConsoleReader {
+
         private static final Scanner scanner = new Scanner(System.in);
 
         public static List<String> readFormattedLine(String delimiter) {
             String line = readLine();
             return Arrays.asList(line.split(delimiter));
+        }
+
+        public static double readLineAsDouble() {
+            try {
+                return scanner.nextDouble();
+            } catch (InputMismatchException exception) {
+                throw new IllegalArgumentException("숫자를 입력해주세요.");
+            }
         }
 
         private static String readLine() {
