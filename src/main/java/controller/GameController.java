@@ -1,5 +1,8 @@
 package controller;
 
+import domain.card.Card;
+import domain.card.CardFactory;
+import domain.user.Dealer;
 import domain.user.Player;
 import util.Converter;
 import util.Validator;
@@ -15,13 +18,17 @@ public class GameController {
     private final OutputView outputView = new OutputView();
     private final Converter converter = new Converter();
     private final Validator validator = new Validator();
+    private CardFactory cardFactory;
 
     public void startGame() {
-        List<String> names = getPlayerNames();
-        List<Player> players = createPlayers(names);
+        List<Player> players = createPlayers();
+        Dealer dealer = new Dealer();
+        List<Card> cards = CardFactory.create();
+
     }
 
-    public List<Player> createPlayers(List<String> names) {
+    public List<Player> createPlayers() {
+        List<String> names = getPlayerNames();
         List<Player> players = new ArrayList<>();
         for (String name : names) {
             double bettingMoney = getBettingMoney(name);
