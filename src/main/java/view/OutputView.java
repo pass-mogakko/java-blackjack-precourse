@@ -1,6 +1,5 @@
 package view;
 
-import dto.CardsDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -9,9 +8,7 @@ import view.constant.Message;
 
 public class OutputView {
 
-    public void printDrawTwoCard(List<String> playersName, CardsDto cardsDto) {
-        List<String> dealerHasCard = cardsDto.getDealerHasCard();
-        List<List<String>> playersHasCard = cardsDto.getPlayersHasCard();
+    public void printDrawTwoCard(List<String> playersName, List<List<String>> playersHasCard, List<String> dealerHasCard) {
         String parsedPlayersName = parsePlayersName(playersName);
         String parsedDealerHasCard = parseCards(dealerHasCard);
 
@@ -57,5 +54,9 @@ public class OutputView {
         String parsedPlayerHasCard = parseCards(playerHasCard);
         System.out.printf(Message.PLAYER_CARDS, playerName, parsedPlayerHasCard);
         System.out.println();
+    }
+
+    public void printDealerDrawCard() {
+        System.out.println(Message.DEALER_DRAW_CARD);
     }
 }

@@ -9,4 +9,5 @@ public class Message {
     public static String DEALER_CARDS = DEALER + ": %s";
     public static String PLAYER_CARDS = "%s카드: %s";
     public static String REQUEST_DRAW_CARD = "%s는 한장의 카드를 더 받겠습니까?(예는 y, 아니오는 n)";
+    public static String DEALER_DRAW_CARD = "딜러는 16이하라 한장의 카드를 더받았습니다.";
 }

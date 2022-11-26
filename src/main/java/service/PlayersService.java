@@ -17,6 +17,10 @@ public class PlayersService {
         return playerService;
     }
 
+    public List<List<String>> initCards() {
+        return players.initCards();
+    }
+
     public void createPlayer(String name, int bettingMoney) {
         Player player = new Player(name, bettingMoney);
         players.addPlayer(player);

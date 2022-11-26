@@ -1,8 +1,8 @@
 package controller;
 
 import domain.constant.Constant;
-import dto.CardsDto;
 import java.util.List;
+import service.DealerService;
 import service.GameInitService;
 import service.PlayersService;
 import view.InputView;
@@ -13,6 +13,7 @@ public class BlackjackController {
     private static final BlackjackController blackjackController = new BlackjackController();
     private static final GameInitService gameInitService = GameInitService.getInstance();
     private static final PlayersService playersService = PlayersService.getInstance();
+    private static final DealerService dealerService = DealerService.getInstance();
     private static final InputView inputView = new InputView();
     private static final OutputView outputView = new OutputView();
 
@@ -43,12 +44,14 @@ public class BlackjackController {
     }
 
     private void initCards(List<String> playersName) {
-        CardsDto cardsDto = gameInitService.initCards();
-        outputView.printDrawTwoCard(playersName, cardsDto);
+        List<List<String>> playersHasCard = playersService.initCards();
+        List<String> dealerHasCard = dealerService.initCards();
+        outputView.printDrawTwoCard(playersName, playersHasCard, dealerHasCard);
     }
 
     private void drawCards(List<String> playersName) {
         playersName.forEach(this::playerDrawCard);
+        dealerDrawCard();
     }
 
     private void playerDrawCard(String playerName) {
@@ -76,6 +79,15 @@ public class BlackjackController {
         List<String> playerHasCard = playersService.findPlayerHasCard(playerName);
         outputView.printPlayerHasCard(playerHasCard, playerName);
         return false;
+    }
+
+    private void dealerDrawCard() {
+        boolean isPossibleDrawCard = dealerService.isPossibleDrawCard();
+        while (isPossibleDrawCard) {
+            dealerService.drawCard();
+            outputView.printDealerDrawCard();
+            isPossibleDrawCard = dealerService.isPossibleDrawCard();
+        }
     }
 
 }
