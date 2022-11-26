@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class InputValidatorTest {
 
     @ParameterizedTest
-    @ValueSource(strings = {"abc-fg", "fe,.rwd", "a-b-c"})
+    @ValueSource(strings = {"abc-fg", "fe,.rwd", "a-b-c", "a,", " ", "", "A;"})
     void validateWrongPlayersInput(String input) {
         assertThatThrownBy(() ->
                 InputValidator.validatePlayersInput(input))
@@ -23,7 +23,7 @@ class InputValidatorTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"abc,fg", "fe,rwd", "a,b,c"})
+    @ValueSource(strings = {"abc,fg", "fe,rwd", "a,b,c", "1", "안녕", "a"})
     void validateRightPlayersInput(String input) {
         assertDoesNotThrow(() -> InputValidator.validatePlayersInput(input));
     }
