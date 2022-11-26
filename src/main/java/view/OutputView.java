@@ -1,26 +1,30 @@
 package view;
 
 import domain.dto.BenefitResultDto;
+import domain.dto.CardsToStringDto;
 import domain.dto.PlayerBenefitResultDto;
+import domain.dto.PlayerCardsToStringDto;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import view.constant.Constant;
 import view.constant.Message;
 
 public class OutputView {
 
-    public void printDrawTwoCard(List<String> playersName, List<List<String>> playersHasCards, List<String> dealerHasCards) {
-        String parsedPlayersName = parsePlayersName(playersName);
+    public void printDrawTwoCard(CardsToStringDto cardsToStringDto) {
+        List<PlayerCardsToStringDto> playerCardsToStringDtos = cardsToStringDto.getPlayerCardsToStringDtos();
+        List<String> dealerHasCards = cardsToStringDto.getDealerHasCards();
+        String parsedPlayersName = parsePlayersName(playerCardsToStringDtos);
         String parsedDealerHasCards = parseCards(dealerHasCards);
 
         printDrawTwoCardEveryone(parsedPlayersName);
         printDealerHasCards(parsedDealerHasCards);
-        printPlayersHasCards(playersName, playersHasCards);
+        printPlayersHasCards(playerCardsToStringDtos);
     }
 
-    private String parsePlayersName(List<String> playersName) {
-        return playersName.stream()
+    private String parsePlayersName(List<PlayerCardsToStringDto> playerCardsToStringDtos) {
+        return playerCardsToStringDtos.stream()
+                .map(PlayerCardsToStringDto::getName)
                 .collect(Collectors.joining(Constant.PLAYERS_NAME_JOINING_DELIMITER));
     }
 
@@ -39,22 +43,26 @@ public class OutputView {
         System.out.printf(Message.DEALER_CARDS, dealerHasCards);
     }
 
-    private void printPlayersHasCards(List<String> playersName, List<List<String>> playersHasCards) {
+    private void printPlayersHasCards(List<PlayerCardsToStringDto> playerCardsToStringDtos) {
         System.out.println();
-        IntStream.range(Constant.INITIAL_INDEX, playersName.size())
-                .forEach(index -> printPlayerHasCards(playersHasCards, playersName, index));
+        playerCardsToStringDtos.forEach(this::printPlayerHasCards);
+        System.out.println();
+
     }
+
+    private void printPlayerHasCards(PlayerCardsToStringDto playerCardsToStringDto) {
+        String name = playerCardsToStringDto.getName();
+        List<String> playerHasCards = playerCardsToStringDto.getPlayerHasCards();
+        String parsedPlayerHasCards = parseCards(playerHasCards);
+        System.out.printf(Message.PLAYER_CARDS, name, parsedPlayerHasCards);
+        System.out.println();
+    }
+
 
     private void printPlayerHasCards(List<List<String>> playersHasCards, List<String> playersName, int index) {
         List<String> playerHasCards = playersHasCards.get(index);
         String parsedPlayerHasCards = parseCards(playerHasCards);
         System.out.printf(Message.PLAYER_CARDS, playersName.get(index), parsedPlayerHasCards);
-        System.out.println();
-    }
-
-    public void printPlayerHasCards(List<String> playerHasCards, String playerName) {
-        String parsedPlayerHasCards = parseCards(playerHasCards);
-        System.out.printf(Message.PLAYER_CARDS, playerName, parsedPlayerHasCards);
         System.out.println();
     }
 

@@ -4,7 +4,9 @@ import domain.card.Card;
 import domain.card.CardFactory;
 import domain.card.RandomCards;
 import domain.dto.BenefitResultDto;
+import domain.dto.CardsToStringDto;
 import domain.dto.PlayerBenefitResultDto;
+import domain.dto.PlayerCardsToStringDto;
 import domain.user.BettingMoney;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -27,6 +29,10 @@ public class BlackjackService {
         randomCards = RandomCards.newInstance(cards);
     }
 
+    public static BlackjackService getInstance() {
+        return playerService;
+    }
+
     public List<String> parsePlayersName(String playersName) {
         PlayersName parsedPlayersName = new PlayersName(playersName);
         return parsedPlayersName.get();
@@ -38,13 +44,10 @@ public class BlackjackService {
         players.addPlayer(player);
     }
 
-
-    public static BlackjackService getInstance() {
-        return playerService;
-    }
-
-    public List<List<String>> initPlayersCards() {
-        return players.initCards();
+    public CardsToStringDto initCards() {
+        List<PlayerCardsToStringDto> playerCardsToStringDtos = players.initCards();
+        List<String> dealerHasCards = dealer.initCards();
+        return new CardsToStringDto(playerCardsToStringDtos, dealerHasCards);
     }
 
     public List<String> drawPlayerCard(String playerName) {
@@ -60,17 +63,12 @@ public class BlackjackService {
         return players.isPossibleDrawCard(playerName);
     }
 
-    public List<List<String>> collectPlayersCardsToString() {
+    public List<PlayerCardsToStringDto> collectPlayersCardsToString() {
         return players.collectPlayersCardsToString();
     }
 
     public List<Integer> collectScore() {
         return players.collectScore();
-    }
-
-
-    public List<String> initDealerCards() {
-        return dealer.initCards();
     }
 
     public boolean isDealerPossibleDrawCard() {
@@ -94,4 +92,5 @@ public class BlackjackService {
         int dealerBenefit = -players.sumPlayersBenefit(dealer);
         return new BenefitResultDto(dealerBenefit, playerBenefitResultDtos);
     }
+
 }

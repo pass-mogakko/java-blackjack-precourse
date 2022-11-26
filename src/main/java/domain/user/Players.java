@@ -3,6 +3,7 @@ package domain.user;
 import domain.card.RandomCards;
 import domain.constant.ErrorMessage;
 import domain.dto.PlayerBenefitResultDto;
+import domain.dto.PlayerCardsToStringDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +21,7 @@ public class Players {
         players.add(player);
     }
 
-    public List<List<String>> initCards() {
+    public List<PlayerCardsToStringDto> initCards() {
         players.forEach(player -> drawTwoCards(player));
         return collectPlayersCardsToString();
     }
@@ -31,10 +32,16 @@ public class Players {
         player.addCard(randomCards.drawCard());
     }
 
-    public List<List<String>> collectPlayersCardsToString() {
+    public List<PlayerCardsToStringDto> collectPlayersCardsToString() {
         return players.stream()
-                .map(Player::collectCardToString)
+                .map(this::createPlayerCardsToStringDto)
                 .collect(Collectors.toList());
+    }
+
+    private PlayerCardsToStringDto createPlayerCardsToStringDto(Player player) {
+        String name = player.getName();
+        List<String> playerHasCards = player.collectCardToString();
+        return new PlayerCardsToStringDto(name, playerHasCards);
     }
 
     public boolean isPossibleDrawCard(String playerName) {

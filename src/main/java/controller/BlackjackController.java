@@ -1,7 +1,7 @@
 package controller;
 
 import domain.constant.Constant;
-import domain.dto.BenefitResultDto;
+import domain.dto.CardsToStringDto;
 import java.util.List;
 import service.BlackjackService;
 import view.InputView;
@@ -23,9 +23,9 @@ public class BlackjackController {
 
     public void run() {
         List<String> playersName = createPlayers();
-        initCards(playersName);
+        initCards();
         drawCards(playersName);
-        printResult(playersName);
+        //        printResult(playersName);
     }
 
     private List<String> createPlayers() {
@@ -40,10 +40,9 @@ public class BlackjackController {
         blackjackService.createPlayer(name, bettingMoney);
     }
 
-    private void initCards(List<String> playersName) {
-        List<List<String>> playersHasCards = blackjackService.initPlayersCards();
-        List<String> dealerHasCards = blackjackService.initDealerCards();
-        outputView.printDrawTwoCard(playersName, playersHasCards, dealerHasCards);
+    private void initCards() {
+        CardsToStringDto cardsToStringDto = blackjackService.initCards();
+        outputView.printDrawTwoCard(cardsToStringDto);
     }
 
     private void drawCards(List<String> playersName) {
@@ -68,13 +67,13 @@ public class BlackjackController {
 
     private boolean yesDrawCard(String playerName) {
         List<String> playerHasCards = blackjackService.drawPlayerCard(playerName);
-        outputView.printPlayerHasCards(playerHasCards, playerName);
+        //        outputView.printPlayerHasCards(playerHasCards, playerName);
         return blackjackService.isPlayerPossibleDrawCard(playerName);
     }
 
     private boolean noDrawCard(String playerName) {
         List<String> playerHasCards = blackjackService.findPlayerHasCards(playerName);
-        outputView.printPlayerHasCards(playerHasCards, playerName);
+        //        outputView.printPlayerHasCards(playerHasCards, playerName);
         return false;
     }
 
@@ -87,17 +86,17 @@ public class BlackjackController {
         }
     }
 
-    private void printResult(List<String> playersName) {
-        List<String> dealerHasCards = blackjackService.findDealerHasCards();
-        int dealerScore = blackjackService.computeDealerScore();
-        outputView.printDealerCardsResult(dealerHasCards, dealerScore);
-
-        List<List<String>> playersHasCards = blackjackService.collectPlayersCardsToString();
-        List<Integer> playersScore = blackjackService.collectScore();
-        outputView.printPlayersCardsResult(playersName, playersHasCards, playersScore);
-
-        BenefitResultDto benefitResultDto = blackjackService.computeBenefit();
-        outputView.printBenefitResult(benefitResultDto);
-    }
+    //    private void printResult(List<String> playersName) {
+    //        List<String> dealerHasCards = blackjackService.findDealerHasCards();
+    //        int dealerScore = blackjackService.computeDealerScore();
+    //        outputView.printDealerCardsResult(dealerHasCards, dealerScore);
+    //
+    //        List<List<String>> playersHasCards = blackjackService.collectPlayersCardsToString();
+    //        List<Integer> playersScore = blackjackService.collectScore();
+    //        outputView.printPlayersCardsResult(playersName, playersHasCards, playersScore);
+    //
+    //        BenefitResultDto benefitResultDto = blackjackService.computeBenefit();
+    //        outputView.printBenefitResult(benefitResultDto);
+    //    }
 
 }
