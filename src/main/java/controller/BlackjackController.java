@@ -1,6 +1,7 @@
 package controller;
 
 import domain.constant.Constant;
+import domain.constant.ErrorMessage;
 import domain.dto.CardsToStringDto;
 import domain.dto.GameResultDto;
 import domain.dto.PlayerCardsToStringDto;
@@ -70,16 +71,28 @@ public class BlackjackController {
     private void playerDrawCard(String playerName) {
         boolean isPossibleDrawCard = true;
         while (isPossibleDrawCard) {
-            String requestDrawCard = inputView.requestDrawCard(playerName);
-            isPossibleDrawCard = requestDrawCardBranch(requestDrawCard, playerName);
+            isPossibleDrawCard = requestDrawCard(playerName);
         }
     }
 
-    private boolean requestDrawCardBranch(String requestDrawCard, String playerName) {
+    private boolean requestDrawCard(String playerName) {
+        String requestDrawCard = inputView.requestDrawCard(playerName);
+        try {
+            validateRequestDrawCard(requestDrawCard);
+        } catch(IllegalArgumentException e) {
+            outputView.printErrorMessage(e.getMessage());
+            return requestDrawCard(playerName);
+        }
         if (requestDrawCard.equals(Constant.YES)) {
             return yesDrawCard(playerName);
         }
         return noDrawCard(playerName);
+    }
+
+    private void validateRequestDrawCard(String playerName) {
+        if (!playerName.equals(Constant.YES) && !playerName.equals(Constant.NO)) {
+            throw new IllegalArgumentException(ErrorMessage.WRONG_REQUEST_DRAW_CARD);
+        }
     }
 
     private boolean yesDrawCard(String playerName) {
