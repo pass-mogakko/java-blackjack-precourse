@@ -1,10 +1,12 @@
 package controller;
 
+import domain.user.Player;
 import util.Converter;
 import util.Validator;
 import view.InputView;
 import view.OutputView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameController {
@@ -16,7 +18,17 @@ public class GameController {
 
     public void startGame() {
         List<String> names = getPlayerNames();
-        System.out.println(names);
+        List<Player> players = createPlayers(names);
+    }
+
+    public List<Player> createPlayers(List<String> names) {
+        List<Player> players = new ArrayList<>();
+        for (String name : names) {
+            double bettingMoney = getBettingMoney(name);
+            Player player = new Player(name, bettingMoney);
+            players.add(player);
+        }
+        return players;
     }
 
     public List<String> getPlayerNames() {
@@ -34,5 +46,20 @@ public class GameController {
         List<String> names = converter.convertToNames(input);
         validator.validatePlayerNames(names);
         return names;
+    }
+
+    public double getBettingMoney(String name) {
+        while (true) {
+            try {
+                return getInputBettingMoney(name);
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e);
+            }
+        }
+    }
+
+    public double getInputBettingMoney(String name) {
+        Object input = inputView.readBattingPrice(name);
+        return converter.convertToDouble(input);
     }
 }

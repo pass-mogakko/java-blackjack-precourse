@@ -1,6 +1,5 @@
 package util;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -17,8 +16,22 @@ public class Converter {
         } catch (NoSuchElementException e) {
             throw new IllegalArgumentException(INVALID_PLAYER_NAMES_TYPE.getMessage());
         }
-        List<String> names = List.of(String.valueOf(input).split(","));
-        return names;
+        return convertToPrettyList(input);
+    }
+
+    private List<String> convertToPrettyList(Object input) {
+        String new_str = String.valueOf(input)
+                                .replace(", ", ",")
+                                .replace(" ,", ",");
+        return List.of(new_str.split(","));
+    }
+
+    public double convertToDouble(Object input) {
+        try {
+            return Double.parseDouble(String.valueOf(input));
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(INVALID_BETTING_PRICE.getMessage());
+        }
     }
 
 }
