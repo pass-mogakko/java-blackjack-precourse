@@ -2,9 +2,10 @@ package view;
 
 import static view.resource.Format.NAMES_DELIMITER;
 
+import view.resource.Command;
+
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -27,6 +28,12 @@ public class InputView {
         return readValue;
     }
 
+    public boolean readHitOrStay() {
+        String readValue = ConsoleReader.readLine();
+        return Command.isToHitByCommand(readValue);
+    }
+
+    // TODO 검증 로직 클래스 분리
     private void validateDuplicatedName(List<String> trimmedNames) {
         if (new HashSet<>(trimmedNames).size() != trimmedNames.size()) {
             throw new IllegalArgumentException("중복된 참가자 이름이 존재합니다.");
@@ -56,8 +63,8 @@ public class InputView {
 
         public static double readLineAsDouble() {
             try {
-                return scanner.nextDouble();
-            } catch (InputMismatchException exception) {
+                return Double.parseDouble(readLine());
+            } catch (NumberFormatException exception) {
                 throw new IllegalArgumentException("숫자를 입력해주세요.");
             }
         }
