@@ -21,14 +21,15 @@ public class GameController {
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
     private final BlackJackGame blackJackGame = new BlackJackGame();
+    private List<String> playerNames;
 
     public void run() {
         // TODO 사용자 이름 출력 리팩토링
-        List<String> playerNames = askPlayersName();
+        playerNames = askPlayersName();
         playerNames.forEach(this::enrollWithBettingMoney);
-        distributeCards(playerNames);
-        hitOrStay(playerNames);
-        showEarnings(playerNames);
+        distributeCards();
+        hitOrStayForAllUsers();
+        showEarnings();
     }
 
     private List<String> askPlayersName() {
@@ -45,7 +46,7 @@ public class GameController {
         outputView.printBlankLine();
     }
 
-    private void distributeCards(List<String> playerNames) {
+    private void distributeCards() {
         blackJackGame.distributeCardsForStart();
         OpenedCardsDto cards = blackJackGame.openAllUserCards(false);
         outputView.printFormattedMessage(FORMAT_INFORM_DISTRIBUTED, playerNames);
@@ -53,17 +54,42 @@ public class GameController {
         outputView.printBlankLine();
     }
 
-    private void hitOrStay(List<String> playerNames) {
-        for (String playerName : playerNames) {
-            outputView.printFormattedMessage(FORMAT_ASK_HIT_OR_STAY, playerName);
-            boolean toHit = inputView.readHitOrStay();
-            // TODO 입력값에 따라 카드 지급, 오픈
+    private void hitOrStayForAllUsers() {
+        for (int index = 0; index < playerNames.size(); index++) {
+            hitUntilPlayerWant(index);
         }
+        outputView.printBlankLine();
         // TODO dealer hit or stay
         // TODO dealer 안내메시지
     }
 
-    private void showEarnings(List<String> playerNames) {
+    private void hitUntilPlayerWant(int playerIndex) {
+        boolean toHitMore = true;
+        int hitCount = 0;
+        while (toHitMore) {
+            toHitMore = askHitOrStay(playerIndex);
+            hitCount += addCardIfToHit(toHitMore, playerIndex);
+        }
+        if (hitCount == 0) {
+            outputView.printOpenedCards(blackJackGame.openPlayerCards(playerIndex));
+        }
+    }
+
+    private int addCardIfToHit(boolean toHitMore, int playerIndex) {
+        if (toHitMore) {
+            blackJackGame.addCardToPlayer(playerIndex);
+            outputView.printOpenedCards(blackJackGame.openPlayerCards(playerIndex));
+            return 1;
+        }
+        return 0;
+    }
+
+    private boolean askHitOrStay(int playerIndex) {
+        outputView.printFormattedMessage(FORMAT_ASK_HIT_OR_STAY, playerNames.get(playerIndex));
+        return inputView.readHitOrStay();
+    }
+
+    private void showEarnings() {
         // TODO 수익 계산하기
 //        outputView.printEarnings(new EarningsDto(10000, Map.of("pobi", 1000.0)), playerNames);
     }
