@@ -2,23 +2,26 @@ package domain.user;
 
 import domain.Util.Calculator;
 import domain.Util.Discriminator;
+
 import domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * 게임 딜러를 의미하는 객체
- */
+
+
 public class Dealer {
     private final List<Card> cards = new ArrayList<>();
 
+
     public Dealer() {}
+
 
     public void addCard(Card card) {
         cards.add(card);
     }
+
 
     public boolean isBust() {
         if (Calculator.calculateCards(cards) > 21) {
@@ -42,9 +45,6 @@ public class Dealer {
         }
 
         return false;
-    }
-    public int getScore() {
-        return Calculator.calculateCards(cards);
     }
 
     private double calculatePerProfit(Player player) {
@@ -77,5 +77,9 @@ public class Dealer {
     //getter
     public List<Card> getCards() {
         return Collections.unmodifiableList(cards);
+    }
+
+    public int getScore() {
+        return Calculator.calculateCards(cards);
     }
 }

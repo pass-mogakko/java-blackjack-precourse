@@ -4,13 +4,11 @@ import static domain.Constants.InputValue.SELECTION_NO;
 import static domain.Constants.InputValue.SELECTION_YES;
 
 import domain.Util.InputValidator;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-
-
-
 
 
 

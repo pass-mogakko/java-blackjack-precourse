@@ -23,9 +23,9 @@ public class OutputView {
 
 
     public void printDealerCards(List<Card> cards) {
-        System.out.printf(DEALER_CARDS, cards.stream().
-                map(Card::toString).
-                collect(Collectors.joining(DELIMITER))
+        System.out.printf(DEALER_CARDS, cards.stream()
+                .map(Card::toString)
+                .collect(Collectors.joining(DELIMITER))
         );
     }
 
