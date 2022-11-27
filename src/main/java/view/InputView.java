@@ -38,6 +38,7 @@ public class InputView {
     }
 
     public static int readBettingMoney(String name) throws IOException {
+        System.out.print(System.lineSeparator());
         System.out.println(name + INPUT_BETTING_MONEY);
         String bettingMoney = console.readLine();
         validateMoney(bettingMoney);
