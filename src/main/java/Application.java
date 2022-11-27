@@ -6,8 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static view.InputView.readBettingMoney;
-import static view.InputView.readPlayerName;
+import static view.InputView.*;
 import static view.OutputView.printHandOutCards;
 
 public class Application {
@@ -25,7 +24,6 @@ public class Application {
         game.handOutFirstTwoCards();
         printHandOutCards(game);
     }
-
 
     private static List<String> getPlayerName() {
         try {
@@ -52,6 +50,15 @@ public class Application {
         } catch (IllegalArgumentException | IOException e) {
             System.out.println(e.getMessage());
             return getBettingMoney(name);
+        }
+    }
+
+    private static String getCommand(String name) {
+        try {
+            return readCommand(name);
+        } catch (IllegalArgumentException | IOException e) {
+            System.out.println(e.getMessage());
+            return getCommand(name);
         }
     }
 }
