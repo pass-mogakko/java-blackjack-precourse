@@ -1,3 +1,5 @@
+import domain.BlackJackGame;
+import domain.user.Dealer;
 import domain.user.Player;
 
 import java.io.IOException;
@@ -6,18 +8,24 @@ import java.util.List;
 
 import static view.InputView.readBettingMoney;
 import static view.InputView.readPlayerName;
+import static view.OutputView.printHandOutCards;
 
 public class Application {
+    private static final int INIT_DEALER_MONEY = 0;
+
     public static void main(String[] args) {
         List<Player> players = getPlayersList(getPlayerName());
+        Dealer dealer = new Dealer(INIT_DEALER_MONEY);
+        BlackJackGame blackJackGame = new BlackJackGame(players, dealer);
 
-        //System.out.println(bettingMoney);
-
+        run(blackJackGame);
     }
 
-    private void run() {
-
+    private static void run(BlackJackGame game) {
+        game.handOutFirstTwoCards();
+        printHandOutCards(game);
     }
+
 
     private static List<String> getPlayerName() {
         try {
