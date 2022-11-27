@@ -2,9 +2,9 @@ package domain.card;
 
 import java.util.Objects;
 
-/**
- * 카드 한장을 의미하는 객체
- */
+
+
+
 public class Card {
     private final Symbol symbol;
 
@@ -15,7 +15,15 @@ public class Card {
         this.type = type;
     }
 
-    // TODO Card 관련 추가 기능 구현
+
+    public boolean isAce() {
+        return symbol == Symbol.ACE;
+    }
+
+    public int getScore() {
+        return symbol.getScore();
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -33,9 +41,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
+        return symbol.getScore() + type.getTypeName();
     }
 }

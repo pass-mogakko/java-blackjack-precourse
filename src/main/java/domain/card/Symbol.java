@@ -1,5 +1,7 @@
 package domain.card;
 
+
+
 public enum Symbol {
     ACE(1),
     TWO(2),
@@ -15,11 +17,14 @@ public enum Symbol {
     QUEEN(10),
     KING(10);
 
+
     private int score;
+
 
     Symbol(int score) {
         this.score = score;
     }
+
 
     public int getScore() {
         return score;
