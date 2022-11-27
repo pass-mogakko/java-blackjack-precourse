@@ -25,13 +25,13 @@ public class BlackjackGame {
 
 
 
-    private static Player createPlayer(String playerName) {
+    private Player createPlayer(String playerName) {
         double bettingMoney = inputView.readBettingMoney(playerName);
 
         return new Player(playerName, bettingMoney);
     }
 
-    private static List<Player> createPlayers() {
+    private List<Player> createPlayers() {
         List<String> playersName = inputView.readPlayers();
         List<Player> players = new ArrayList<>(playersName.size());
 
@@ -43,20 +43,20 @@ public class BlackjackGame {
         return Collections.unmodifiableList(players);
     }
 
-    private static void setDealerState(Deck deck, Dealer dealer) {
+    private void setDealerState(Deck deck, Dealer dealer) {
         dealer.addCard(deck.drawCard());
         outputView.printDealerCards(dealer.getCards());
         dealer.addCard(deck.drawCard());
     }
 
-    private static void setPlayerState(Deck deck, Player player) {
+    private void setPlayerState(Deck deck, Player player) {
         player.addCard(deck.drawCard());
         player.addCard(deck.drawCard());
         outputView.printPlayerCards(player.getCards(), player.getName());
 
     }
 
-    private static void setFirstState(Deck deck, Dealer dealer, List<Player> players) {
+    private void setFirstState(Deck deck, Dealer dealer, List<Player> players) {
         setDealerState(deck, dealer);
 
         for (Player player : players) {
@@ -64,14 +64,14 @@ public class BlackjackGame {
         }
     }
 
-    private static void hitDealer(Deck deck, Dealer dealer) {
+    private void hitDealer(Deck deck, Dealer dealer) {
         do {
             dealer.addCard(deck.drawCard());
             outputView.printDealerHit();
         } while (!dealer.isBust() && dealer.isShouldHit());
     }
 
-    private static void hitPlayer(Deck deck, Player player) {
+    private void hitPlayer(Deck deck, Player player) {
         do {
             String selection = inputView.readSelection(player.getName());
 
@@ -85,7 +85,7 @@ public class BlackjackGame {
         System.out.println("Bust!\n");
     }
 
-    private static void hitPlayers(Deck deck, List<Player> players) {
+    private void hitPlayers(Deck deck, List<Player> players) {
         for (Player player : players) {
             hitPlayer(deck, player);
         }
