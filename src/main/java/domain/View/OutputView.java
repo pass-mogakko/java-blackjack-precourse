@@ -80,6 +80,7 @@ public class OutputView {
         for (Player player : players) {
             printPlayerResultCards(player.getCards(), player.getName());
         }
+        System.out.println();
     }
 
     public void printProfits(Dealer dealer, List<Player> players) {
@@ -89,6 +90,7 @@ public class OutputView {
         for (Player player : players) {
             System.out.printf(PLAYER_PROFIT, player.getName(), player.calculateProfit(dealer));
         }
+        System.out.println();
     }
 
     public void printDealerHit() {
