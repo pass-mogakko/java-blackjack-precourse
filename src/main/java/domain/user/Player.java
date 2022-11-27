@@ -1,6 +1,11 @@
 package domain.user;
 
+import domain.BlackjackGame;
 import domain.card.Card;
+import domain.dto.BlackjackResultDto;
+import domain.dto.GameResultDto;
+import util.Calculator;
+import util.Converter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +18,9 @@ public class Player {
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
 
+    private final Converter converter = new Converter();
+    private final Calculator calculator = new Calculator();
+
     public Player(String name, double bettingMoney) {
         this.name = name;
         this.bettingMoney = bettingMoney;
@@ -22,6 +30,47 @@ public class Player {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
+    public String getName() {
+        return name;
+    }
 
+    public double getBettingMoney() {
+        return bettingMoney;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public String getCardValues() {
+        List<String> cardValues = new ArrayList<>();
+        for (Card card : cards) {
+            cardValues.add(card.getCardValue());
+        }
+        return converter.convertListToStirng(cardValues);
+    }
+
+    public boolean isBlackjack() {
+        return calculator.addAllCardScore(cards) == 21;
+    }
+
+    public boolean isAffordable() {
+        return calculator.addAllCardScore(cards) <= 21;
+    }
+
+    public double calculateNormalProfit(GameResultDto gameResult) {
+        if (gameResult.getWonPlayers().contains(this) || gameResult.isDealerExceeded()) {
+            return bettingMoney;
+        }
+        return (-1) * bettingMoney;
+    }
+
+    public double calculateBlackjackProfit(BlackjackResultDto blackjackResult) {
+        if (blackjackResult.getWinners().contains(this)) {
+            if (blackjackResult.isDealer())
+                return 0;
+            return bettingMoney * 1.5;
+        }
+        return 0;
+    }
 }

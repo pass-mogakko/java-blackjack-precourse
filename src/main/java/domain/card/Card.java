@@ -15,7 +15,13 @@ public class Card {
         this.type = type;
     }
 
-    // TODO Card 관련 추가 기능 구현
+    public String getCardValue() {
+        return symbol.getScore() + type.getKoreanName();
+    }
+
+    public int getSymbolScore() {
+        return symbol.getScore();
+    }
 
     @Override
     public boolean equals(Object o) {
