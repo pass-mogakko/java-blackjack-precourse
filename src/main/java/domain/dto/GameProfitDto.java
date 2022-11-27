@@ -1,18 +1,18 @@
 package domain.dto;
 
-import java.util.Map;
+import java.util.List;
 
 public class GameProfitDto {
-    private Map<String, Double> playerProfits;
+    private List<Double> playerProfits;
     private double dealerProfit;
 
-    public GameProfitDto(Map<String, Double> playerProfits, double dealerProfit) {
+    public GameProfitDto(List<Double> playerProfits, double dealerProfit) {
         this.playerProfits = playerProfits;
         this.dealerProfit = dealerProfit;
     }
 
-    public String getPlayerProfit(String playerName) {
-        return String.format("%.0f", playerProfits.get(playerName));
+    public String getPlayerProfit(int idx) {
+        return String.format("%.0f", playerProfits.get(idx));
     }
 
     public String getDealerProfit() {

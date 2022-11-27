@@ -74,13 +74,14 @@ public class GameController {
     }
 
     private void askAboutNewCard(List<Player> players) {
-        for (Player player : players) {
+        for (int i = 0; i < players.size(); i++) {
+            Player player = players.get(i);
             while (calculator.addAllCardScore(player.getCards()) <= 21) {
                 if (!getPlayerCommand(player))
                     break;
                 dealer.giveOneCardToPlayer(player, cardDeck);
             }
-            outputView.printPlayerCardValue(player.getName(), dtoBuilder.buildCardValueInfo(List.of(player), dealer));
+            outputView.printPlayerCardValue(player.getName(), dtoBuilder.buildCardValueInfo(players, dealer), i);
         }
     }
 

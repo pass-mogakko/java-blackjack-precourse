@@ -7,16 +7,15 @@ import domain.user.Player;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class DtoBuilder {
 
     Calculator calculator = new Calculator();
 
     public CardValueDto buildCardValueInfo(List<Player> players, Dealer dealer) {
-        Map<String, String> allPlayerCardValues = new HashMap<>();
+        List<String> allPlayerCardValues = new ArrayList<>();
         for (Player player : players) {
-            allPlayerCardValues.put(player.getName(), player.getCardValues());
+            allPlayerCardValues.add(player.getCardValues());
         }
         String dealerCardValues = dealer.getCardValues();
         return new CardValueDto(allPlayerCardValues, dealerCardValues);
@@ -30,9 +29,9 @@ public class DtoBuilder {
     public GameScoreDto buildGameScore(List<Player> players, Dealer dealer) {
         int dealerScore = calculator.addAllCardScore(dealer.getCards());
 
-        Map<String, Integer> playerScores = new HashMap<String, Integer>();
+        List<Integer> playerScores = new ArrayList<>();
         for (Player player : players) {
-            playerScores.put(player.getName(), calculator.addAllCardScore(player.getCards()));
+            playerScores.add(calculator.addAllCardScore(player.getCards()));
         }
         return new GameScoreDto(playerScores, dealerScore);
     }
@@ -92,9 +91,9 @@ public class DtoBuilder {
     }
 
     public GameProfitDto buildGameProfit(GameResultDto gameResultDto, List<Player> players, Dealer dealer) {
-        Map<String, Double> playerProfits = new HashMap<>();
+        List<Double> playerProfits = new ArrayList<>();
         for (Player player : players) {
-            playerProfits.put(player.getName(), player.calculateNormalProfit(gameResultDto));
+            playerProfits.add(player.calculateNormalProfit(gameResultDto));
         }
         double dealerPofit = dealer.calculateNormalProfit(gameResultDto, players);
         return new GameProfitDto(playerProfits, dealerPofit);

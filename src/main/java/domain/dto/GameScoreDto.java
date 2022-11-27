@@ -1,12 +1,12 @@
 package domain.dto;
 
-import java.util.Map;
+import java.util.List;
 
 public class GameScoreDto {
-    private Map<String, Integer> playerScores;
+    private List<Integer> playerScores;
     private int dealerScore;
 
-    public GameScoreDto(Map<String, Integer> playerScores, int dealerScore) {
+    public GameScoreDto(List<Integer> playerScores, int dealerScore) {
         this.playerScores = playerScores;
         this.dealerScore = dealerScore;
     }
@@ -15,7 +15,7 @@ public class GameScoreDto {
         return dealerScore;
     }
 
-    public Integer getPlayerScore(String playerName) {
-        return playerScores.get(playerName);
+    public Integer getPlayerScore(int idx) {
+        return playerScores.get(idx);
     }
 }

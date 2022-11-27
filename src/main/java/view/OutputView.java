@@ -5,6 +5,8 @@ import domain.dto.GameProfitDto;
 import domain.dto.GameScoreDto;
 import domain.dto.PlayerNameDto;
 
+import java.util.List;
+
 public class OutputView {
     private static final String FIRST_ANNOUNCEMENT_MESSAGE_FRONT = "딜러와 ";
     private static final String FIRST_ANNOUNCEMENT_MESSAGE_BACK = "에게 2장씩 나누었습니다.";
@@ -26,8 +28,9 @@ public class OutputView {
         System.out.println(FIRST_ANNOUNCEMENT_MESSAGE_FRONT + playerInfo.getNameValues() + FIRST_ANNOUNCEMENT_MESSAGE_BACK);
         System.out.println(DEALER + CARD_INFO_MESSAGE + cardInfo.getDealerCards());
 
-        for (String playerName : playerInfo.getNames()) {
-            System.out.println(playerName + CARD_INFO_MESSAGE + cardInfo.getPlayerCards().get(playerName));
+        List<String> playerNames = playerInfo.getNames();
+        for (int i=0; i < playerNames.size(); i++) {
+            System.out.println(playerNames.get(i) + CARD_INFO_MESSAGE + cardInfo.getPlayerCard(i));
         }
     }
 
@@ -40,13 +43,14 @@ public class OutputView {
         System.out.println();
         System.out.println(DEALER + CARD_INFO_MESSAGE + cardValueDto.getDealerCards() + SCORE_RESULT_INFO_MESSAGE + gameScoreDto.getDealerScore());
 
-        for (String playerName : playerNameDto.getNames()) {
-            System.out.println(playerName + CARD_INFO_MESSAGE + cardValueDto.getPlayerCards().get(playerName) + SCORE_RESULT_INFO_MESSAGE + gameScoreDto.getPlayerScore(playerName));
+        List<String> playerNames = playerNameDto.getNames();
+        for (int i=0; i < playerNames.size(); i++) {
+            System.out.println(playerNames.get(i) + CARD_INFO_MESSAGE + cardValueDto.getPlayerCard(i) + SCORE_RESULT_INFO_MESSAGE + gameScoreDto.getPlayerScore(i));
         }
     }
 
-    public void printPlayerCardValue(String playerName, CardValueDto cardInfo) {
-        System.out.println(playerName + CARD_INFO_MESSAGE + cardInfo.getPlayerCards().get(playerName));
+    public void printPlayerCardValue(String playerName, CardValueDto cardInfo, int idx) {
+        System.out.println(playerName + CARD_INFO_MESSAGE + cardInfo.getPlayerCard(idx));
     }
 
     public void printDealerGotCard() {
@@ -63,8 +67,9 @@ public class OutputView {
         System.out.println();
         System.out.println(GAME_PROFIT_RESULT_MESSAGE);
         System.out.println(DEALER + COLON + gameProfitDto.getDealerProfit());
-        for (String playerName : playerNameDto.getNames()) {
-            System.out.println(playerName + COLON + gameProfitDto.getPlayerProfit(playerName));
+        List<String> playerNames = playerNameDto.getNames();
+        for (int i=0; i < playerNames.size(); i++) {
+            System.out.println(playerNames.get(i) + COLON + gameProfitDto.getPlayerProfit(i));
         }
     }
 }
