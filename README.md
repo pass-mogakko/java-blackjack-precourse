@@ -2,10 +2,10 @@
 
 ### 플레이어 정보 입력
 - [x] 플레이어의 이름을 입력받는다.
-  - **예외처리** IllegalArgumentException 발생시키고 메시지 출력
+  - **예외처리** IllegalArgumentException 발생시키고 메시지 출력후 재입력
     - [x] 알파벳 소문자만 입력되었는지 확인한다.
 - [] 플레이어의 베팅 금액을 입력받는다.
-  - **예외처리** IllegalArgumentException 발생시키고 메시지 출력
+  - **예외처리** IllegalArgumentException 발생시키고 메시지 출력후 재입력
     - [] 숫자만 입력되었는지 확인한다.
     - [] 1원 이상 100,000,000원 이하인지 확인한다.
 
