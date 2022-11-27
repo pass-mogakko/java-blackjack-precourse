@@ -44,4 +44,7 @@ public class CardFactory {
         return deck.containsKey(index);
     }
 
+    public void deleteCard(int index) {
+        deck.remove(index);
+    }
 }
