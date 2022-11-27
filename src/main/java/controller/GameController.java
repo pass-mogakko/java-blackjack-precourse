@@ -23,13 +23,18 @@ public class GameController {
     private final Calculator calculator = new Calculator();
     private final DtoBuilder dtoBuilder = new DtoBuilder();
 
-    private final List<Player> players = createPlayers();
-    private final Dealer dealer = new Dealer();
-    private final List<Card> cardDeck = new ArrayList<>(CardFactory.create());
-    private final BlackjackGame blackjackGame = new BlackjackGame(players, dealer, cardDeck);
-
+    private List<Player> players;
+    private Dealer dealer;
+    private List<Card> cardDeck;
+    private BlackjackGame blackjackGame;
 
     public void startGame() {
+        players = createPlayers();
+        dealer = new Dealer();
+        cardDeck = new ArrayList<>(CardFactory.create());
+
+        blackjackGame = new BlackjackGame(players, dealer, cardDeck);
+
         blackjackGame.start();
         printFirstResult(players, dealer);
     }
