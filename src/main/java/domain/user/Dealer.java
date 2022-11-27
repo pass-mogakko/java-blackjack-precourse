@@ -13,6 +13,8 @@ import java.util.List;
  * 게임 딜러를 의미하는 객체
  */
 public class Dealer {
+    private static final int HIT_LOWER_LIMIT = 16;
+
     private final List<Card> cards = new ArrayList<>();
 
     public Dealer() {}
@@ -30,7 +32,7 @@ public class Dealer {
     }
 
     public boolean isShouldHit() {
-        if (Calculator.calculateCards(cards) <= 16) {
+        if (Calculator.calculateCards(cards) <= HIT_LOWER_LIMIT) {
             return true;
         }
 
