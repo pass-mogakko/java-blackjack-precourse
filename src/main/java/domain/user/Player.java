@@ -2,6 +2,7 @@ package domain.user;
 
 import domain.BlackjackGame;
 import domain.card.Card;
+import domain.dto.BlackjackResultDto;
 import domain.dto.GameResultDto;
 import util.Calculator;
 import util.Converter;
@@ -64,7 +65,12 @@ public class Player {
         return (-1) * bettingMoney;
     }
 
-//    public double calculateBlackjackProfit(BlackjackGame blackjackGame) {
-//        if ()
-//    }
+    public double calculateBlackjackProfit(BlackjackResultDto blackjackResult) {
+        if (blackjackResult.getWinners().contains(this)) {
+            if (blackjackResult.isDealer())
+                return 0;
+            return bettingMoney * 1.5;
+        }
+        return 0;
+    }
 }

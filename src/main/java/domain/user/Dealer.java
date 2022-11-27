@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.dto.BlackjackResultDto;
 import domain.dto.GameResultDto;
 import util.Calculator;
 import util.Converter;
@@ -90,11 +91,26 @@ public class Dealer {
         }
         return gameResult.getTotalBettingMoney();
     }
+    public double calculateBlackjackProfit(BlackjackResultDto blackjackResult, List<Player> players) {
+        if (blackjackResult.isPlayer()) {
+            return getBlackjackLeftBettingMoney(blackjackResult);
+        }
+        return blackjackResult.getTotalBettingMoney();
+    }
 
     private double getLeftBettingMoney(GameResultDto gameResult, List<Player> earnedPlayers) {
         double leftBettingMoney = gameResult.getTotalBettingMoney();
         for (Player player : earnedPlayers) {
             leftBettingMoney -= player.getBettingMoney();
+        }
+        return leftBettingMoney;
+    }
+
+    private double getBlackjackLeftBettingMoney(BlackjackResultDto blackjackResult) {
+        double leftBettingMoney = blackjackResult.getTotalBettingMoney();
+        List<Player> earnedPlayers = blackjackResult.getWinners();
+        for (Player player : earnedPlayers) {
+            leftBettingMoney -= (player.getBettingMoney() * 1.5);
         }
         return leftBettingMoney;
     }

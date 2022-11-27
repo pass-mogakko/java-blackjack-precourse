@@ -35,12 +35,12 @@ public class GameController {
     }
 
     public void playGame() {
-        if (isBlackjackAndFinish()) return;
+        if (isBlackjackAndFinish())
+            return;
 
         List<Player> affordablePlayers = blackjackGame.findAffordablePlayers();
         if (affordablePlayers.size() > 0)
             askAboutNewCard(affordablePlayers);
-
         updateDealerCards();
         finishGame();
     }
@@ -49,7 +49,7 @@ public class GameController {
         GameResultDto gameResultDto = dtoBuilder.buildGameResult(players, dealer);
         printFinalResult(gameResultDto, players, dealer);
 
-        GameProfitDto gameProfitDto = dtoBuilder.buildGameProfit(gameResultDto, players, dealer);
+        GameProfitDto gameProfitDto = dtoBuilder.buildNormalResultProfit(gameResultDto, players, dealer);
         printFinalProfit(gameProfitDto, players);
     }
 
@@ -66,8 +66,10 @@ public class GameController {
 
     private boolean isBlackjackAndFinish() {
         if (blackjackGame.isBlackjack()) {
-            BlackjackResultDto gameResult = blackjackGame.buildBlackjackResult();
-            printFinalResult(gameResult, players, dealer);
+            BlackjackResultDto blackjackResult = dtoBuilder.buildBlackjackResult(players, dealer, blackjackGame.findBlackjackPlayers());
+            printFinalResult(blackjackResult, players, dealer);
+            GameProfitDto gameProfit = dtoBuilder.buildBlackjackResultProfit(blackjackResult, players, dealer);
+            printFinalProfit(gameProfit, players);
             return true;
         }
         return false;

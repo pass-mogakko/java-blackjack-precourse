@@ -29,18 +29,11 @@ public class BlackjackGame {
         return dealer.isBlackjack() || playerGotBlackjack();
     }
 
-    public BlackjackResultDto buildBlackjackResult() {
-        List<Player> blackjackPlayers = findBlackjackPlayers();
-        boolean dealerBlackjack = dealer.isBlackjack();
-        boolean playerBlackjack = blackjackPlayers.size() > 0;
-        return new BlackjackResultDto(dealerBlackjack, playerBlackjack, blackjackPlayers);
-    }
-
     private boolean playerGotBlackjack() {
         return findBlackjackPlayers().size() > 0;
     }
 
-    private List<Player> findBlackjackPlayers() {
+    public List<Player> findBlackjackPlayers() {
         List<Player> blackjackPlayers = new ArrayList<>();
         for (Player player : players) {
             if (player.isBlackjack()) {

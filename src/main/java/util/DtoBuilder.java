@@ -5,7 +5,6 @@ import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class DtoBuilder {
@@ -42,6 +41,13 @@ public class DtoBuilder {
             playerNames.add(player.getName());
         }
         return playerNames;
+    }
+
+    public BlackjackResultDto buildBlackjackResult(List<Player> players, Dealer dealer, List<Player> blackjackPlayers) {
+        double totalBettingMoney = calculator.calculateTotalBettingMoney(players);
+        boolean dealerBlackjack = dealer.isBlackjack();
+        boolean playerBlackjack = blackjackPlayers.size() > 0;
+        return new BlackjackResultDto(totalBettingMoney, dealerBlackjack, playerBlackjack, blackjackPlayers);
     }
 
     public GameResultDto buildGameResult(List<Player> players, Dealer dealer) {
@@ -90,12 +96,21 @@ public class DtoBuilder {
         return lostPlayers;
     }
 
-    public GameProfitDto buildGameProfit(GameResultDto gameResultDto, List<Player> players, Dealer dealer) {
+    public GameProfitDto buildNormalResultProfit(GameResultDto gameResultDto, List<Player> players, Dealer dealer) {
         List<Double> playerProfits = new ArrayList<>();
         for (Player player : players) {
             playerProfits.add(player.calculateNormalProfit(gameResultDto));
         }
         double dealerPofit = dealer.calculateNormalProfit(gameResultDto, players);
+        return new GameProfitDto(playerProfits, dealerPofit);
+    }
+
+    public GameProfitDto buildBlackjackResultProfit(BlackjackResultDto blackjackResult, List<Player> players, Dealer dealer) {
+        List<Double> playerProfits = new ArrayList<>();
+        for (Player player : players) {
+            playerProfits.add(player.calculateBlackjackProfit(blackjackResult));
+        }
+        double dealerPofit = dealer.calculateBlackjackProfit(blackjackResult, players);
         return new GameProfitDto(playerProfits, dealerPofit);
     }
 }
