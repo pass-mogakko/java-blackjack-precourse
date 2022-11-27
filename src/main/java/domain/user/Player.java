@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.Calculator;
+import domain.Discriminator;
 import domain.card.Card;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class Player {
     }
 
     public boolean isBust() {
-        if (Calculator.calculateCards(cards) > 21) {
+        if (Discriminator.isBust(cards)) {
 
             return true;
         }
@@ -38,7 +39,11 @@ public class Player {
     }
 
     public boolean isBlackjack() {
-        return Calculator.isBlackjack(cards);
+        if (Discriminator.isBlackjack(cards)) {
+            return true;
+        }
+
+        return false;
     }
 
     public int getScore() {

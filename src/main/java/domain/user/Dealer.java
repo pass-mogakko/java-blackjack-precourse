@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.Calculator;
+import domain.Discriminator;
 import domain.card.Card;
 
 import domain.card.CardFactory;
@@ -32,7 +33,7 @@ public class Dealer {
     }
 
     public boolean isShouldHit() {
-        if (Calculator.calculateCards(cards) <= HIT_LOWER_LIMIT) {
+        if (Discriminator.isShouldHit(cards)) {
             return true;
         }
 
@@ -40,7 +41,11 @@ public class Dealer {
     }
 
     public boolean isBlackjack() {
-        return Calculator.isBlackjack(cards);
+        if (Discriminator.isBlackjack(cards)) {
+            return true;
+        }
+
+        return false;
     }
     public int getScore() {
         return Calculator.calculateCards(cards);
