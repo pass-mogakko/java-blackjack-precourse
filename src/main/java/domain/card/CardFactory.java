@@ -9,13 +9,8 @@ import java.util.List;
  * 트럼프 카드 전체 생성을 담당하는 객체
  */
 public class CardFactory {
-    private final HashMap<Integer, Card> deck;
-
-    public CardFactory(HashMap<Integer, Card> deck) {
-        this.deck = deck;
-    }
-
     public HashMap<Integer, Card> createDeck() {
+        HashMap<Integer, Card> deck = new HashMap<>();
         int index = 0;
         for (Card card : create()) {
             deck.put(index, card);
@@ -38,13 +33,5 @@ public class CardFactory {
         for (Type type : types) {
             cards.add(new Card(symbol, type));
         }
-    }
-
-    public boolean findNumber(int index) {
-        return deck.containsKey(index);
-    }
-
-    public void deleteCard(int index) {
-        deck.remove(index);
     }
 }
