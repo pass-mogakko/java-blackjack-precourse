@@ -81,13 +81,12 @@ public class BlackjackGame {
             player.addCard(deck.drawCard());
             outputView.printPlayerCards(player.getCards(), player.getName());
         } while (!player.isBust());
-
-        System.out.println("Bust!\n");
     }
 
     private void hitPlayers(Deck deck, List<Player> players) {
         for (Player player : players) {
             hitPlayer(deck, player);
+            outputView.printBust(player.isBust());
         }
     }
 

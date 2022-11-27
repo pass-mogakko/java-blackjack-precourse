@@ -75,4 +75,11 @@ public class OutputView {
     public void printDealerHit() {
         System.out.println(DEALER_HIT);
     }
+
+    public void printBust(boolean bust) {
+        if (bust) {
+            System.out.println("Bust!");
+        }
+        System.out.println();
+    }
 }
