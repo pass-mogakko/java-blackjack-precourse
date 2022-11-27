@@ -19,9 +19,9 @@ public class BlackjackGame {
     private static OutputView outputView = new OutputView();
 
 
-    Dealer dealer = new Dealer();
-    List<Player> players = createPlayers();
-    Deck deck = new Deck();
+    private Dealer dealer = new Dealer();
+    private List<Player> players = createPlayers();
+    private Deck deck = new Deck();
 
 
 
