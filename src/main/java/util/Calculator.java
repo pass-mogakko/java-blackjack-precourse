@@ -1,6 +1,7 @@
 package util;
 
 import domain.card.Card;
+import domain.user.Player;
 
 import java.util.List;
 
@@ -31,5 +32,13 @@ public class Calculator {
             }
         }
         return false;
+    }
+
+    public double calculateTotalBettingMoney(List<Player> players) {
+        double sum = 0;
+        for (Player player : players) {
+            sum += player.getBettingMoney();
+        }
+        return sum;
     }
 }

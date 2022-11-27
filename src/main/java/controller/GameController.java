@@ -3,10 +3,7 @@ package controller;
 import domain.BlackjackGame;
 import domain.card.Card;
 import domain.card.CardFactory;
-import domain.dto.BlackjackResultDto;
-import domain.dto.CardValueDto;
-import domain.dto.GameScoreDto;
-import domain.dto.PlayerNameDto;
+import domain.dto.*;
 import domain.user.Dealer;
 import domain.user.Player;
 import util.Calculator;
@@ -15,37 +12,45 @@ import util.DtoBuilder;
 import util.Validator;
 import view.InputView;
 import view.OutputView;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameController {
-
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
     private final Converter converter = new Converter();
     private final Validator validator = new Validator();
     private final Calculator calculator = new Calculator();
     private final DtoBuilder dtoBuilder = new DtoBuilder();
-    private final BlackjackGame blackjackGame = new BlackjackGame();
 
     private final List<Player> players = createPlayers();
     private final Dealer dealer = new Dealer();
     private final List<Card> cardDeck = new ArrayList<>(CardFactory.create());
+    private final BlackjackGame blackjackGame = new BlackjackGame(players, dealer, cardDeck);
+
 
     public void startGame() {
-        blackjackGame.start(players, dealer, cardDeck);
+        blackjackGame.start();
         printFirstResult(players, dealer);
     }
 
     public void playGame() {
         if (isBlackjackAndFinish()) return;
 
-        List<Player> affordablePlayers = blackjackGame.findAffordablePlayers(players);
+        List<Player> affordablePlayers = blackjackGame.findAffordablePlayers();
         if (affordablePlayers.size() > 0)
             askAboutNewCard(affordablePlayers);
 
         updateDealerCards();
+        finishGame();
+    }
+
+    public void finishGame() {
+        GameResultDto gameResultDto = dtoBuilder.buildGameResult(players, dealer);
+        printFinalResult(gameResultDto, players, dealer);
+
+        GameProfitDto gameProfitDto = dtoBuilder.buildGameProfit(gameResultDto, players, dealer);
+        printFinalProfit(gameProfitDto, players);
     }
 
     private List<Player> createPlayers() {
@@ -60,8 +65,8 @@ public class GameController {
     }
 
     private boolean isBlackjackAndFinish() {
-        if (blackjackGame.isBlackjack(players, dealer)) {
-            BlackjackResultDto gameResult = blackjackGame.buildBlackjackResult(players, dealer);
+        if (blackjackGame.isBlackjack()) {
+            BlackjackResultDto gameResult = blackjackGame.buildBlackjackResult();
             printFinalResult(gameResult, players, dealer);
             return true;
         }
@@ -150,6 +155,11 @@ public class GameController {
         CardValueDto cardValueDto = dtoBuilder.buildCardValueInfo(players, dealer);
         GameScoreDto gameScoreDto = dtoBuilder.buildGameScore(players, dealer);
         outputView.printGameResult(playerNameDto, cardValueDto, gameScoreDto);
+    }
+
+    private void printFinalProfit(GameProfitDto gameProfitDto, List<Player> players) {
+        PlayerNameDto playerNameDto = dtoBuilder.buildPlayerInfo(players);
+        outputView.printGameProfit(gameProfitDto, playerNameDto);
     }
 
 }

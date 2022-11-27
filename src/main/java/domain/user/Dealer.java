@@ -1,6 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.dto.GameResultDto;
 import util.Calculator;
 import util.Converter;
 
@@ -77,5 +78,24 @@ public class Dealer {
             return true;
         }
         return false;
+    }
+
+    public double calculateNormalProfit(GameResultDto gameResult, List<Player> players) {
+        if (gameResult.isDealerExceeded()) {
+            players.removeAll(gameResult.getLostPlayers());
+            return getLeftBettingMoney(gameResult, players);
+        }
+        if (gameResult.isPlayerWon()) {
+            return getLeftBettingMoney(gameResult, gameResult.getWonPlayers());
+        }
+        return gameResult.getTotalBettingMoney();
+    }
+
+    private double getLeftBettingMoney(GameResultDto gameResult, List<Player> earnedPlayers) {
+        double leftBettingMoney = gameResult.getTotalBettingMoney();
+        for (Player player : earnedPlayers) {
+            leftBettingMoney -= player.getBettingMoney();
+        }
+        return leftBettingMoney;
     }
 }

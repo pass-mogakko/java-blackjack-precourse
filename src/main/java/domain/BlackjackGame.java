@@ -2,7 +2,6 @@ package domain;
 
 import domain.card.Card;
 import domain.dto.BlackjackResultDto;
-import domain.dto.GameResultDto;
 import domain.user.Dealer;
 import domain.user.Player;
 
@@ -10,36 +9,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlackjackGame {
+    private final List<Player> players;
+    private final Dealer dealer;
+    private final List<Card> cardDeck;
 
-    public void start(List<Player> players, Dealer dealer, List<Card> cardDeck) {
+    public BlackjackGame(List<Player> players, Dealer dealer, List<Card> cardDeck) {
+        this.players = players;
+        this.dealer = dealer;
+        this.cardDeck = cardDeck;
+    }
+
+    public void start() {
         dealer.giveCardsToPlayers(players, cardDeck);
         dealer.giveCardsToDealer(cardDeck);
     }
 
-    public Object play(List<Player> players, Dealer dealer, List<Card> cardDeck) {
-//        if (findAffordablePlayers(players).size() > 0)
-//            return findAffordablePlayers(players);
-        if (dealer.getAdditionalCard(cardDeck))
-            return true;
-        return new GameResultDto(true, true, List.of(), true);  // 테스트용
+    public void finish() {
+
     }
 
-    public boolean isBlackjack(List<Player> players, Dealer dealer) {
-        return dealer.isBlackjack() || playerGotBlackjack(players);
+    public boolean isBlackjack() {
+        return dealer.isBlackjack() || playerGotBlackjack();
     }
 
-    public BlackjackResultDto buildBlackjackResult(List<Player> players, Dealer dealer) {
-        List<Player> blackjackPlayers = findBlackjackPlayers(players);
+    public BlackjackResultDto buildBlackjackResult() {
+        List<Player> blackjackPlayers = findBlackjackPlayers();
         boolean dealerBlackjack = dealer.isBlackjack();
         boolean playerBlackjack = blackjackPlayers.size() > 0;
         return new BlackjackResultDto(dealerBlackjack, playerBlackjack, blackjackPlayers);
     }
 
-    private boolean playerGotBlackjack(List<Player> players) {
-        return findBlackjackPlayers(players).size() > 0;
+    private boolean playerGotBlackjack() {
+        return findBlackjackPlayers().size() > 0;
     }
 
-    private List<Player> findBlackjackPlayers(List<Player> players) {
+    private List<Player> findBlackjackPlayers() {
         List<Player> blackjackPlayers = new ArrayList<>();
         for (Player player : players) {
             if (player.isBlackjack()) {
@@ -49,7 +53,7 @@ public class BlackjackGame {
         return blackjackPlayers;
     }
 
-    public List<Player> findAffordablePlayers(List<Player> players) {
+    public List<Player> findAffordablePlayers() {
         List<Player> result = new ArrayList<>();
         for (Player player : players) {
             if (player.isAffordable()) {

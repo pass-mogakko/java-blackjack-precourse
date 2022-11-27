@@ -1,6 +1,8 @@
 package domain.user;
 
+import domain.BlackjackGame;
 import domain.card.Card;
+import domain.dto.GameResultDto;
 import util.Calculator;
 import util.Converter;
 
@@ -54,4 +56,15 @@ public class Player {
     public boolean isAffordable() {
         return calculator.addAllCardScore(cards) <= 21;
     }
+
+    public double calculateNormalProfit(GameResultDto gameResult) {
+        if (gameResult.getWonPlayers().contains(this) || gameResult.isDealerExceeded()) {
+            return bettingMoney;
+        }
+        return (-1) * bettingMoney;
+    }
+
+//    public double calculateBlackjackProfit(BlackjackGame blackjackGame) {
+//        if ()
+//    }
 }
