@@ -1,7 +1,7 @@
 package domain.user;
 
-import domain.Calculator;
-import domain.Discriminator;
+import domain.Util.Calculator;
+import domain.Util.Discriminator;
 import domain.card.Card;
 
 import java.util.ArrayList;

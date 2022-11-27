@@ -2,8 +2,7 @@ package domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import jdk.internal.util.xml.impl.Input;
-import org.junit.jupiter.api.Test;
+import domain.Util.InputValidator;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 

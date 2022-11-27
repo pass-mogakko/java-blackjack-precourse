@@ -3,9 +3,7 @@ package domain.View;
 import static domain.Constants.InputValue.SELECTION_NO;
 import static domain.Constants.InputValue.SELECTION_YES;
 
-import domain.InputValidator;
-import java.io.Console;
-import java.util.ArrayList;
+import domain.Util.InputValidator;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;

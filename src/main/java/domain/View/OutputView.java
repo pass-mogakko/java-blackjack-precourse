@@ -1,6 +1,6 @@
 package domain.View;
 
-import domain.Calculator;
+import domain.Util.Calculator;
 import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;

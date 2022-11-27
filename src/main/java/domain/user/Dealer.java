@@ -1,11 +1,9 @@
 package domain.user;
 
-import domain.Calculator;
-import domain.Discriminator;
+import domain.Util.Calculator;
+import domain.Util.Discriminator;
 import domain.card.Card;
 
-import domain.card.CardFactory;
-import domain.card.Deck;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,8 +12,6 @@ import java.util.List;
  * 게임 딜러를 의미하는 객체
  */
 public class Dealer {
-    private static final int HIT_LOWER_LIMIT = 16;
-
     private final List<Card> cards = new ArrayList<>();
 
     public Dealer() {}
