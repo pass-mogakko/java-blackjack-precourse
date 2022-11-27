@@ -49,11 +49,21 @@ public class DtoBuilder {
         double totalBettingMoney = calculator.calculateTotalBettingMoney(players);
         List<Player> wonPlayers = buildWonPlayers(players);
         List<Player> lostPlayers = buildLostPlayers(players);
-        int maxScore = calculator.addAllCardScore(wonPlayers.get(0).getCards());
+        int maxScore = getMaxScore(wonPlayers, dealer);
         int dealerScore = (calculator.addAllCardScore(dealer.getCards()));
         if (maxScore < dealerScore)
-            wonPlayers = List.of();
+            wonPlayers = new ArrayList<>(List.of());
         return new GameResultDto(totalBettingMoney,dealerScore >= maxScore, maxScore >= dealerScore, wonPlayers, lostPlayers, dealerScore > 21);
+    }
+
+    private int getMaxScore(List<Player> wonPlayers, Dealer dealer) {
+        if (wonPlayers.size() > 0) {
+            return calculator.addAllCardScore(wonPlayers.get(0).getCards());
+        }
+        if (calculator.addAllCardScore(dealer.getCards()) <= 21) {
+            return calculator.addAllCardScore(dealer.getCards());
+        }
+        return 0;
     }
 
     private List<Player> buildWonPlayers(List<Player> players) {
@@ -61,7 +71,10 @@ public class DtoBuilder {
         List<Player> wonPlayers = new ArrayList<>();
         for (Player player : players) {
             int playerScore = calculator.addAllCardScore(player.getCards());
-            if (playerScore <= 21 && playerScore > maxScore) wonPlayers = List.of(player);
+            if (playerScore <= 21 && playerScore > maxScore) {
+                wonPlayers = new ArrayList<>(List.of(player));
+                maxScore = playerScore;
+            }
             if (playerScore == maxScore) wonPlayers.add(player);
         }
         return wonPlayers;

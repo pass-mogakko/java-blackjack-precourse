@@ -20,12 +20,9 @@ public class BlackjackGame {
     }
 
     public void start() {
-        dealer.giveCardsToPlayers(players, cardDeck);
-        dealer.giveCardsToDealer(cardDeck);
-    }
-
-    public void finish() {
-
+        dealer.shuffleCards(cardDeck);
+        dealer.giveCardsToPlayers(players, cardDeck, 2);
+        dealer.giveCardsToDealer(cardDeck, 2);
     }
 
     public boolean isBlackjack() {

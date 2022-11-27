@@ -36,9 +36,9 @@ public class Dealer {
         return nextCard;
     }
 
-    public void giveCardsToPlayers(List<Player> players, List<Card> cardDeck) {
+    public void giveCardsToPlayers(List<Player> players, List<Card> cardDeck, int times) {
         for (Player player : players) {
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < times; i++) {
                 giveOneCardToPlayer(player, cardDeck);
             }
         }
@@ -49,8 +49,8 @@ public class Dealer {
         player.addCard(card);
     }
 
-    public void giveCardsToDealer(List<Card> cardDeck) {
-        for (int i = 0; i < 2; i++) {
+    public void giveCardsToDealer(List<Card> cardDeck, int times) {
+        for (int i = 0; i < times; i++) {
             Card card = giveTopCard(cardDeck);
             addCard(card);
         }
@@ -74,7 +74,7 @@ public class Dealer {
 
     public boolean getAdditionalCard(List<Card> cardDeck) {
         if (calculator.addAllCardScore(cards) <= 16) {
-            giveCardsToDealer(cardDeck);
+            giveCardsToDealer(cardDeck, 1);
             return true;
         }
         return false;

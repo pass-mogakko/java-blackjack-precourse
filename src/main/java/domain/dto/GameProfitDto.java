@@ -11,15 +11,11 @@ public class GameProfitDto {
         this.dealerProfit = dealerProfit;
     }
 
-    public Map<String, Double> getPlayerProfits() {
-        return playerProfits;
+    public String getPlayerProfit(String playerName) {
+        return String.format("%.0f", playerProfits.get(playerName));
     }
 
-    public double getPlayerProfit(String playerName) {
-        return playerProfits.get(playerName);
-    }
-
-    public double getDealerProfit() {
-        return dealerProfit;
+    public String getDealerProfit() {
+        return String.format("%.0f", dealerProfit);
     }
 }
