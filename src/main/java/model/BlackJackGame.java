@@ -1,6 +1,5 @@
 package model;
 
-import domain.card.Card;
 import domain.card.Deck;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -11,7 +10,7 @@ import java.util.List;
 
 public class BlackJackGame {
 
-    private final List<Player> participants;
+    private final List<Player> participants; // TODO User로 타입 변경, dealer도 저장
     private final Dealer dealer;
     private final Deck deck;
 
@@ -54,11 +53,16 @@ public class BlackJackGame {
 
     }
 
-    public OpenedCardsDto openCards(boolean showAllDealerCards) {
-        List<Card> dealerCards = dealer.getCards();
+    public OpenedCardsDto openAllUserCards(boolean showAllDealerCards) {
         if (!showAllDealerCards) {
-            dealerCards = new ArrayList<>(dealerCards.subList(0, 1));
+            Dealer cardHiddenDealer = new Dealer();
+            cardHiddenDealer.addCard(dealer.getCards().get(0));
+            return new OpenedCardsDto(cardHiddenDealer, participants);
         }
-        return new OpenedCardsDto(dealerCards, participants);
+        return new OpenedCardsDto(dealer, participants);
+    }
+
+    public OpenedCardsDto openPlayerCards(int playerIndex) {
+        return new OpenedCardsDto(null, List.of(participants.get(playerIndex)));
     }
 }

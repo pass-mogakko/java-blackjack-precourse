@@ -3,6 +3,7 @@ package model;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import domain.user.Dealer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -63,16 +64,18 @@ class BlackJackGameTest {
     @ParameterizedTest
     @MethodSource("generateStreamWithStartedGame")
     void openAllCards(BlackJackGame startedGame) {
-        OpenedCardsDto openedCards = startedGame.openCards(true);
-        assertThat(openedCards.getDealerCards()).hasSize(2);
+        OpenedCardsDto openedCards = startedGame.openAllUserCards(true);
+        Dealer dealer = openedCards.getDealer();
+        assertThat(dealer.getCards()).hasSize(2);
     }
 
     @DisplayName("카드 오픈: 딜러 카드 전체공개 여부가 거짓이면 딜러의 카드 중 첫번째 카드만 공개")
     @ParameterizedTest
     @MethodSource("generateStreamWithStartedGame")
     void openCardsExcept2ndDealerCard(BlackJackGame startedGame) {
-        OpenedCardsDto openedCards = startedGame.openCards(false);
-        assertThat(openedCards.getDealerCards()).hasSize(1);
+        OpenedCardsDto openedCards = startedGame.openAllUserCards(false);
+        Dealer dealer = openedCards.getDealer();
+        assertThat(dealer.getCards()).hasSize(1);
     }
 
     private static Stream<Arguments> generateStreamWithStartedGame() {

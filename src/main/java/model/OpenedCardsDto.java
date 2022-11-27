@@ -1,22 +1,22 @@
 package model;
 
-import domain.card.Card;
+import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.List;
 
 public class OpenedCardsDto {
 
-    private final List<Card> dealerCards;
+    private final Dealer dealer;
     private final List<Player> players;
 
-    public OpenedCardsDto(List<Card> dealerCards, List<Player> players) {
-        this.dealerCards = dealerCards;
+    public OpenedCardsDto(Dealer dealer, List<Player> players) {
+        this.dealer = dealer;
         this.players = players;
     }
 
-    public List<Card> getDealerCards() {
-        return  dealerCards;
+    public Dealer getDealer() {
+        return dealer;
     }
 
     public List<Player> getPlayers() {

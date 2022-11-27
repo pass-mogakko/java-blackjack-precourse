@@ -2,7 +2,8 @@ package view.resource;
 
 public enum Format {
 
-    NAMES_DELIMITER(",");
+    NAMES_DELIMITER(","),
+    LIST_DELIMITER(", ");
 
     private final String value;
 
