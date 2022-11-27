@@ -6,19 +6,20 @@ import domain.user.Dealer;
 import domain.user.Player;
 
 import java.util.HashMap;
+import java.util.List;
 
 import static domain.card.RandomNumber.getRandomNumber;
 
 public class BlackJackGame {
-    private final Player player;
+    private final List<Player> players;
     private final Dealer dealer;
 
     private static final CardFactory cardFactory = new CardFactory();
     private static final HashMap<Integer, Card> deck = cardFactory.createDeck();
     private static final int FIRST_CARD_COUNT = 2;
 
-    public BlackJackGame(Player player, Dealer dealer) {
-        this.player = player;
+    public BlackJackGame(List<Player> players, Dealer dealer) {
+        this.players = players;
         this.dealer = dealer;
     }
 
@@ -35,9 +36,11 @@ public class BlackJackGame {
     }
 
     private void handOutPlayerCard() {
-        final int index = getRandomNumber(deck);
-        player.addCard(deck.get(index));
-        deleteCard(index);
+        for(Player player: players){
+            final int index = getRandomNumber(deck);
+            player.addCard(deck.get(index));
+            deleteCard(index);
+        }
     }
 
     private void handOutDealerCard() {
