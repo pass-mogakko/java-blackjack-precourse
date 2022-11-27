@@ -31,5 +31,9 @@ public class Dealer {
                 .collect(Collectors.joining(", "));
     }
 
+    public List<Card> getCardsInList(){
+        return cards;
+    }
+
     // TODO 추가 기능 구현
 }
