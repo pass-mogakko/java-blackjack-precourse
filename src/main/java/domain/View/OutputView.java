@@ -1,5 +1,6 @@
 package domain.View;
 
+import com.sun.media.sound.ModelMappedInstrument;
 import domain.Util.Calculator;
 import domain.card.Card;
 import domain.user.Dealer;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 
 public class OutputView {
     private static final String DELIMITER = ",";
+    private static final String FIRST_STATE = "딜러와 %s에게 2장의 나누었습니다." + System.lineSeparator();
     private static final String DEALER_CARDS = "딜러: %s" + System.lineSeparator();
     private static final String PLAYER_CARDS = "%s카드: %s" + System.lineSeparator();
     private static final String DEALER_RESULT = "딜러 카드: %s - 결과: %d" + System.lineSeparator();
@@ -21,6 +23,14 @@ public class OutputView {
     private static final String DEALER_HIT = "딜러는 16이하라 한장의 카드를 더 받았습니다." + System.lineSeparator();
 
 
+
+    public void printFirstState(List<Player> players) {
+        String playersName = players.stream()
+                .map(player -> player.getName())
+                .collect(Collectors.joining(DELIMITER));
+
+        System.out.printf(FIRST_STATE, playersName);
+    }
 
     public void printDealerCards(List<Card> cards) {
         System.out.printf(DEALER_CARDS, cards.stream()

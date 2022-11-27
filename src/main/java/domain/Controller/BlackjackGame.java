@@ -95,6 +95,8 @@ public class BlackjackGame {
         hitPlayers(deck, players);
         hitDealer(deck, dealer);
 
+        outputView.printFirstState(players);
+
         outputView.printResultCards(dealer, players);
         outputView.printProfits(dealer, players);
     }
