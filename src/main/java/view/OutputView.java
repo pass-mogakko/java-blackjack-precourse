@@ -11,7 +11,7 @@ import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
-import model.EarningsDto;
+import model.Earnings;
 import model.OpenedCardsDto;
 import view.resource.OutputContent;
 import view.resource.SymbolDisplay;
@@ -81,10 +81,10 @@ public class OutputView {
         return symbolDisplay + typeDisplay;
     }
 
-    public void printEarnings(EarningsDto earnings, List<String> playerNames) {
+    public void printEarnings(Earnings earnings, List<String> playerNames) {
         ConsolePrinter.printFormattedLine(FORMAT_DEALER_EARNING, earnings.getDealerEarning());
         for (String playerName : playerNames) {
-            ConsolePrinter.printFormattedLine(FORMAT_PLAYER_EARNING, playerName, earnings.getPlayerEarningByName(playerName));
+            ConsolePrinter.printFormattedLine(FORMAT_PLAYER_EARNING, playerName, earnings.findPlayerEarningByName(playerName));
         }
     }
 

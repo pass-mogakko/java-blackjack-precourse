@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class Deck {
+public class Deck implements CardDistributor {
 
     private final Queue<Card> deck;
 
@@ -15,6 +15,7 @@ public class Deck {
         this.deck = new LinkedList<>(toBeShuffled);
     }
 
+    @Override
     public Card takeOneCard() {
         validateDeckStatus();
         return deck.poll();

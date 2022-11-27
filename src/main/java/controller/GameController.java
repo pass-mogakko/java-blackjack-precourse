@@ -9,6 +9,7 @@ import static view.resource.OutputContent.FORMAT_ASK_HIT_OR_STAY;
 import static view.resource.OutputContent.FORMAT_INFORM_DISTRIBUTED;
 import static view.resource.OutputContent.MESSAGE_ASK_PLAYERS_NAME;
 
+import domain.card.Deck;
 import model.BlackJackGame;
 import model.OpenedCardsDto;
 import view.InputView;
@@ -16,38 +17,42 @@ import view.OutputView;
 import view.resource.OutputContent;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class GameController {
 
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
-    private final BlackJackGame blackJackGame = new BlackJackGame();
+    private BlackJackGame blackJackGame;
     private List<String> playerNames;
 
     public void run() {
-        // TODO 사용자 이름 출력 리팩토링
-        playerNames = askPlayersName();
-        playerNames.forEach(this::enrollWithBettingMoney);
-        distributeCards();
+        initializeGame();
+        deal();
+        // TODO checkBlackJack
         play();
-        showEarnings();
+        showResult();
     }
 
-    private List<String> askPlayersName() {
+    private void initializeGame() {
         outputView.printMessage(MESSAGE_ASK_PLAYERS_NAME);
-        List<String> playerNames = inputView.readPlayersName(PARTICIPANTS_MIN_COUNT.getValue(), PARTICIPANTS_MAX_COUNT.getValue());
+        playerNames = inputView.readPlayersName(PARTICIPANTS_MIN_COUNT.getValue(), PARTICIPANTS_MAX_COUNT.getValue());
         outputView.printBlankLine();
-        return playerNames;
+        Map<String, Double> players = playerNames.stream()
+                .collect(Collectors.toMap(Function.identity(), this::askBettingMoney));
+        blackJackGame = new BlackJackGame(new Deck(), players);
     }
 
-    private void enrollWithBettingMoney(String playerName) {
+    private double askBettingMoney(String playerName) {
         outputView.printFormattedMessage(FORMAT_ASK_BETTING_MONEY, playerName);
         double bettingMoney = inputView.readBettingMoney(INITIAL_MIN_VALUE.getValue(), INITIAL_MAX_VALUE.getValue());
-        blackJackGame.enrollPlayer(playerName, bettingMoney);
         outputView.printBlankLine();
+        return bettingMoney;
     }
 
-    private void distributeCards() {
+    private void deal() {
         blackJackGame.distributeCardsForStart();
         OpenedCardsDto cards = blackJackGame.openAllUserCards(false);
         outputView.printFormattedMessage(FORMAT_INFORM_DISTRIBUTED, playerNames);
@@ -56,9 +61,7 @@ public class GameController {
     }
 
     private void play() {
-        for (int index = 0; index < playerNames.size(); index++) {
-            hitUntilPlayerWant(index);
-        }
+        playerNames.forEach(this::hitUntilPlayerWant);
         outputView.printBlankLine();
         hitIfDealerValid();
         outputView.printBlankLine();
@@ -70,33 +73,33 @@ public class GameController {
         }
     }
 
-    private void hitUntilPlayerWant(int playerIndex) {
+    private void hitUntilPlayerWant(String playerName) {
         boolean toHitMore = true;
         int hitCount = 0;
         while (toHitMore) {
-            toHitMore = askHitOrStay(playerIndex);
-            hitCount += addCardIfToHit(toHitMore, playerIndex);
+            toHitMore = askHitOrStay(playerName);
+            hitCount += addCardIfToHit(toHitMore, playerName);
         }
         if (hitCount == 0) {
-            outputView.printOpenedCards(blackJackGame.openPlayerCards(playerIndex));
+            outputView.printOpenedCards(blackJackGame.openPlayerCards(playerName));
         }
     }
 
-    private int addCardIfToHit(boolean toHitMore, int playerIndex) {
+    private int addCardIfToHit(boolean toHitMore, String playerName) {
         if (toHitMore) {
-            blackJackGame.addCardToPlayer(playerIndex);
-            outputView.printOpenedCards(blackJackGame.openPlayerCards(playerIndex));
+            blackJackGame.addCardToPlayer(playerName);
+            outputView.printOpenedCards(blackJackGame.openPlayerCards(playerName));
             return 1;
         }
         return 0;
     }
 
-    private boolean askHitOrStay(int playerIndex) {
-        outputView.printFormattedMessage(FORMAT_ASK_HIT_OR_STAY, playerNames.get(playerIndex));
+    private boolean askHitOrStay(String playerName) {
+        outputView.printFormattedMessage(FORMAT_ASK_HIT_OR_STAY, playerName);
         return inputView.readHitOrStay();
     }
 
-    private void showEarnings() {
+    private void showResult() {
         // TODO 수익 계산하기
 //        outputView.printEarnings(new EarningsDto(10000, Map.of("pobi", 1000.0)), playerNames);
     }

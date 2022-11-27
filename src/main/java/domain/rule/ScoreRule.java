@@ -2,8 +2,8 @@ package domain.rule;
 
 public enum ScoreRule {
 
-    POINT_BLACKJACK(21),
-    POINT_DEALER_ADD_LIMIT(17);
+    SCORE_WINNING(21),
+    SCORE_DEALER_ADD_LIMIT(17);
 
     private final int value;
 
