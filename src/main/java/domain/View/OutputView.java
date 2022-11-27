@@ -18,6 +18,7 @@ public class OutputView {
     private static final String PLAYER_RESULT = "%s카드: %s - 결과: %d" + System.lineSeparator();
     private static final String DEALER_PROFIT = "딜러: %.0f" + System.lineSeparator();
     private static final String PLAYER_PROFIT = "%s: %.0f" + System.lineSeparator();
+    private static final String DEALER_HIT = "딜러는 16이하라 한장의 카드를 더 받았습니다." + System.lineSeparator();
 
 
 
@@ -69,5 +70,9 @@ public class OutputView {
         for (Player player : players) {
             System.out.printf(PLAYER_PROFIT, player.getName(), player.calculateProfit(dealer));
         }
+    }
+
+    public void printDealerHit() {
+        System.out.println(DEALER_HIT);
     }
 }

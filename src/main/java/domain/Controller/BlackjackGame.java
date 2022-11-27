@@ -23,6 +23,8 @@ public class BlackjackGame {
     List<Player> players = createPlayers();
     Deck deck = new Deck();
 
+
+
     private static Player createPlayer(String playerName) {
         double bettingMoney = inputView.readBettingMoney(playerName);
 
@@ -64,9 +66,8 @@ public class BlackjackGame {
 
     private static void hitDealer(Deck deck, Dealer dealer) {
         do {
-            System.out.println("16 이하라 한장 더");
             dealer.addCard(deck.drawCard());
-            outputView.printDealerCards(dealer.getCards());
+            outputView.printDealerHit();
         } while (!dealer.isBust() && dealer.isShouldHit());
     }
 
