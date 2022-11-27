@@ -9,15 +9,21 @@ import java.util.List;
  * 트럼프 카드 전체 생성을 담당하는 객체
  */
 public class CardFactory {
-    public static HashMap<Integer, Card> createDeck() {
-        HashMap<Integer, Card> deck = new HashMap<>();
+    private final HashMap<Integer, Card> deck;
+
+    public CardFactory(HashMap<Integer, Card> deck) {
+        this.deck = deck;
+    }
+
+    public HashMap<Integer, Card> createDeck() {
         int index = 0;
-        for(Card card: create()){
+        for (Card card : create()) {
             deck.put(index, card);
             index++;
         }
         return deck;
     }
+
     private static List<Card> create() {
         List<Card> cards = new ArrayList<>();
         Symbol[] symbols = Symbol.values();
@@ -33,4 +39,9 @@ public class CardFactory {
             cards.add(new Card(symbol, type));
         }
     }
+
+    public boolean findNumber(int index) {
+        return deck.containsKey(index);
+    }
+
 }
