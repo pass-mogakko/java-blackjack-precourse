@@ -4,7 +4,7 @@ import domain.Calculator;
 import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +24,7 @@ public class OutputView {
     public void printDealerCards(List<Card> cards) {
         System.out.printf(DEALER_CARDS, cards.stream().
                 map(Card::toString).
-                collect(Collectors.joining(","))
+                collect(Collectors.joining(DELIMITER))
         );
     }
 
@@ -33,7 +33,7 @@ public class OutputView {
                 name,
                 cards.stream()
                 .map(Card::toString)
-                .collect(Collectors.joining(","))
+                .collect(Collectors.joining(DELIMITER))
         );
     }
 
@@ -41,7 +41,7 @@ public class OutputView {
         System.out.printf(DEALER_RESULT,
                 cards.stream()
                         .map(Card::toString)
-                        .collect(Collectors.joining(",")),
+                        .collect(Collectors.joining(DELIMITER)),
                 Calculator.calculateCards(cards)
         );
     }
@@ -50,7 +50,7 @@ public class OutputView {
                 name,
                 cards.stream()
                         .map(Card::toString)
-                        .collect(Collectors.joining(",")),
+                        .collect(Collectors.joining(DELIMITER)),
                 Calculator.calculateCards(cards)
         );
     }
