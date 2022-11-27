@@ -40,8 +40,20 @@ public class InputView {
     public static int readBettingMoney(String name) throws IOException {
         System.out.println(name + INPUT_BETTING_MONEY);
         String bettingMoney = console.readLine();
-
+        validateMoney(bettingMoney);
+        validateMoneyRange(Integer.parseInt(bettingMoney));
         return Integer.parseInt(bettingMoney);
     }
 
+    private static void validateMoney(String money) {
+        if (!money.matches(MONEY_REGEX)) {
+            throw new IllegalArgumentException(ExceptionMessage.ONLY_NUMBER);
+        }
+    }
+
+    private static void validateMoneyRange(int money) {
+        if (money <= START_MONEY_RANGE || money > END_MONEY_RANGE) {
+            throw new IllegalArgumentException(ExceptionMessage.ONLY_CORRECT_MONEY);
+        }
+    }
 }
