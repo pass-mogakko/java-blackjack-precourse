@@ -33,12 +33,4 @@ public class Calculator {
     public static int getAceCount(List<Card> cards) {
         return (int)cards.stream().filter(card -> card.isAce()).count();
     }
-
-    public static boolean isBlackjack(List<Card> cards) {
-        if (calculateCards(cards) == BLACKJACK_NUMBER && cards.size() == 2) {
-            return true;
-        }
-
-        return false;
-    }
 }
