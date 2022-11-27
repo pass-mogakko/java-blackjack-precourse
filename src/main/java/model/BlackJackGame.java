@@ -1,5 +1,7 @@
 package model;
 
+import static domain.rule.ScoreRule.POINT_DEALER_ADD_LIMIT;
+
 import domain.card.Deck;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -33,8 +35,13 @@ public class BlackJackGame {
         player.addCard(deck.takeOneCard());
     }
 
-    public void addCardToDealer() {
-        dealer.addCard(deck.takeOneCard());
+    public boolean addCardToDealerIfValid() {
+        int score = dealer.addAllScore();
+        if (score < POINT_DEALER_ADD_LIMIT.getValue()) {
+            dealer.addCard(deck.takeOneCard());
+            return true;
+        }
+        return false;
     }
 
     private void validatePlayerIndex(int playerIndex) {
@@ -48,9 +55,8 @@ public class BlackJackGame {
             addCardToPlayer(index);
             addCardToPlayer(index);
         }
-        addCardToDealer();
-        addCardToDealer();
-
+        dealer.addCard(deck.takeOneCard());
+        dealer.addCard(deck.takeOneCard());
     }
 
     public OpenedCardsDto openAllUserCards(boolean showAllDealerCards) {

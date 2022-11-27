@@ -13,6 +13,7 @@ import model.BlackJackGame;
 import model.OpenedCardsDto;
 import view.InputView;
 import view.OutputView;
+import view.resource.OutputContent;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class GameController {
         playerNames = askPlayersName();
         playerNames.forEach(this::enrollWithBettingMoney);
         distributeCards();
-        hitOrStayForAllUsers();
+        play();
         showEarnings();
     }
 
@@ -54,13 +55,19 @@ public class GameController {
         outputView.printBlankLine();
     }
 
-    private void hitOrStayForAllUsers() {
+    private void play() {
         for (int index = 0; index < playerNames.size(); index++) {
             hitUntilPlayerWant(index);
         }
         outputView.printBlankLine();
-        // TODO dealer hit or stay
-        // TODO dealer 안내메시지
+        hitIfDealerValid();
+        outputView.printBlankLine();
+    }
+
+    private void hitIfDealerValid() {
+        while (blackJackGame.addCardToDealerIfValid()) {
+            outputView.printMessage(OutputContent.MESSAGE_INFORM_DEALER_HIT);
+        }
     }
 
     private void hitUntilPlayerWant(int playerIndex) {

@@ -78,6 +78,18 @@ class BlackJackGameTest {
         assertThat(dealer.getCards()).hasSize(1);
     }
 
+    @DisplayName("딜러 카드 추가: 이미 가지고 있는 카드의 합이 16 이하이면 추가, 17 이상이면 추가하지 않음")
+    @ParameterizedTest
+    @MethodSource("generateStreamWithStartedGame")
+    void addCardToDealerIfValid(BlackJackGame startedGame) {
+        OpenedCardsDto openedCards = startedGame.openAllUserCards(true);
+        Dealer dealer = openedCards.getDealer();
+        boolean expected = (dealer.addAllScore() < 17);
+        boolean hasAdded = startedGame.addCardToDealerIfValid();
+
+        assertThat(hasAdded).isEqualTo(expected);
+    }
+
     private static Stream<Arguments> generateStreamWithStartedGame() {
         BlackJackGame blackJackGame = new BlackJackGame();
         blackJackGame.enrollPlayer("testPlayer", 10_000);
