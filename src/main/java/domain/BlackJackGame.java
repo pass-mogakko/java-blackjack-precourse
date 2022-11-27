@@ -24,6 +24,14 @@ public class BlackJackGame {
         this.deck = cardFactory.createDeck();
     }
 
+    public List<Player> getPlayers(){
+        return players;
+    }
+
+    public Dealer getDealer(){
+        return dealer;
+    }
+
     public void run() {
 
     }
