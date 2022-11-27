@@ -13,43 +13,47 @@ import static domain.card.RandomNumber.getRandomNumber;
 public class BlackJackGame {
     private final List<Player> players;
     private final Dealer dealer;
+    private final HashMap<Integer, Card> deck;
 
-    private static final CardFactory cardFactory = new CardFactory();
-    private static final HashMap<Integer, Card> deck = cardFactory.createDeck();
     private static final int FIRST_CARD_COUNT = 2;
 
     public BlackJackGame(List<Player> players, Dealer dealer) {
+        final CardFactory cardFactory = new CardFactory();
         this.players = players;
         this.dealer = dealer;
+        this.deck = cardFactory.createDeck();
     }
 
     public void run() {
-        handOutFirstTwoCards();
 
     }
 
-    private void handOutFirstTwoCards() {
-        for(int count = 0; count < FIRST_CARD_COUNT; count++){
+    public void handOutFirstTwoCards() {
+        for (int count = 0; count < FIRST_CARD_COUNT; count++) {
             handOutPlayerCard();
             handOutDealerCard();
         }
     }
 
     private void handOutPlayerCard() {
-        for(Player player: players){
+        for (Player player : players) {
             final int index = getRandomNumber(deck);
             player.addCard(deck.get(index));
-            deleteCard(index);
+            removeCard(index);
         }
     }
 
     private void handOutDealerCard() {
         final int index = getRandomNumber(deck);
         dealer.addCard(deck.get(index));
-        deleteCard(index);
+        removeCard(index);
     }
 
-    private void deleteCard(int index) {
+    private void removeCard(int index) {
         deck.remove(index);
+    }
+
+    public int getDeckSize() {
+        return deck.size();
     }
 }
