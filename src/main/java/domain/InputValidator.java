@@ -1,16 +1,12 @@
 package domain;
 
-import static domain.Constants.InputValue.SELECTION_NO;
-import static domain.Constants.InputValue.SELECTION_YES;
-
-import com.sun.scenario.effect.impl.sw.sse.SSEEffectPeer;
-import java.util.Arrays;
-
 
 
 public class InputValidator {
     private final static String PLAYERS_REGEX = "^[a-zA-zㄱ-ㅎㅏ-ㅣ가-힣0-9,]*[a-zA-zㄱ-ㅎㅏ-ㅣ가-힣0-9]$";
     private final static String MONEY_REGEX = "^[0-9]+";
+    private final static String SELECTION_YES = "y";
+    private final static String SELECTION_NO = "n";
 
 
     public static void validatePlayersInput(String input) throws IllegalArgumentException {
