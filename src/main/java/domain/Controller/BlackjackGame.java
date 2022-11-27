@@ -52,8 +52,6 @@ public class BlackjackGame {
     private void setPlayerState(Deck deck, Player player) {
         player.addCard(deck.drawCard());
         player.addCard(deck.drawCard());
-        outputView.printPlayerCards(player.getCards(), player.getName());
-
     }
 
     private void setFirstState(Deck deck, Dealer dealer, List<Player> players) {
@@ -62,6 +60,8 @@ public class BlackjackGame {
         for (Player player : players) {
             setPlayerState(deck, player);
         }
+
+        outputView.printPlayersCards(players);
     }
 
     private void hitDealer(Deck deck, Dealer dealer) {

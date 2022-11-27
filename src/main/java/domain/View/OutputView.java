@@ -38,6 +38,15 @@ public class OutputView {
         );
     }
 
+    public void printPlayersCards(List<Player> players) {
+        for (Player player : players) {
+            List<Card> cards = player.getCards();
+            String name = player.getName();
+            printPlayerCards(cards, name);
+        }
+        System.out.println();
+    }
+
     public void printDealerResultCards(List<Card> cards) {
         System.out.printf(DEALER_RESULT,
                 cards.stream()
