@@ -26,13 +26,14 @@ public class BlackJackController {
 
     public void run() {
         handOutFirstTime();
+        UsersDTO dto = blackJackGame.getUsers();
+        outputView.printHandOut(dto.getPlayers().getPlayers());
+        outputView.printHandOutResult(dto);
     }
 
     private void handOutFirstTime() {
         blackJackGame.handOutFirstTime();
     }
-
-
 
     private BlackJackGame initBlackJackGame() {
         Dealer dealer = new Dealer();
