@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static view.InputView.*;
+import static view.InputView.readBettingMoney;
+import static view.InputView.readPlayerName;
 import static view.OutputView.printHandOutCards;
 
 public class Application {
@@ -23,9 +24,10 @@ public class Application {
     private static void run(BlackJackGame game) {
         game.handOutFirstTwoCards();
         printHandOutCards(game);
-        for(Player player: game.getPlayers()){
+        for (Player player : game.getPlayers()) {
             game.askYesOrNo(player);
         }
+        game.checkDealerCard();
     }
 
     private static List<String> getPlayerName() {
