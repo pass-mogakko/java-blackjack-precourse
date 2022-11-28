@@ -2,13 +2,16 @@ package domain;
 
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.user.Command;
 import domain.user.Dealer;
 import domain.user.Player;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
 import static domain.card.RandomNumber.getRandomNumber;
+import static view.InputView.readCommand;
 
 public class BlackJackGame {
     private final List<Player> players;
@@ -24,16 +27,26 @@ public class BlackJackGame {
         this.deck = cardFactory.createDeck();
     }
 
-    public List<Player> getPlayers(){
+    public List<Player> getPlayers() {
         return players;
     }
 
-    public Dealer getDealer(){
+    public Dealer getDealer() {
         return dealer;
     }
 
-    public void run() {
+    public void askYesOrNo(Player player) {
+        String command = getCommand(player.getName());
+        if (Command.isYes(command)) {
+            drawOneCard(player);
+            askYesOrNo(player);
+        }
+    }
 
+    private void drawOneCard(Player player) {
+        final int index = getRandomNumber(deck);
+        player.addCard(deck.get(index));
+        removeCard(index);
     }
 
     public void handOutFirstTwoCards() {
@@ -64,4 +77,14 @@ public class BlackJackGame {
     public int getDeckSize() {
         return deck.size();
     }
+
+    private static String getCommand(String name) {
+        try {
+            return readCommand(name);
+        } catch (IllegalArgumentException | IOException e) {
+            System.out.println(e.getMessage());
+            return getCommand(name);
+        }
+    }
+
 }
