@@ -31,6 +31,13 @@ public class Player implements Participants {
                 .equals(name);
     }
 
+    @Override
+    public int getTotal() {
+        return cards.stream()
+                .mapToInt(card -> card.getSymbol().getScore())
+                .sum();
+    }
+
     public String getName() {
         return this.name;
     }

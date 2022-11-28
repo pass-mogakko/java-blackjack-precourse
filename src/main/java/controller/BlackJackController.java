@@ -29,8 +29,10 @@ public class BlackJackController {
     public void run() {
         handOutFirstTime();
         moreCardByPlayers(blackJackGame.getUsers().getPlayers());
+        divideMoreCardToDealer();
+
         UsersDTO dto = blackJackGame.getUsers();
-        outputView.printHandOutResult(dto);
+        outputView.printAllResult(dto);
     }
 
     private void handOutFirstTime() {
@@ -43,16 +45,22 @@ public class BlackJackController {
     private void moreCardByPlayers(Players players) {
         players.getPlayers()
                 .stream()
-                .forEach(player ->moreCard(player));
+                .forEach(player -> moreCard(player));
     }
 
+    private void divideMoreCardToDealer() {
+        if (blackJackGame.isMoreCardToDealer()) {
+            outputView.printMoreCardToDealer();
+            blackJackGame.divideMoreCardToDealer();
+        }
+    }
 
     private void moreCard(Player player) {
         MoreCard moreCard;
         do {
             moreCard = inputView.inputMoreMoreDivide(player);
             handOutMoreCard(player, moreCard);
-        } while(moreCard.equals(MoreCard.YES));
+        } while (moreCard.equals(MoreCard.YES));
     }
 
     private void handOutMoreCard(Player player, MoreCard moreCard) {
@@ -62,7 +70,6 @@ public class BlackJackController {
         }
         return;
     }
-
 
     private BlackJackGame initBlackJackGame() {
         Dealer dealer = new Dealer();

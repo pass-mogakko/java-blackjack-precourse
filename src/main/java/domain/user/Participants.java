@@ -7,4 +7,6 @@ public interface Participants {
     void addCard(Card card);
 
     List<Card> getCards();
+
+    int getTotal();
 }

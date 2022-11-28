@@ -26,6 +26,17 @@ public class BlackJackGame {
         players.handOutMoreCardByName(name,deck.handOutMoreCard());
     }
 
+    public void divideMoreCardToDealer() {
+        if (dealer.getTotal() < 17) {
+            dealer.addCard(deck.handOutMoreCard());
+        }
+    }
+
+    public boolean isMoreCardToDealer() {
+        return dealer.getTotal() < 17;
+    }
+
+
     public UsersDTO getUsers() {
         return new UsersDTO(dealer, players);
     }

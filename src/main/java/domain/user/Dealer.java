@@ -17,12 +17,20 @@ public class Dealer implements Participants {
     public Dealer() {
     }
 
+    @Override
     public void addCard(Card card) {
         cards.add(card);
     }
 
     public void addCards(List<Card> addCards) {
         cards.addAll(addCards);
+    }
+
+    @Override
+    public int getTotal() {
+        return cards.stream()
+                .mapToInt(card -> card.getSymbol().getScore())
+                .sum();
     }
 
     public Card getFirstCard() {
