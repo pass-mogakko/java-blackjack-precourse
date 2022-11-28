@@ -1,7 +1,6 @@
 package view;
 
 import domain.exception.ExceptionMessage;
-import domain.user.Command;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -72,8 +71,8 @@ public class InputView {
     }
 
     private static void validateCommand(String command) {
-        if(!command.equals(DRAW_CARD.getCommand())
-                && !command.equals(NOT_DRAW_CARD.getCommand())){
+        if (!command.equals(DRAW_CARD.getCommand())
+                && !command.equals(NOT_DRAW_CARD.getCommand())) {
             throw new IllegalArgumentException(ExceptionMessage.ONLY_YES_OR_NO);
         }
     }
