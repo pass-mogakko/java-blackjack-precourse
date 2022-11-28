@@ -20,6 +20,10 @@ public class Player extends User {
         return name;
     }
 
+    public double getBettingMoney() {
+        return bettingMoney;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

@@ -46,4 +46,8 @@ public class User {
     public boolean isBust() {
         return addAllScore() > 21;
     }
+
+    public boolean isBlackJack() {
+        return (addAllScore() == 21) && (cards.size() == 2);
+    }
 }

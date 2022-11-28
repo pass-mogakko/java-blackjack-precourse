@@ -28,7 +28,7 @@ class EarningsTest {
 
         assertThatThrownBy(() -> earnings.findPlayerEarningByName("wrong"))
                 .isInstanceOf(IllegalArgumentException.class);
-        assertThat(earnings.findPlayerEarningByName("pobi")).isEqualTo(0);
+        assertThat(earnings.findPlayerEarningByName("pobi").getEarning()).isEqualTo(0);
     }
 
     @DisplayName("수익 업데이트: 특정 금액을 사용자 수익에는 더하고, 딜러 수익에는 빼도록 계산")
@@ -39,6 +39,6 @@ class EarningsTest {
         earnings.moveEarningFromDealerToPlayer("pobi", amount);
 
         assertThat(earnings.getDealerEarning()).isEqualTo((-1)*amount);
-        assertThat(earnings.findPlayerEarningByName("pobi")).isEqualTo(amount);
+        assertThat(earnings.findPlayerEarningByName("pobi").getEarning()).isEqualTo(amount);
     }
 }

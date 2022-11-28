@@ -1,20 +1,21 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class Earnings {
 
-    private final Map<String, Double> playerEarningsByName;
+    private final List<Earning> playerEarnings = new ArrayList<>();
     private double dealerEarning;
 
     public Earnings(List<String> playerNames) {
         this.dealerEarning = 0;
+        initializePlayerEarnings(playerNames);
+    }
+
+    private void initializePlayerEarnings(List<String> playerNames) {
         validatePlayerNames(playerNames);
-        this.playerEarningsByName = playerNames.stream()
-                .collect(Collectors.toMap(Function.identity(), name -> 0.0));
+        playerNames.forEach(name -> playerEarnings.add(new Earning(name)));
     }
 
     private void validatePlayerNames(List<String> playerNames) {
@@ -30,12 +31,11 @@ public class Earnings {
         return dealerEarning;
     }
 
-    public double findPlayerEarningByName(String playerName) {
-        Double earning = playerEarningsByName.get(playerName);
-        if (earning == null) {
-            throw new IllegalArgumentException("해당 이름을 가진 사용자가 존재하지 않습니다.");
-        }
-        return earning;
+    public Earning findPlayerEarningByName(String playerName) {
+        return playerEarnings.stream()
+                .filter(player -> player.getName().equals(playerName))
+                .findFirst()
+                .orElseThrow(() -> {throw new IllegalArgumentException("해당 이름을 가진 사용자가 존재하지 않습니다.");});
     }
 
     public void moveEarningFromDealerToPlayer(String playerName, double amount) {
@@ -43,12 +43,13 @@ public class Earnings {
         updatePlayerEarningsByName(playerName, amount);
     }
 
-    public void updatePlayerEarningsByName(String playerName, double amount) {
-        playerEarningsByName.put(playerName, findPlayerEarningByName(playerName) + amount);
+    private void updatePlayerEarningsByName(String playerName, double amount) {
+        Earning earning = findPlayerEarningByName(playerName);
+        earning.updateEarning(amount);
     }
 
     @Override
     public String toString() {
-        return "dealerEarning=" + dealerEarning + playerEarningsByName.toString();
+        return "dealerEarning=" + dealerEarning +" playerEarnings=" + playerEarnings;
     }
 }

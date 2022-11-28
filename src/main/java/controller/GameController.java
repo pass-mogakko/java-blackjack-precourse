@@ -8,18 +8,18 @@ import static view.resource.OutputContent.FORMAT_ASK_BETTING_MONEY;
 import static view.resource.OutputContent.FORMAT_ASK_HIT_OR_STAY;
 import static view.resource.OutputContent.FORMAT_INFORM_DISTRIBUTED;
 import static view.resource.OutputContent.MESSAGE_ASK_PLAYERS_NAME;
+import static view.resource.OutputContent.MESSAGE_INFORM_DEALER_BLACKJACK;
 
-import domain.card.Deck;
+import domain.card.CardDistributor;
 import model.BlackJackGame;
 import model.OpenedCardsDto;
 import view.InputView;
 import view.OutputView;
 import view.resource.OutputContent;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class GameController {
 
@@ -28,21 +28,20 @@ public class GameController {
     private BlackJackGame blackJackGame;
     private List<String> playerNames;
 
-    public void run() {
-        initializeGame();
+    public void run(CardDistributor distributor) {
+        initializeGame(distributor);
         deal();
-        // TODO checkBlackJack
-        play();
+        checkBlackJackAndPlay();
         showResult();
     }
 
-    private void initializeGame() {
+    private void initializeGame(CardDistributor distributor) {
         outputView.printMessage(MESSAGE_ASK_PLAYERS_NAME);
         playerNames = inputView.readPlayersName(PARTICIPANTS_MIN_COUNT.getValue(), PARTICIPANTS_MAX_COUNT.getValue());
         outputView.printBlankLine();
-        Map<String, Double> players = playerNames.stream()
-                .collect(Collectors.toMap(Function.identity(), this::askBettingMoney));
-        blackJackGame = new BlackJackGame(new Deck(), players);
+        Map<String, Double> players = new LinkedHashMap<>();
+        playerNames.forEach(name -> players.put(name, askBettingMoney(name)));
+        blackJackGame = new BlackJackGame(distributor, players);
     }
 
     private double askBettingMoney(String playerName) {
@@ -60,11 +59,23 @@ public class GameController {
         outputView.printBlankLine();
     }
 
+    private void checkBlackJackAndPlay() {
+        if (blackJackGame.isDealerBlackJack()) {
+            outputView.printMessage(MESSAGE_INFORM_DEALER_BLACKJACK);
+            blackJackGame.updateEarningsByBlackJack();
+            return;
+        }
+        play();
+    }
+
     private void play() {
-        playerNames.forEach(this::hitUntilPlayerWant);
+        playerNames.stream()
+                .filter(name -> !blackJackGame.isPlayerBlackJack(name))
+                .forEach(this::hitUntilPlayerWant);
         outputView.printBlankLine();
         hitIfDealerValid();
         outputView.printBlankLine();
+        blackJackGame.updateEarningsWithOutBlackJack();
     }
 
     private void hitIfDealerValid() {
@@ -100,7 +111,8 @@ public class GameController {
     }
 
     private void showResult() {
-        // TODO 수익 계산하기
-//        outputView.printEarnings(new EarningsDto(10000, Map.of("pobi", 1000.0)), playerNames);
+        outputView.printOpenedCardsWithResult(blackJackGame.openAllUserCards(true));
+        // TODO 형식에 맞게 출력 구현
+        System.out.println(blackJackGame.getEarnings());
     }
 }

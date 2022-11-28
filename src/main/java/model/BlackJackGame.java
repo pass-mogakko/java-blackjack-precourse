@@ -16,14 +16,14 @@ public class BlackJackGame {
     private final CardDistributor distributor;
     private final List<Player> players;
     private final Dealer dealer;
-    private final Earnings earnings;
+    private final EarningCalculator earningCalculator;
 
     public BlackJackGame(CardDistributor distributor, Map<String, Double> playersToEnroll) {
         this.distributor = distributor;
         this.dealer = new Dealer();
         this.players = new ArrayList<>();
         initializePlayers(playersToEnroll);
-        this.earnings = initializeEarnings(playersToEnroll);
+        this.earningCalculator = new EarningCalculator(new ArrayList<>(playersToEnroll.keySet()));
     }
 
     private void initializePlayers(Map<String, Double> playersToEnroll) {
@@ -35,11 +35,6 @@ public class BlackJackGame {
         Player player = new Player(name, bettingMoney);
         GameRuleValidator.validateDuplicatedPlayer(players.contains(player));
         return player;
-    }
-
-    private Earnings initializeEarnings(Map<String, Double> playersToEnroll) {
-        List<String> playersName = new ArrayList<>(playersToEnroll.keySet());
-        return new Earnings(playersName);
     }
 
     // TODO List<Player> 일급콜렉션으로 리팩토링
@@ -83,5 +78,25 @@ public class BlackJackGame {
 
     public OpenedCardsDto openPlayerCards(String playerName) {
         return new OpenedCardsDto(null, List.of(findPlayerByName(playerName)));
+    }
+
+    public boolean isPlayerBlackJack(String playerName) {
+        return findPlayerByName(playerName).isBlackJack();
+    }
+
+    public boolean isDealerBlackJack() {
+        return dealer.isBlackJack();
+    }
+
+    public void updateEarningsByBlackJack() {
+        earningCalculator.calculateEarningsByBlackJack(players, dealer);
+    }
+
+    public void updateEarningsWithOutBlackJack() {
+        earningCalculator.calculateEarningsWithoutBlackJack(players, dealer);
+    }
+
+    public Earnings getEarnings() {
+        return earningCalculator.getEarnings();
     }
 }
