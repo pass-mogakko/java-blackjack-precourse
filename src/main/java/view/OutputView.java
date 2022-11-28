@@ -33,9 +33,12 @@ public class OutputView {
 
     private void printPlayerCards(List<Player> players) {
         players.stream()
-                .forEach(player -> System.out.println(player.getName() + View.CARD + View.COLON + getCardsView(player.getCards())));
+                .forEach(player -> printPlayerCard(player));
     }
 
+    public void printPlayerCard(Player player) {
+        System.out.println(player.getName() + View.CARD + View.COLON + getCardsView(player.getCards()));
+    }
 
     private String getPlayerNames(List<Player> players) {
         List<String> playerNames = players.stream()
