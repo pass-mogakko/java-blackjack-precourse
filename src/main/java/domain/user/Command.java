@@ -9,4 +9,8 @@ public enum Command {
     Command(String command){
         this.command = command;
     }
+
+    public String getCommand() {
+        return command;
+    }
 }
