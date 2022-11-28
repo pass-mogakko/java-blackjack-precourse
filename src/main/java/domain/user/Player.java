@@ -27,14 +27,26 @@ public class Player {
         return this.name;
     }
 
+    public double getBettingMoney() {
+        return this.bettingMoney;
+    }
+
     public String getPlayerCards() {
         return cards.stream()
                 .map(Card::toString)
                 .collect(Collectors.joining(", "));
     }
 
-    public List<Card> getCardsInList(){
+    public List<Card> getCardsInList() {
         return cards;
+    }
+
+    public int calculatePlayerScore() {
+        int count = 0;
+        for (Card card : cards) {
+            count += card.getSymbolScore();
+        }
+        return count;
     }
 
     // TODO 추가 기능 구현
