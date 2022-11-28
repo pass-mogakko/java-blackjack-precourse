@@ -23,6 +23,9 @@ public class Application {
     private static void run(BlackJackGame game) {
         game.handOutFirstTwoCards();
         printHandOutCards(game);
+        for(Player player: game.getPlayers()){
+            game.askYesOrNo(player);
+        }
     }
 
     private static List<String> getPlayerName() {
@@ -50,15 +53,6 @@ public class Application {
         } catch (IllegalArgumentException | IOException e) {
             System.out.println(e.getMessage());
             return getBettingMoney(name);
-        }
-    }
-
-    private static String getCommand(String name) {
-        try {
-            return readCommand(name);
-        } catch (IllegalArgumentException | IOException e) {
-            System.out.println(e.getMessage());
-            return getCommand(name);
         }
     }
 }
