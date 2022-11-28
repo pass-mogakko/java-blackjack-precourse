@@ -1,187 +1,221 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>JAVA</ID>
-  <OriginalElement>/Users/doyoung/projects/woowa-pre-study/java-blackjack-precourse/src/main/java</OriginalElement>
+  <OriginalElement>/Users/doyoung/projects/woowa-pre-study/java-blackjack-precourse/src/main</OriginalElement>
   <nodes>
-    <node x="87.42647058823525" y="145.0">domain.user.User</node>
-    <node x="84.92647058823525" y="72.0">domain.card.Card</node>
-    <node x="287.49709050687693" y="547.4532797922479">model.EarningCalculator</node>
-    <node x="440.0" y="802.4475088967972">domain.rule.ScoreRule</node>
-    <node x="518.2639944214676" y="547.4532797922479">model.Earnings</node>
-    <node x="-179.56173094803" y="573.3700314193197">Application</node>
-    <node x="353.0" y="729.4475088967972">view.resource.OutputContent</node>
-    <node x="134.44705882352937" y="227.0">domain.user.Player</node>
-    <node x="139.0" y="729.4475088967972">domain.rule.ParticipantsRule</node>
-    <node x="48.83985765124555" y="662.7849139174764">view.OutputView</node>
-    <node x="21.676470588235247" y="-6.0">domain.card.Symbol</node>
-    <node x="-0.378055055474249" y="420.0">model.BlackJackGame</node>
-    <node x="255.21886120996442" y="663.7849139174764">view.InputView</node>
-    <node x="558.0" y="729.4475088967972">view.resource.SymbolDisplay</node>
-    <node x="-179.56173094803" y="403.7873873873874">domain.card.Deck</node>
-    <node x="-95.0" y="802.4475088967972">view.resource.TypeDisplay</node>
-    <node x="-254.56173094803" y="351.845045045045">domain.card.CardDistributor</node>
-    <node x="269.0" y="802.4475088967972">view.resource.Command</node>
-    <node x="73.93265765765761" y="582.213274662563">controller.GameController</node>
-    <node x="522.2639944214676" y="617.4241207399573">model.Earning</node>
-    <node x="-95.0" y="729.4475088967972">model.validator.GameRuleValidator</node>
-    <node x="146.67647058823525" y="-6.0">domain.card.Type</node>
-    <node x="610.0" y="802.4475088967972">view.resource.Format</node>
-    <node x="16.447058823529346" y="227.0">domain.user.Dealer</node>
-    <node x="287.49709050687693" y="386.22041814946624">model.OpenedCardsDto</node>
-    <node x="89.0" y="802.4475088967972">domain.rule.BettingRule</node>
-    <node x="219.86120996441286" y="73.0">domain.card.CardFactory</node>
+    <node x="439.1920684292379" y="-50.51957409158365">domain.user.User</node>
+    <node x="424.49999999999994" y="-186.23660030627883">domain.card.Card</node>
+    <node x="176.56883879429267" y="104.30321592649307">model.EarningCalculator</node>
+    <node x="970.0688387942927" y="683.7021286936238">domain.rule.ScoreRule</node>
+    <node x="208.06883879429267" y="-24.816998468606528">model.dto.Earnings</node>
+    <node x="159.06883879429267" y="501.89155007930844">controller.AnswerHandler</node>
+    <node x="742.6438334874837" y="418.28655926767">Application</node>
+    <node x="159.06883879429267" y="800.2989405132193">view.CardDisplayConverter</node>
+    <node x="504.5688387942927" y="742.0005346034216">view.resource.OutputContent</node>
+    <node x="552.7738023744182" y="44.00382848392036">domain.user.Player</node>
+    <node x="393.0688387942927" y="683.7021286936238">domain.rule.ParticipantsRule</node>
+    <node x="366.74999999999994" y="585.496540890947">view.OutputView</node>
+    <node x="472.75" y="-264.23660030627883">domain.card.Symbol</node>
+    <node x="441.75" y="315.12404287901995">model.BlackJackGame</node>
+    <node x="163.56883879429267" y="742.0005346034216">view.validator.IOValidator</node>
+    <node x="547.6481623277182" y="585.4967430348981">view.InputView</node>
+    <node x="555.1792587009805" y="800.2989405132193">view.resource.SymbolDisplay</node>
+    <node x="632.0688387942927" y="-133.4773404212882">domain.card.Deck</node>
+    <node x="393.6240487476366" y="800.2989405132193">view.resource.TypeDisplay</node>
+    <node x="779.1735816642151" y="-133.4773404212882">domain.card.CardDistributor</node>
+    <node x="709.5688387942927" y="742.0005346034216">view.resource.PlayCommand</node>
+    <node x="705.046367125074" y="104.30321592649307">model.dto.OpenedCards</node>
+    <node x="429.560033281276" y="418.28655926767">controller.GameController</node>
+    <node x="212.06883879429267" y="-106.81699846860653">model.dto.Earning</node>
+    <node x="607.0688387942927" y="683.7021286936238">domain.rule.EarningRule</node>
+    <node x="159.06883879429267" y="683.7021286936238">model.validator.GameRuleValidator</node>
+    <node x="366.74999999999994" y="-264.23660030627883">domain.card.Type</node>
+    <node x="548.7738023744182" y="104.30321592649307">domain.user.Players</node>
+    <node x="357.5688387942927" y="742.0005346034216">view.resource.Format</node>
+    <node x="398.50123762376234" y="44.00382848392036">domain.user.Dealer</node>
+    <node x="724.546367125074" y="183.48813169984675">model.dto.Opening</node>
+    <node x="790.0688387942927" y="683.7021286936238">domain.rule.BettingRule</node>
+    <node x="223.9412043424864" y="-186.23660030627883">domain.card.CardFactory</node>
   </nodes>
   <notes />
   <edges>
+    <edge source="controller.GameController" target="controller.AnswerHandler" relationship="CREATE">
+      <point x="15.0" y="14.0" />
+      <point x="527.560033281276" y="645.9967430348981" />
+      <point x="225.56883879429267" y="645.9967430348981" />
+      <point x="-15.0" y="14.0" />
+    </edge>
     <edge source="controller.GameController" target="view.OutputView" relationship="TO_ONE">
-      <point x="0.0" y="14.0" />
-      <point x="35.59280000641206" y="-15.0" />
+      <point x="-83.00003328127599" y="4.4073232999153333E-4" />
+      <point x="345.0" y="432.287" />
+      <point x="345.0" y="599.497" />
+      <point x="-68.49999999999994" y="4.5910905294022086E-4" />
     </edge>
     <edge source="Application" target="domain.card.Deck" relationship="CREATE">
-      <point x="-22.5" y="-14.0" />
-      <point x="0.0" y="14.0" />
-    </edge>
-    <edge source="model.OpenedCardsDto" target="domain.user.Dealer" relationship="TO_ONE">
-      <point x="-9.050687691569692E-5" y="-14.000418149466213" />
-      <point x="374.997" y="321.0" />
-      <point x="65.447" y="321.0" />
-      <point x="-5.8823529343499104E-5" y="14.0" />
+      <point x="65.0" y="0.0" />
+      <point x="977.5688387942927" y="432.28655926767" />
+      <point x="977.5688387942927" y="-191.0411298552679" />
+      <point x="676.0688387942927" y="-191.0411298552679" />
+      <point x="0.0" y="-14.0" />
     </edge>
     <edge source="model.BlackJackGame" target="domain.card.CardDistributor" relationship="TO_ONE">
-      <point x="-47.67494494452575" y="-14.0" />
-      <point x="35.447" y="365.845045045045" />
-      <point x="81.5" y="0.0" />
+      <point x="83.5" y="0.0" />
+      <point x="890.1438334874837" y="329.12404287901995" />
+      <point x="30.97025182326854" y="14.0" />
     </edge>
     <edge source="domain.user.Dealer" target="domain.user.User" relationship="GENERALIZATION">
-      <point x="-5.8823529343499104E-5" y="-14.0" />
-      <point x="65.447" y="200.0" />
-      <point x="131.926" y="200.0" />
-      <point x="-4.705882352595836E-4" y="14.0" />
+      <point x="48.99976237623764" y="1.7151607963938886E-4" />
+      <point x="523.0" y="58.004" />
+      <point x="523.0" y="26.504" />
+      <point x="480.192" y="26.504" />
+      <point x="-6.842923789918132E-5" y="13.99957409158365" />
     </edge>
     <edge source="model.BlackJackGame" target="model.EarningCalculator" relationship="CREATE">
-      <point x="45.0" y="14.0" />
-      <point x="128.12194494452575" y="555.8700314193197" />
-      <point x="-92.0" y="-5.58324837292821" />
+      <point x="-17.25" y="-14.0" />
+      <point x="508.0" y="118.30321592649307" />
+      <point x="88.5" y="0.0" />
     </edge>
-    <edge source="model.BlackJackGame" target="domain.user.Player" relationship="TO_MANY">
-      <point x="83.50005505547426" y="0.0" />
-      <point x="259.0" y="434.0" />
-      <point x="259.0" y="241.0" />
-      <point x="47.99994117647063" y="0.0" />
-    </edge>
-    <edge source="model.EarningCalculator" target="model.Earnings" relationship="CREATE">
-      <point x="-4.5" y="-14.0" />
-      <point x="374.99709050687693" y="529.9532797922479" />
-      <point x="575.2639944214676" y="529.9532797922479" />
-      <point x="0.0" y="-14.0" />
-    </edge>
-    <edge source="domain.card.Deck" target="domain.card.CardDistributor" relationship="REALIZATION">
-      <point x="0.0" y="-14.0" />
-      <point x="37.5" y="14.0" />
-    </edge>
-    <edge source="domain.card.CardFactory" target="domain.card.Card" relationship="CREATE">
-      <point x="-68.5" y="0.0" />
-      <point x="47.0" y="0.0" />
-    </edge>
-    <edge source="controller.GameController" target="model.BlackJackGame" relationship="TO_ONE">
-      <point x="-58.81071271313186" y="-14.0" />
+    <edge source="model.EarningCalculator" target="model.dto.Earnings" relationship="CREATE">
+      <point x="15.0" y="-14.0" />
       <point x="15.0" y="14.0" />
     </edge>
-    <edge source="model.OpenedCardsDto" target="domain.user.Player" relationship="TO_MANY">
-      <point x="-87.50009050687692" y="-4.181494662134355E-4" />
-      <point x="259.0" y="400.22" />
-      <point x="259.0" y="241.0" />
-      <point x="47.99994117647063" y="0.0" />
+    <edge source="domain.card.Deck" target="domain.card.CardDistributor" relationship="REALIZATION">
+      <point x="44.0" y="0.0" />
+      <point x="-80.0" y="0.0" />
+    </edge>
+    <edge source="domain.card.CardFactory" target="domain.card.Card" relationship="CREATE">
+      <point x="70.0" y="0.0" />
+      <point x="-43.0" y="0.0" />
+    </edge>
+    <edge source="model.BlackJackGame" target="domain.user.Players" relationship="TO_ONE">
+      <point x="60.524" y="-14.0" />
+      <point x="-14.99980237441821" y="14.0" />
+    </edge>
+    <edge source="controller.GameController" target="model.BlackJackGame" relationship="TO_ONE">
+      <point x="-15.0" y="-14.0" />
+      <point x="-27.68996671872401" y="14.0" />
     </edge>
     <edge source="domain.user.User" target="domain.card.Card" relationship="TO_MANY">
-      <point x="-4.705882352595836E-4" y="-14.0" />
-      <point x="-4.705882352595836E-4" y="15.0" />
+      <point x="-6.842923789918132E-5" y="-14.000425908416354" />
+      <point x="480.192" y="-66.0" />
+      <point x="467.5" y="-66.0" />
+      <point x="5.6843418860808015E-14" y="13.999600306278836" />
+    </edge>
+    <edge source="domain.user.Players" target="domain.user.Player" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
     </edge>
     <edge source="model.BlackJackGame" target="domain.user.Dealer" relationship="TO_ONE">
-      <point x="5.505547424888846E-5" y="-14.0" />
-      <point x="83.122" y="321.0" />
-      <point x="65.447" y="321.0" />
-      <point x="-5.8823529343499104E-5" y="14.0" />
+      <point x="-76.0" y="-14.0" />
+      <point x="1.7487623762376643" y="14.0" />
     </edge>
-    <edge source="model.Earnings" target="model.Earning" relationship="CREATE">
-      <point x="57.0" y="0.0" />
-      <point x="669.1016278734247" y="561.4532797922479" />
-      <point x="669.1016278734247" y="631.4241207399573" />
-      <point x="-53.0" y="0.0" />
+    <edge source="model.dto.Earnings" target="model.dto.Earning" relationship="TO_MANY">
+      <point x="15.0" y="-14.0" />
+      <point x="15.0" y="14.0" />
     </edge>
     <edge source="domain.card.Card" target="domain.card.Type" relationship="TO_ONE">
-      <point x="39.5" y="-15.0" />
-      <point x="-18.25" y="14.0" />
+      <point x="-35.5" y="-14.0" />
+      <point x="22.25" y="14.0" />
     </edge>
     <edge source="controller.GameController" target="view.InputView" relationship="TO_ONE">
-      <point x="54.40719999358794" y="14.0" />
-      <point x="211.33985765124555" y="677.7849139174764" />
-      <point x="-61.5" y="0.0" />
+      <point x="60.5" y="14.0" />
+      <point x="-36.08812904644219" y="-14.0" />
     </edge>
-    <edge source="model.Earnings" target="model.Earning" relationship="TO_MANY">
-      <point x="0.0" y="14.0" />
+    <edge source="model.BlackJackGame" target="model.dto.Opening" relationship="CREATE">
+      <point x="75.524" y="-14.0" />
+      <point x="600.774" y="197.48813169984675" />
+      <point x="-56.5" y="0.0" />
+    </edge>
+    <edge source="model.dto.Earnings" target="model.dto.Earning" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
       <point x="0.0" y="14.0" />
     </edge>
-    <edge source="model.BlackJackGame" target="domain.user.Player" relationship="CREATE">
-      <point x="76.0" y="-14.0" />
-      <point x="-23.325113879003624" y="14.0" />
+    <edge source="model.BlackJackGame" target="model.dto.OpenedCards" relationship="CREATE">
+      <point x="0.0" y="-14.00004287901993" />
+      <point x="525.25" y="158.0" />
+      <point x="781.046" y="158.0" />
+      <point x="-3.6712507392167026E-4" y="13.99978407350693" />
+    </edge>
+    <edge source="model.BlackJackGame" target="domain.user.Players" relationship="CREATE">
+      <point x="45.524" y="-14.0" />
+      <point x="-29.99980237441821" y="14.0" />
+    </edge>
+    <edge source="controller.GameController" target="controller.AnswerHandler" relationship="TO_ONE">
+      <point x="0.0" y="14.0" />
+      <point x="512.560033281276" y="630.9967430348981" />
+      <point x="240.56883879429267" y="630.9967430348981" />
+      <point x="0.0" y="14.0" />
     </edge>
     <edge source="controller.GameController" target="view.OutputView" relationship="CREATE">
-      <point x="-35.59280000641206" y="14.0" />
-      <point x="0.0" y="-15.0" />
+      <point x="-75.5" y="14.0" />
+      <point x="1.8100332812760485" y="-14.0" />
     </edge>
-    <edge source="model.EarningCalculator" target="model.Earnings" relationship="TO_ONE">
-      <point x="92.0" y="0.0" />
-      <point x="-57.0" y="0.0" />
-    </edge>
-    <edge source="model.BlackJackGame" target="model.OpenedCardsDto" relationship="CREATE">
-      <point x="60.0" y="14.0" />
-      <point x="143.12194494452575" y="465.5" />
-      <point x="374.99709050687693" y="465.5" />
+    <edge source="model.EarningCalculator" target="model.dto.Earnings" relationship="TO_ONE">
+      <point x="0.0" y="-14.0" />
       <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="controller.AnswerHandler" target="view.OutputView" relationship="TO_ONE">
+      <point x="81.50016120570734" y="4.4992069160798565E-4" />
+      <point x="345.0" y="515.892" />
+      <point x="345.0" y="599.497" />
+      <point x="-68.49999999999994" y="4.5910905294022086E-4" />
+    </edge>
+    <edge source="model.dto.Opening" target="model.dto.OpenedCards" relationship="TO_MANY">
+      <point x="14.999632874926078" y="-14.0" />
+      <point x="14.999632874926078" y="14.0" />
+    </edge>
+    <edge source="model.dto.OpenedCards" target="domain.card.Card" relationship="TO_MANY">
+      <point x="-3.6712507392167026E-4" y="-14.00021592649307" />
+      <point x="781.046" y="-66.0" />
+      <point x="467.5" y="-66.0" />
+      <point x="5.6843418860808015E-14" y="13.999600306278836" />
     </edge>
     <edge source="domain.card.Card" target="domain.card.Symbol" relationship="TO_ONE">
-      <point x="-12.75" y="-15.0" />
-      <point x="45.0" y="14.0" />
+      <point x="12.750000000000057" y="-14.0" />
+      <point x="-45.0" y="14.0" />
     </edge>
     <edge source="Application" target="controller.GameController" relationship="CREATE">
-      <point x="66.5" y="6.5" />
-      <point x="-83.0" y="-2.3432432432432506" />
+      <point x="-65.0" y="0.0" />
+      <point x="83.0" y="0.0" />
     </edge>
     <edge source="controller.GameController" target="view.InputView" relationship="CREATE">
-      <point x="83.0" y="0.0" />
-      <point x="316.7188612099644" y="596.213274662563" />
-      <point x="0.0" y="-14.0" />
+      <point x="75.5" y="14.0" />
+      <point x="-21.08812904644219" y="-14.0" />
     </edge>
     <edge source="domain.user.Player" target="domain.user.User" relationship="GENERALIZATION">
-      <point x="-5.882352937192081E-5" y="-14.0" />
-      <point x="182.447" y="200.0" />
-      <point x="131.926" y="200.0" />
-      <point x="-4.705882352595836E-4" y="14.0" />
+      <point x="-47.99980237441821" y="1.7151607963938886E-4" />
+      <point x="523.0" y="58.004" />
+      <point x="523.0" y="26.504" />
+      <point x="480.192" y="26.504" />
+      <point x="-6.842923789918132E-5" y="13.99957409158365" />
     </edge>
     <edge source="domain.card.Deck" target="domain.card.Card" relationship="TO_MANY">
-      <point x="43.999730948030006" y="9.712612612612588" />
-      <point x="-54.062" y="427.5" />
-      <point x="-54.062" y="124.0" />
-      <point x="131.926" y="124.0" />
-      <point x="-4.705882352595836E-4" y="15.0" />
+      <point x="1.6120570728617167E-4" y="14.000385911179237" />
+      <point x="676.069" y="-66.0" />
+      <point x="467.5" y="-66.0" />
+      <point x="5.6843418860808015E-14" y="13.999600306278836" />
     </edge>
     <edge source="model.BlackJackGame" target="domain.user.Dealer" relationship="CREATE">
-      <point x="-32.67494494452575" y="-14.0" />
-      <point x="-15.000058823529343" y="14.0" />
+      <point x="-61.0" y="-14.0" />
+      <point x="16.748762376237664" y="14.0" />
     </edge>
     <edge source="model.BlackJackGame" target="model.EarningCalculator" relationship="TO_ONE">
-      <point x="75.0" y="14.0" />
-      <point x="158.12194494452575" y="495.5" />
-      <point x="389.99709050687693" y="495.5" />
-      <point x="10.5" y="-14.0" />
-    </edge>
-    <edge source="controller.GameController" target="model.BlackJackGame" relationship="CREATE">
-      <point x="-73.81071271313186" y="-14.0" />
+      <point x="-83.5" y="0.0" />
+      <point x="265.0688387942927" y="329.12404287901995" />
       <point x="0.0" y="14.0" />
     </edge>
+    <edge source="domain.user.Players" target="model.dto.OpenedCards" relationship="CREATE">
+      <point x="1.976255817908168E-4" y="13.99978407350693" />
+      <point x="600.774" y="158.0" />
+      <point x="781.046" y="158.0" />
+      <point x="-3.6712507392167026E-4" y="13.99978407350693" />
+    </edge>
+    <edge source="controller.GameController" target="model.BlackJackGame" relationship="CREATE">
+      <point x="15.0" y="-14.0" />
+      <point x="2.3100332812759916" y="14.0" />
+    </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="1.2952158693115519" showDependencies="true" x="288.5000000000001" y="422.50000000000006" />
+  <settings layout="Hierarchic" zoom="0.7277099911582671" showDependencies="true" x="726.5305695956454" y="127.59375" />
   <SelectedNodes />
   <Categories />
   <SCOPE>All</SCOPE>
