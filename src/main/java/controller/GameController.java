@@ -6,6 +6,7 @@ import static domain.rule.ParticipantsRule.PARTICIPANTS_MAX_COUNT;
 import static domain.rule.ParticipantsRule.PARTICIPANTS_MIN_COUNT;
 import static view.resource.OutputContent.FORMAT_ASK_BETTING_MONEY;
 import static view.resource.OutputContent.FORMAT_ASK_HIT_OR_STAY;
+import static view.resource.OutputContent.FORMAT_FUNCTION_ERROR;
 import static view.resource.OutputContent.FORMAT_INFORM_DISTRIBUTED;
 import static view.resource.OutputContent.MESSAGE_ASK_PLAYERS_NAME;
 import static view.resource.OutputContent.MESSAGE_INFORM_DEALER_BLACKJACK;
@@ -26,19 +27,26 @@ public class GameController {
 
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
+    private final AnswerHandler answerHandler = new AnswerHandler(outputView);
     private BlackJackGame blackJackGame;
     private List<String> playerNames;
 
     public void run(CardDistributor distributor) {
-        initializeGame(distributor);
-        startGame();
-        checkBlackJackAndPlay();
-        showResult();
+        try {
+            initializeGame(distributor);
+            startGame();
+            checkBlackJackAndPlay();
+            showResult();
+        } catch (Exception exception) {
+            outputView.printFormattedMessage(FORMAT_FUNCTION_ERROR, exception.getMessage());
+        }
     }
 
     private void initializeGame(CardDistributor distributor) {
         outputView.printMessage(MESSAGE_ASK_PLAYERS_NAME);
-        playerNames = inputView.readPlayersName(PARTICIPANTS_MIN_COUNT.getValue(), PARTICIPANTS_MAX_COUNT.getValue());
+        playerNames = answerHandler.askUntilGetLegalAnswer(() -> inputView.readPlayersName(
+                PARTICIPANTS_MIN_COUNT.getValue(), PARTICIPANTS_MAX_COUNT.getValue()
+        ));
         outputView.printBlankLine();
         Map<String, Double> players = new LinkedHashMap<>();
         playerNames.forEach(name -> players.put(name, askBettingMoney(name)));
@@ -47,7 +55,9 @@ public class GameController {
 
     private double askBettingMoney(String playerName) {
         outputView.printFormattedMessage(FORMAT_ASK_BETTING_MONEY, playerName);
-        double bettingMoney = inputView.readBettingMoney(INITIAL_MIN_VALUE.getValue(), INITIAL_MAX_VALUE.getValue());
+        double bettingMoney = answerHandler.askUntilGetLegalAnswer(() -> inputView.readBettingMoney(
+                INITIAL_MIN_VALUE.getValue(), INITIAL_MAX_VALUE.getValue()
+        ));
         outputView.printBlankLine();
         return bettingMoney;
     }
@@ -77,12 +87,6 @@ public class GameController {
         blackJackGame.updateEarningsWithOutBlackJack();
     }
 
-    private void hitIfDealerValid() {
-        while (blackJackGame.hitDealer()) {
-            outputView.printMessage(OutputContent.MESSAGE_INFORM_DEALER_HIT);
-        }
-    }
-
     private void hitUntilPlayerWant(String playerName) {
         boolean toHitMore = true;
         int hitCount = 0;
@@ -106,7 +110,13 @@ public class GameController {
 
     private boolean askHitOrStay(String playerName) {
         outputView.printFormattedMessage(FORMAT_ASK_HIT_OR_STAY, playerName);
-        return inputView.readHitOrStay();
+        return answerHandler.askUntilGetLegalAnswer(inputView::readHitOrStay);
+    }
+
+    private void hitIfDealerValid() {
+        while (blackJackGame.hitDealer()) {
+            outputView.printMessage(OutputContent.MESSAGE_INFORM_DEALER_HIT);
+        }
     }
 
     private void showResult() {
