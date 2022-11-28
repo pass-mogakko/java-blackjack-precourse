@@ -2,7 +2,7 @@ package view;
 
 import static view.resource.Format.NAMES_DELIMITER;
 
-import view.resource.Command;
+import view.resource.PlayCommand;
 import view.validator.IOValidator;
 
 import java.util.Arrays;
@@ -30,7 +30,7 @@ public class InputView {
 
     public boolean readHitOrStay() {
         String readValue = ConsoleReader.readLine();
-        return Command.isToHitByCommand(readValue);
+        return PlayCommand.isToHitByCommand(readValue);
     }
 
     private static class ConsoleReader {

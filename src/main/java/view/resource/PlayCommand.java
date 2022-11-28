@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public enum Command {
+public enum PlayCommand {
 
     HIT("y", true),
     STAY("n", false);
@@ -12,9 +12,9 @@ public enum Command {
     private final String keyword;
     private final boolean toHit;
     private static final Map<String, Boolean> toHitByCommand = Arrays.stream(values())
-                    .collect(Collectors.toMap(Command::getKeyword, Command::isToHit));
+                    .collect(Collectors.toMap(PlayCommand::getKeyword, PlayCommand::isToHit));
 
-    Command(String keyword, boolean toHit) {
+    PlayCommand(String keyword, boolean toHit) {
         this.keyword = keyword;
         this.toHit = toHit;
     }
