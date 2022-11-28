@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class OutputView {
 
     public static final String FIRST_HAND_OUT_MESSAGE = View.DEALER + "와 %s에게 2장의 카드를 나누었습니다.";
+    public static final String MORE_CARD_TO_DEALER = "딜러는 16이하라 한장의 카드를 더 받았습니다.";
 
     public void printHandOut(List<Player> players) {
         System.out.printf(FIRST_HAND_OUT_MESSAGE + View.LINE_BREAK, getPlayerNames(players));
@@ -24,12 +25,26 @@ public class OutputView {
         printDealerCardFirstTime(usersDTO.getDealer());
         Players players = usersDTO.getPlayers();
         printPlayerCards(players.getPlayers());
+    }
 
+    public void printAllResult(UsersDTO usersDTO) {
+        printDealerCards(usersDTO.getDealer());
+        Players players = usersDTO.getPlayers();
+        printPlayerCards(players.getPlayers());
+    }
+
+    public void printMoreCardToDealer() {
+        System.out.println(MORE_CARD_TO_DEALER);
     }
 
     private void printDealerCardFirstTime(Dealer dealer) {
         System.out.println(View.DEALER + View.COLON + getCardView(dealer.getFirstCard()));
     }
+
+    private void printDealerCards(Dealer dealer) {
+        System.out.println(View.DEALER + View.COLON + getCardsView(dealer.getCards()));
+    }
+
 
     private void printPlayerCards(List<Player> players) {
         players.stream()
