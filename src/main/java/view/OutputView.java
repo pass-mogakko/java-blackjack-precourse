@@ -17,7 +17,7 @@ public class OutputView {
         System.out.print(System.lineSeparator());
         printHandOutMessage(game.getPlayers());
         printDealerCard(game.getDealer());
-        printPlayerCard(game.getPlayers());
+        printPlayersCard(game.getPlayers());
     }
 
     private static void printHandOutMessage(List<Player> players) {
@@ -41,10 +41,14 @@ public class OutputView {
         System.out.println(dealer.getInitialDealerCard());
     }
 
-    private static void printPlayerCard(List<Player> players) {
+    private static void printPlayersCard(List<Player> players) {
         for (Player player : players) {
-            System.out.print(player.getName() + CARD + COLON);
-            System.out.println(player.getPlayerCards());
+            printPlayerCard(player);
         }
+    }
+
+    public static void printPlayerCard(Player player) {
+        System.out.print(player.getName() + CARD + COLON);
+        System.out.println(player.getPlayerCards());
     }
 }
