@@ -14,6 +14,9 @@ import static view.resource.OutputContent.MESSAGE_INFORM_TOTAL_EARNINGS;
 
 import domain.card.CardDistributor;
 import model.BlackJackGame;
+import model.dto.Earning;
+import model.dto.Earnings;
+import model.dto.OpenedCards;
 import model.dto.Opening;
 import view.InputView;
 import view.OutputView;
@@ -34,7 +37,7 @@ public class GameController {
     public void run(CardDistributor distributor) {
         try {
             initializeGame(distributor);
-            startGame();
+            start();
             checkBlackJackAndPlay();
             showResult();
         } catch (Exception exception) {
@@ -62,11 +65,10 @@ public class GameController {
         return bettingMoney;
     }
 
-    private void startGame() {
+    private void start() {
         blackJackGame.deal();
-        Opening opening = blackJackGame.open(false);
         outputView.printFormattedMessage(FORMAT_INFORM_DISTRIBUTED, playerNames);
-        outputView.printOpening(opening);
+        showOpenedCards(blackJackGame.open(false));
         outputView.printBlankLine();
     }
 
@@ -95,14 +97,14 @@ public class GameController {
             hitCount += addCardIfToHit(toHitMore, playerName);
         }
         if (hitCount == 0) {
-            outputView.printOpenedCards(blackJackGame.openPlayerCards(playerName));
+            showOpenedCardsForPlayer(playerName);
         }
     }
 
     private int addCardIfToHit(boolean toHitMore, String playerName) {
         if (toHitMore) {
             blackJackGame.hitPlayer(playerName);
-            outputView.printOpenedCards(blackJackGame.openPlayerCards(playerName));
+            showOpenedCardsForPlayer(playerName);
             return 1;
         }
         return 0;
@@ -120,9 +122,36 @@ public class GameController {
     }
 
     private void showResult() {
-        outputView.printResult(blackJackGame.open(true));
+        showOpenedCardsWithResult(blackJackGame.open(true));
         outputView.printBlankLine();
         outputView.printMessage(MESSAGE_INFORM_TOTAL_EARNINGS);
-        outputView.printEarnings(blackJackGame.getEarnings());
+        showEarnings(blackJackGame.getEarnings());
+    }
+
+    private void showOpenedCards(Opening opening) {
+        OpenedCards dealerOpening = opening.getDealerCards();
+        outputView.printOpenedCards(dealerOpening.getName(), dealerOpening.getCards());
+        opening.getPlayerCards()
+                .forEach(cards -> outputView.printOpenedCards(cards.getName(), cards.getCards()));
+    }
+
+    private void showOpenedCardsWithResult(Opening opening) {
+        OpenedCards dealerOpening = opening.getDealerCards();
+        outputView.printOpenedCards(dealerOpening.getName(), dealerOpening.getCards(), dealerOpening.getScore());
+        for (OpenedCards playerCards : opening.getPlayerCards()) {
+            outputView.printOpenedCards(playerCards.getName(), playerCards.getCards(), playerCards.getScore());
+        }
+    }
+
+    private void showOpenedCardsForPlayer(String playerName) {
+        OpenedCards playerCards = blackJackGame.openPlayerCards(playerName);
+        outputView.printOpenedCards(playerCards.getName(), playerCards.getCards());
+    }
+
+    private void showEarnings(Earnings earnings) {
+        Earning dealerEarning = earnings.getDealerEarning();
+        outputView.printEarning(dealerEarning.getName(), dealerEarning.getValue());
+        earnings.getPlayerEarnings()
+                .forEach(earning -> outputView.printEarning(earning.getName(), earning.getValue()));
     }
 }

@@ -48,6 +48,10 @@ public class BlackJackGame {
         return new Opening(new OpenedCards("딜러", dealerCards, dealer.getScore()), players.openAllCards());
     }
 
+    public OpenedCards openPlayerCards(String playerName) {
+        return players.openCardsByName(playerName);
+    }
+
     public void hitPlayer(String playerName) {
         players.addCardByName(playerName, distributor.takeOneCard());
     }
@@ -69,10 +73,6 @@ public class BlackJackGame {
         return players.filterByStatus(player -> !player.isBlackJack())
                 .stream().map(Player::getName)
                 .collect(Collectors.toList());
-    }
-
-    public OpenedCards openPlayerCards(String playerName) {
-        return players.openCardsByName(playerName);
     }
 
     public void updateEarningsByBlackJack() {

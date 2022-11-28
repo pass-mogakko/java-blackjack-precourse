@@ -3,10 +3,7 @@ package view;
 import static view.resource.Format.LIST_DELIMITER;
 import static view.resource.OutputContent.FORMAT_EARNING;
 
-import model.dto.Earning;
-import model.dto.Earnings;
-import model.dto.OpenedCards;
-import model.dto.Opening;
+import domain.card.Card;
 import view.resource.OutputContent;
 import view.validator.IOValidator;
 
@@ -26,36 +23,16 @@ public class OutputView {
         ConsolePrinter.printFormattedLine(formattedMessage, String.join(LIST_DELIMITER.getValue(), playerNames));
     }
 
-    public void printOpening(Opening opening) {
-        printOpenedCards(opening.getDealerCards());
-        for (OpenedCards playerCards : opening.getPlayerCards()) {
-            printOpenedCards(playerCards);
-        }
+    public void printOpenedCards(String userName, List<Card> cards) {
+        ConsolePrinter.printLine(CardDisplayConverter.makeUserCardsDisplay(userName, cards));
     }
 
-    public void printResult(Opening opening) {
-        printOpenedCardsWithResult(opening.getDealerCards());
-        for (OpenedCards playerCards : opening.getPlayerCards()) {
-            printOpenedCardsWithResult(playerCards);
-        }
+    public void printOpenedCards(String userName, List<Card> cards, int score) {
+        ConsolePrinter.printLine(CardDisplayConverter.makeUserCardsWithResultDisplay(userName, cards, score));
     }
 
-    public void printOpenedCards(OpenedCards openedCards) {
-        ConsolePrinter.printLine(CardDisplayConverter.makeUserCardsDisplay(openedCards));
-    }
-
-    private void printOpenedCardsWithResult(OpenedCards openedCards) {
-        ConsolePrinter.printLine(CardDisplayConverter.makeUserCardsWithResultDisplay(openedCards));
-    }
-
-    public void printEarnings(Earnings earnings) {
-        printEarning(earnings.getDealerEarning());
-        earnings.getPlayerEarnings()
-                .forEach(this::printEarning);
-    }
-
-    private void printEarning(Earning earning) {
-        ConsolePrinter.printFormattedLine(FORMAT_EARNING, earning.getName(), earning.getValue());
+    public void printEarning(String name, double earning) {
+        ConsolePrinter.printFormattedLine(FORMAT_EARNING, name, earning);
     }
 
     public void printBlankLine() {
