@@ -35,6 +35,10 @@ public class Dealer {
         return cards;
     }
 
+    public boolean isOverThanSixteen(){
+        return countDealerCards() > 16;
+    }
+
     public int countDealerCards(){
         int count = 0;
         for(Card card: cards){
@@ -42,6 +46,5 @@ public class Dealer {
         }
         return count;
     }
-
     // TODO 추가 기능 구현
 }
