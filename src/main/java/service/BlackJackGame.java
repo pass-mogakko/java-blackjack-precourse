@@ -18,8 +18,12 @@ public class BlackJackGame {
     }
 
     public void handOutFirstTime() {
-        deck.handOut(dealer);
-        deck.handOutPlayers(players);
+        dealer.addCards(deck.handOutFirstTime());
+        players.addCardsFirstTime(deck);
+    }
+
+    public void handOutMoreCardOfPlayer(String name) {
+        players.handOutMoreCardByName(name,deck.handOutMoreCard());
     }
 
     public UsersDTO getUsers() {

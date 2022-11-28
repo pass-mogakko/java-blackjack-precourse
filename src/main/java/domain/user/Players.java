@@ -1,5 +1,6 @@
 package domain.user;
 
+import domain.card.Card;
 import domain.card.Deck;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,9 +25,17 @@ public class Players {
         return this.players;
     }
 
-    public void receiveCards(Deck deck) {
+    public void addCardsFirstTime(Deck deck) {
         players.stream()
-                .forEach(player -> deck.handOut(player));
+                .forEach(player -> player.addCards(deck.handOutFirstTime()));
+    }
+
+    public void handOutMoreCardByName(String name, Card card) {
+        Player player = players.stream()
+                .filter(p -> p.isSameName(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException());
+        player.addCard(card);
     }
 
 }

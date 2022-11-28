@@ -21,6 +21,10 @@ public class Dealer implements Participants {
         cards.add(card);
     }
 
+    public void addCards(List<Card> addCards) {
+        cards.addAll(addCards);
+    }
+
     public Card getFirstCard() {
         return cards.get(FIRST_CARD_INDEX);
     }

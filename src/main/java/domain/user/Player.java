@@ -22,8 +22,21 @@ public class Player implements Participants {
         cards.add(card);
     }
 
+    public void addCards(List<Card> addCards) {
+        cards.addAll(addCards);
+    }
+
+    public boolean isSameName(String name) {
+        return this.name
+                .equals(name);
+    }
+
     public String getName() {
         return this.name;
+    }
+
+    public double getBettingMoney() {
+        return this.bettingMoney;
     }
 
     public List<Card> getCards() {

@@ -1,11 +1,11 @@
 package domain.card;
 
-import domain.user.Players;
-import domain.user.Participants;
+import constants.BlackJack;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
+
 
 public class Deck {
 
@@ -18,14 +18,17 @@ public class Deck {
                 .forEach(card -> deck.push(card));
     }
 
-    public void handOut(Participants user) {
-        for (int i=0; i<2; i++) {
-            user.addCard(deck.pop());
-        }
+    public Card handOutMoreCard() {
+        return deck.pop();
     }
 
-    public void handOutPlayers(Players players) {
-        players.receiveCards(this);
+    public List<Card> handOutFirstTime() {
+        List<Card> peekCards = new ArrayList<>();
+        for (int i=0; i<BlackJack.CARD_COUNT_FIRST_TIME; i++) {
+            peekCards.add(deck.pop());
+        }
+        return peekCards;
     }
+
 }
 
