@@ -48,12 +48,12 @@ public class Players {
 
     public OpenedCards openCardsByName(String name) {
         Player player = findPlayerByName(name);
-        return new OpenedCards(name, player.getCards(), player.addAllScore());
+        return new OpenedCards(name, player.getCards(), player.getScore());
     }
 
     public List<OpenedCards> openAllCards() {
         List<OpenedCards> cards = new ArrayList<>();
-        players.forEach(player -> cards.add(new OpenedCards(player.getName(), player.getCards(), player.addAllScore())));
+        players.forEach(player -> cards.add(new OpenedCards(player.getName(), player.getCards(), player.getScore())));
         return cards;
     }
 }

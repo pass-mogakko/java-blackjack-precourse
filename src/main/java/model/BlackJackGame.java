@@ -45,7 +45,7 @@ public class BlackJackGame {
         if (!showAllDealerCards) {
             dealerCards = List.of(dealerCards.get(0));
         }
-        return new Opening(new OpenedCards("딜러", dealerCards, dealer.addAllScore()), players.openAllCards());
+        return new Opening(new OpenedCards("딜러", dealerCards, dealer.getScore()), players.openAllCards());
     }
 
     public void hitPlayer(String playerName) {
@@ -53,7 +53,7 @@ public class BlackJackGame {
     }
 
     public boolean hitDealer() {
-        int score = dealer.addAllScore();
+        int score = dealer.getScore();
         if (score < SCORE_DEALER_ADD_LIMIT.getValue()) {
             dealer.addCard(distributor.takeOneCard());
             return true;

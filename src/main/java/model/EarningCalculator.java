@@ -39,8 +39,8 @@ public class EarningCalculator {
             calculateEarning(players, player -> !player.isBust(), WIN);
             return;
         }
-        calculateEarning(players, player -> toLoseWithoutBlackJack(player, dealer.addAllScore()), LOSE);
-        calculateEarning(players, player -> toWinWithoutBlackJack(player, dealer.addAllScore()), WIN);
+        calculateEarning(players, player -> toLoseWithoutBlackJack(player, dealer.getScore()), LOSE);
+        calculateEarning(players, player -> toWinWithoutBlackJack(player, dealer.getScore()), WIN);
     }
 
     private void calculateEarning(Players players, Predicate<Player> playerStatus, EarningRule earningRule) {
@@ -54,7 +54,7 @@ public class EarningCalculator {
         if (player.isBust()) {
             return true;
         }
-        return player.addAllScore() < dealerScore;
+        return player.getScore() < dealerScore;
     }
 
     private boolean toWinWithoutBlackJack(Player player, double dealerScore) {
@@ -64,6 +64,6 @@ public class EarningCalculator {
         if (player.isBust()) {
             return false;
         }
-        return player.addAllScore() > dealerScore;
+        return player.getScore() > dealerScore;
     }
 }

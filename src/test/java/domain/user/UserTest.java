@@ -34,7 +34,7 @@ class UserTest {
         User user = new User();
         cards.forEach(user::addCard);
 
-        assertThat(user.addAllScore()).isEqualTo(expectedScore);
+        assertThat(user.getScore()).isEqualTo(expectedScore);
     }
 
     private static Stream<Arguments> generateStreamOfCardsAndExpectedScore() {

@@ -24,7 +24,7 @@ public class User {
         }
     }
 
-    public int addAllScore() {
+    public int getScore() {
         int totalScore = cards.stream()
                 .map(Card::getScore)
                 .reduce(0, Integer::sum);
@@ -44,10 +44,10 @@ public class User {
     }
 
     public boolean isBust() {
-        return addAllScore() > 21;
+        return getScore() > 21;
     }
 
     public boolean isBlackJack() {
-        return (addAllScore() == 21) && (cards.size() == 2);
+        return (getScore() == 21) && (cards.size() == 2);
     }
 }
