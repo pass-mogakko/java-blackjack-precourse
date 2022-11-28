@@ -12,6 +12,7 @@ public class OutputView {
     private static final String CARD = "카드";
     private static final String AND = "와 ";
     private static final String HANDOUT_CARDS_MESSAGE = "에게 2장의 카드를 나누었습니다.";
+    private static final String HANDOUT_DEALER_CARD = "딜러는 16이하라 한장의 카드를 더 받았습니다.";
 
     public static void printHandOutCards(BlackJackGame game) {
         System.out.print(System.lineSeparator());
@@ -50,5 +51,9 @@ public class OutputView {
     public static void printPlayerCard(Player player) {
         System.out.print(player.getName() + CARD + COLON);
         System.out.println(player.getPlayerCards());
+    }
+
+    public static void printHandoutDealerMessage(){
+        System.out.println(HANDOUT_DEALER_CARD);
     }
 }
