@@ -12,6 +12,7 @@ import java.util.List;
 
 import static domain.card.RandomNumber.getRandomNumber;
 import static view.InputView.readCommand;
+import static view.OutputView.printHandoutDealerMessage;
 import static view.OutputView.printPlayerCard;
 
 public class BlackJackGame {
@@ -59,7 +60,7 @@ public class BlackJackGame {
 
     public void askYesOrNo(Player player) {
         String command = getCommand(player.getName());
-        if(Command.isYes(command)){
+        if (Command.isYes(command)) {
             drawOneCard(player);
             printPlayerCard(player);
             askYesOrNo(player);
@@ -72,8 +73,9 @@ public class BlackJackGame {
         removeCard(index);
     }
 
-    public void checkDealerCard(){
-        while(!dealer.isOverThanSixteen()){
+    public void checkDealerCard() {
+        while (!dealer.isOverThanSixteen()) {
+            printHandoutDealerMessage();
             handOutDealerCard();
         }
     }
