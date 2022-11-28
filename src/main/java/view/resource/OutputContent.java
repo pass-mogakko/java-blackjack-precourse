@@ -14,9 +14,7 @@ public enum OutputContent {
     FORMAT_OPEN_DEALER_CARDS("딜러: %s"),
     FORMAT_OPEN_PLAYER_CARDS("%s카드: %s"),
     FORMAT_OPEN_RESULT(" - 결과: %d"),
-
-    FORMAT_DEALER_EARNING("딜러: %.0f"),
-    FORMAT_PLAYER_EARNING("%s: %.0f"),
+    FORMAT_EARNING("%s: %.0f"),
 
     FORMAT_FUNCTION_ERROR("[기능 오류] %s"),
     FORMAT_INPUT_ERROR("[입력 오류] %s");

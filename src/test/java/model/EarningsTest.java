@@ -3,6 +3,7 @@ package model;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import model.dto.Earning;
 import model.dto.Earnings;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,9 +28,8 @@ class EarningsTest {
     void findPlayerEarningByName() {
         Earnings earnings = new Earnings(List.of("pobi", "jason", "joon"));
 
-        assertThatThrownBy(() -> earnings.findPlayerEarningByName("wrong"))
+        assertThatThrownBy(() -> earnings.moveEarningFromDealerToPlayer("wrong", 1000))
                 .isInstanceOf(IllegalArgumentException.class);
-        assertThat(earnings.findPlayerEarningByName("pobi").getEarning()).isEqualTo(0);
     }
 
     @DisplayName("수익 업데이트: 특정 금액을 사용자 수익에는 더하고, 딜러 수익에는 빼도록 계산")
@@ -38,8 +38,8 @@ class EarningsTest {
     void updateEarning(double amount) {
         Earnings earnings = new Earnings(List.of("pobi", "jason", "joon"));
         earnings.moveEarningFromDealerToPlayer("pobi", amount);
+        Earning dealerEarning = earnings.getDealerEarning();
 
-        assertThat(earnings.getDealerEarning()).isEqualTo((-1)*amount);
-        assertThat(earnings.findPlayerEarningByName("pobi").getEarning()).isEqualTo(amount);
+        assertThat(dealerEarning.getValue()).isEqualTo((-1)*amount);
     }
 }

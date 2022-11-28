@@ -3,7 +3,7 @@ package model.dto;
 public class Earning {
 
     private final String name;
-    private double earning;
+    private double value;
 
     public Earning(String name) {
         this.name = name;
@@ -13,16 +13,11 @@ public class Earning {
         return name;
     }
 
-    public double getEarning() {
-        return earning;
+    public double getValue() {
+        return value;
     }
 
     public void updateEarning(double amount) {
-        this.earning += amount;
-    }
-
-    @Override
-    public String toString() {
-        return name + "= " + earning;
+        this.value += amount;
     }
 }

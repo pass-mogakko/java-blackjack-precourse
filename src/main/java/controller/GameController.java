@@ -123,6 +123,6 @@ public class GameController {
         outputView.printResult(blackJackGame.open(true));
         outputView.printBlankLine();
         outputView.printMessage(MESSAGE_INFORM_TOTAL_EARNINGS);
-        outputView.printEarnings(blackJackGame.getEarnings(), playerNames);
+        outputView.printEarnings(blackJackGame.getEarnings());
     }
 }

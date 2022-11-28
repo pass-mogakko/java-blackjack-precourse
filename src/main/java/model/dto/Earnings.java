@@ -6,10 +6,9 @@ import java.util.List;
 public class Earnings {
 
     private final List<Earning> playerEarnings = new ArrayList<>();
-    private double dealerEarning;
+    private final Earning dealerEarning = new Earning("딜러");
 
     public Earnings(List<String> playerNames) {
-        this.dealerEarning = 0;
         initializePlayerEarnings(playerNames);
     }
 
@@ -27,19 +26,16 @@ public class Earnings {
         }
     }
 
-    public double getDealerEarning() {
+    public Earning getDealerEarning() {
         return dealerEarning;
     }
 
-    public Earning findPlayerEarningByName(String playerName) {
-        return playerEarnings.stream()
-                .filter(player -> player.getName().equals(playerName))
-                .findFirst()
-                .orElseThrow(() -> {throw new IllegalArgumentException("해당 이름을 가진 사용자가 존재하지 않습니다.");});
+    public List<Earning> getPlayerEarnings() {
+        return playerEarnings;
     }
 
     public void moveEarningFromDealerToPlayer(String playerName, double amount) {
-        dealerEarning -= amount;
+        dealerEarning.updateEarning(-amount);
         updatePlayerEarningsByName(playerName, amount);
     }
 
@@ -48,8 +44,10 @@ public class Earnings {
         earning.updateEarning(amount);
     }
 
-    @Override
-    public String toString() {
-        return "dealerEarning=" + dealerEarning +" playerEarnings=" + playerEarnings;
+    private Earning findPlayerEarningByName(String playerName) {
+        return playerEarnings.stream()
+                .filter(player -> player.getName().equals(playerName))
+                .findFirst()
+                .orElseThrow(() -> {throw new IllegalArgumentException("해당 이름을 가진 사용자가 존재하지 않습니다.");});
     }
 }

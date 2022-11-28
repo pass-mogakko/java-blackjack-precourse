@@ -1,8 +1,7 @@
 package view;
 
 import static view.resource.Format.LIST_DELIMITER;
-import static view.resource.OutputContent.FORMAT_DEALER_EARNING;
-import static view.resource.OutputContent.FORMAT_PLAYER_EARNING;
+import static view.resource.OutputContent.FORMAT_EARNING;
 
 import model.dto.Earning;
 import model.dto.Earnings;
@@ -49,13 +48,14 @@ public class OutputView {
         ConsolePrinter.printLine(CardDisplayConverter.makeUserCardsWithResultDisplay(openedCards));
     }
 
-    public void printEarnings(Earnings earnings, List<String> playerNames) {
-        ConsolePrinter.printFormattedLine(FORMAT_DEALER_EARNING, earnings.getDealerEarning());
-        // TODO earnings에서 바로 순서대로 꺼내도록 리팩토링
-        for (String playerName : playerNames) {
-            Earning earning = earnings.findPlayerEarningByName(playerName);
-            ConsolePrinter.printFormattedLine(FORMAT_PLAYER_EARNING, playerName, earning.getEarning());
-        }
+    public void printEarnings(Earnings earnings) {
+        printEarning(earnings.getDealerEarning());
+        earnings.getPlayerEarnings()
+                .forEach(this::printEarning);
+    }
+
+    private void printEarning(Earning earning) {
+        ConsolePrinter.printFormattedLine(FORMAT_EARNING, earning.getName(), earning.getValue());
     }
 
     public void printBlankLine() {
@@ -74,11 +74,6 @@ public class OutputView {
             IOValidator.validateContent(format);
             IOValidator.validateContent(content);
             System.out.printf(format.getValue() + "\n", content, value);
-        }
-
-        public static void printFormattedLine(OutputContent format, double value) {
-            IOValidator.validateContent(format);
-            System.out.printf(format.getValue() + "\n", value);
         }
 
         public static void printLine(String content) {

@@ -7,6 +7,7 @@ import domain.card.Symbol;
 import domain.card.Type;
 import domain.user.Dealer;
 import domain.user.Players;
+import model.dto.Earning;
 import model.dto.Earnings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -39,11 +40,13 @@ class EarningCalculatorTest {
 
         earningCalculator.calculateEarningsByBlackJack(players, dealer);
         Earnings earnings = earningCalculator.getEarnings();
+        Earning dealerEarning = earnings.getDealerEarning();
+        List<Earning> playerEarnings = earnings.getPlayerEarnings();
 
-        assertThat(earnings.getDealerEarning()).isEqualTo(30_000);
-        assertThat(earnings.findPlayerEarningByName("pobi").getEarning()).isEqualTo(0);
-        assertThat(earnings.findPlayerEarningByName("jason").getEarning()).isEqualTo(-20_000);
-        assertThat(earnings.findPlayerEarningByName("joon").getEarning()).isEqualTo(-10_000);
+        assertThat(dealerEarning.getValue()).isEqualTo(30_000);
+        assertThat(playerEarnings.get(0).getValue()).isEqualTo(0);
+        assertThat(playerEarnings.get(1).getValue()).isEqualTo(-20_000);
+        assertThat(playerEarnings.get(2).getValue()).isEqualTo(-10_000);
     }
 
     private static Stream<Arguments> generateStreamOfCards() {
@@ -70,11 +73,13 @@ class EarningCalculatorTest {
 
         earningCalculator.calculateEarningsWithoutBlackJack(players, dealer);
         Earnings earnings = earningCalculator.getEarnings();
+        Earning dealerEarning = earnings.getDealerEarning();
+        List<Earning> playerEarnings = earnings.getPlayerEarnings();
 
-        assertThat(earnings.getDealerEarning()).isEqualTo(20_000);
-        assertThat(earnings.findPlayerEarningByName("pobi").getEarning()).isEqualTo(10_000);
-        assertThat(earnings.findPlayerEarningByName("jason").getEarning()).isEqualTo(-20_000);
-        assertThat(earnings.findPlayerEarningByName("joon").getEarning()).isEqualTo(-10_000);
+        assertThat(dealerEarning.getValue()).isEqualTo(20_000);
+        assertThat(playerEarnings.get(0).getValue()).isEqualTo(10_000);
+        assertThat(playerEarnings.get(1).getValue()).isEqualTo(-20_000);
+        assertThat(playerEarnings.get(2).getValue()).isEqualTo(-10_000);
     }
 
 
@@ -89,11 +94,13 @@ class EarningCalculatorTest {
 
         earningCalculator.calculateEarningsWithoutBlackJack(players, dealer);
         Earnings earnings = earningCalculator.getEarnings();
+        Earning dealerEarning = earnings.getDealerEarning();
+        List<Earning> playerEarnings = earnings.getPlayerEarnings();
 
-        assertThat(earnings.getDealerEarning()).isEqualTo(-30_000);
-        assertThat(earnings.findPlayerEarningByName("pobi").getEarning()).isEqualTo(10_000);
-        assertThat(earnings.findPlayerEarningByName("jason").getEarning()).isEqualTo(20_000);
-        assertThat(earnings.findPlayerEarningByName("joon").getEarning()).isEqualTo(0);
+        assertThat(dealerEarning.getValue()).isEqualTo(-30_000);
+        assertThat(playerEarnings.get(0).getValue()).isEqualTo(10_000);
+        assertThat(playerEarnings.get(1).getValue()).isEqualTo(20_000);
+        assertThat(playerEarnings.get(2).getValue()).isEqualTo(0);
     }
 
     private static Stream<Arguments> generateStreamOfCardsWithoutBlackJack() {
