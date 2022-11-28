@@ -1,10 +1,14 @@
 package controller;
 
+import domain.card.CardFactory;
+import domain.card.Deck;
+import domain.user.Dealer;
 import domain.user.Players;
 import dto.NewPlayerDTO;
+import dto.UsersDTO;
 import java.util.List;
 import service.BlackJackGame;
-import util.PlayerConverter;
+import util.converter.PlayerConverter;
 import view.InputView;
 import view.OutputView;
 
@@ -21,14 +25,13 @@ public class BlackJackController {
     }
 
     public void run() {
-        applyParticipation();
+        handOutFirstTime();
     }
 
-    private void handOutCards() {
-
+    private void handOutFirstTime() {
+        blackJackGame.handOutFirstTime();
     }
 
-    private void moreCard() {
 
 
     private BlackJackGame initBlackJackGame() {

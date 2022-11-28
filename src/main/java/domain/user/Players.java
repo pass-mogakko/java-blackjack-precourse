@@ -1,5 +1,6 @@
 package domain.user;
 
+import domain.card.Deck;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,4 +19,15 @@ public class Players {
                 .collect(Collectors.toList());
         return String.join(", ",playerNames);
     }
+
+    public List<Player> getPlayers() {
+        return this.players;
+    }
+
+    public void receiveCards(Deck deck) {
+        players.stream()
+                .forEach(player -> deck.handOut(player));
+    }
+
 }
+
