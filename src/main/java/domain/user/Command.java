@@ -13,4 +13,8 @@ public enum Command {
     public String getCommand() {
         return command;
     }
+
+    public static boolean isYes(String input) {
+        return input.equals(DRAW_CARD.command);
+    }
 }
