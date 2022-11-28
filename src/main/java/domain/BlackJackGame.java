@@ -12,6 +12,7 @@ import java.util.List;
 
 import static domain.card.RandomNumber.getRandomNumber;
 import static view.InputView.readCommand;
+import static view.OutputView.printPlayerCard;
 
 public class BlackJackGame {
     private final List<Player> players;
@@ -35,20 +36,6 @@ public class BlackJackGame {
         return dealer;
     }
 
-    public void askYesOrNo(Player player) {
-        String command = getCommand(player.getName());
-        if (Command.isYes(command)) {
-            drawOneCard(player);
-            askYesOrNo(player);
-        }
-    }
-
-    private void drawOneCard(Player player) {
-        final int index = getRandomNumber(deck);
-        player.addCard(deck.get(index));
-        removeCard(index);
-    }
-
     public void handOutFirstTwoCards() {
         for (int count = 0; count < FIRST_CARD_COUNT; count++) {
             handOutPlayerCard();
@@ -70,6 +57,21 @@ public class BlackJackGame {
         removeCard(index);
     }
 
+    public void askYesOrNo(Player player) {
+        String command = getCommand(player.getName());
+        if(Command.isYes(command)){
+            drawOneCard(player);
+            printPlayerCard(player);
+            askYesOrNo(player);
+        }
+    }
+
+    public void drawOneCard(Player player) {
+        final int index = getRandomNumber(deck);
+        player.addCard(deck.get(index));
+        removeCard(index);
+    }
+
     private void removeCard(int index) {
         deck.remove(index);
     }
@@ -86,5 +88,4 @@ public class BlackJackGame {
             return getCommand(name);
         }
     }
-
 }
