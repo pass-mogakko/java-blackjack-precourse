@@ -7,12 +7,15 @@ import java.util.Objects;
  */
 public class Card {
     private final Symbol symbol;
-
     private final Type type;
 
     public Card(Symbol symbol, Type type) {
         this.symbol = symbol;
         this.type = type;
+    }
+
+    public int getSymbolScore(){
+        return symbol.getScore();
     }
 
     // TODO Card 관련 추가 기능 구현
@@ -33,9 +36,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
+        return symbol.getSymbol() + type.getType();
     }
 }
