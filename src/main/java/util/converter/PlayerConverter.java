@@ -1,4 +1,4 @@
-package util;
+package util.converter;
 
 import domain.user.Player;
 import domain.user.Players;

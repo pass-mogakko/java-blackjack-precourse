@@ -1,10 +1,10 @@
-package util;
+package util.converter;
 
 import dto.NewPlayerDTO;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Converter {
+public class NewPlayerConverter {
     public static NewPlayerDTO convertNewPlayerDTO(String name) {
         return new NewPlayerDTO(name);
     }
