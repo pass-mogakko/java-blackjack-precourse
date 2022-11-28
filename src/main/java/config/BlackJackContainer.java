@@ -16,7 +16,7 @@ public class BlackJackContainer {
     }
 
     public BlackJackController blackJackController () {
-        return new BlackJackController(inputView(), outputView(), blackJackGame());
+        return new BlackJackController(inputView(), outputView());
     }
 
     private InputView inputView() {
@@ -25,10 +25,6 @@ public class BlackJackContainer {
 
     private OutputView outputView() {
         return new OutputView();
-    }
-
-    private BlackJackGame blackJackGame () {
-        return new BlackJackGame();
     }
 
 }

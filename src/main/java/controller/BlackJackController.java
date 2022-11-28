@@ -14,10 +14,10 @@ public class BlackJackController {
     private final OutputView outputView;
     private final BlackJackGame blackJackGame;
 
-    public BlackJackController(InputView inputView, OutputView outputView, BlackJackGame blackJackGame) {
+    public BlackJackController(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
-        this.blackJackGame = blackJackGame;
+        this.blackJackGame = initBlackJackGame();
     }
 
     public void run() {
@@ -30,6 +30,12 @@ public class BlackJackController {
 
     private void moreCard() {
 
+
+    private BlackJackGame initBlackJackGame() {
+        Dealer dealer = new Dealer();
+        Players players = applyParticipation();
+        Deck deck = new Deck(CardFactory.create());
+        return new BlackJackGame(dealer, players, deck);
     }
 
     private Players applyParticipation() {
