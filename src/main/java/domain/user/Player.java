@@ -1,27 +1,34 @@
 package domain.user;
 
-import domain.card.Card;
-
-import java.util.ArrayList;
-import java.util.List;
+import model.validator.GameRuleValidator;
 
 /**
  * 게임 참여자를 의미하는 객체
  */
-public class Player {
+public class Player extends User {
+
     private final String name;
     private final double bettingMoney;
-    private final List<Card> cards = new ArrayList<>();
 
     public Player(String name, double bettingMoney) {
+        GameRuleValidator.validateInitialBettingMoney(bettingMoney);
         this.name = name;
         this.bettingMoney = bettingMoney;
     }
 
-    public void addCard(Card card) {
-        cards.add(card);
+    public String getName() {
+        return name;
     }
 
-    // TODO 추가 기능 구현
+    public double getBettingMoney() {
+        return bettingMoney;
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Player player = (Player) obj;
+        return name.equals(player.name);
+    }
 }
