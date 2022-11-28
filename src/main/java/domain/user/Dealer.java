@@ -35,5 +35,13 @@ public class Dealer {
         return cards;
     }
 
+    public int countDealerCards(){
+        int count = 0;
+        for(Card card: cards){
+            count += card.getSymbolScore();
+        }
+        return count;
+    }
+
     // TODO 추가 기능 구현
 }
