@@ -180,5 +180,5 @@
 - [x] 클래스 설계 검토
   - [x] 로직 수행 객체와 Dto 구분하기 (getter, setter 검토)
   - [X] GameController에서 모델 로직 수행할 필요 없게 만들기
-- [ ] 메소드 중복 최소화
-  - [ ] EarningCalculator의 계산 메소드 하나로 줄이기
+- [x] 메소드 중복 최소화
+  - [x] EarningCalculator의 계산 메소드 하나로 줄이기

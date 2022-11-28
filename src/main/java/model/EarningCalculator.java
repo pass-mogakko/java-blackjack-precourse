@@ -1,5 +1,10 @@
 package model;
 
+import static domain.rule.EarningRule.BLACKJACK_WIN;
+import static domain.rule.EarningRule.LOSE;
+import static domain.rule.EarningRule.WIN;
+
+import domain.rule.EarningRule;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.Players;
@@ -23,19 +28,26 @@ public class EarningCalculator {
 
     public void calculateEarningsByBlackJack(Players players, Dealer dealer) {
         if (dealer.isBlackJack()) {
-            calculateEarningAsLose(players, player -> !player.isBlackJack());
+            calculateEarning(players, player -> !player.isBlackJack(), LOSE);
             return;
         }
-        calculateEarningAsBlackJackWin(players, User::isBlackJack);
+        calculateEarning(players, User::isBlackJack, BLACKJACK_WIN);
     }
 
     public void calculateEarningsWithoutBlackJack(Players players, Dealer dealer) {
         if (dealer.isBust()) {
-            calculateEarningAsWin(players, player -> !player.isBust());
+            calculateEarning(players, player -> !player.isBust(), WIN);
             return;
         }
-        calculateEarningAsLose(players, player -> toLoseWithoutBlackJack(player, dealer.addAllScore()));
-        calculateEarningAsWin(players, player -> toWinWithoutBlackJack(player, dealer.addAllScore()));
+        calculateEarning(players, player -> toLoseWithoutBlackJack(player, dealer.addAllScore()), LOSE);
+        calculateEarning(players, player -> toWinWithoutBlackJack(player, dealer.addAllScore()), WIN);
+    }
+
+    private void calculateEarning(Players players, Predicate<Player> playerStatus, EarningRule earningRule) {
+        players.filterByStatus(playerStatus)
+                .forEach(player -> earnings.moveEarningFromDealerToPlayer(
+                        player.getName(),(earningRule.getRate())*player.getBettingMoney())
+                );
     }
 
     private boolean toLoseWithoutBlackJack(Player player, double dealerScore) {
@@ -53,27 +65,5 @@ public class EarningCalculator {
             return false;
         }
         return player.addAllScore() > dealerScore;
-    }
-
-    // TODO 메소드 하나로 수정하기. Lose=(-1), BlackJackWin=(1.5), Win=(1)
-    private void calculateEarningAsLose(Players players, Predicate<Player> playerStatus) {
-        players.filterByStatus(playerStatus)
-                .forEach(player -> earnings.moveEarningFromDealerToPlayer(
-                        player.getName(),(-1)*player.getBettingMoney())
-                );
-    }
-
-    private void calculateEarningAsBlackJackWin(Players players, Predicate<Player> playerStatus) {
-        players.filterByStatus(playerStatus)
-                .forEach(player -> earnings.moveEarningFromDealerToPlayer(
-                        player.getName(),(1.5)*player.getBettingMoney())
-                );
-    }
-
-    private void calculateEarningAsWin(Players players, Predicate<Player> playerStatus) {
-        players.filterByStatus(playerStatus)
-                .forEach(player -> earnings.moveEarningFromDealerToPlayer(
-                        player.getName(),(1)*player.getBettingMoney())
-                );
     }
 }
