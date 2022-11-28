@@ -72,6 +72,12 @@ public class BlackJackGame {
         removeCard(index);
     }
 
+    public void checkDealerCard(){
+        while(!dealer.isOverThanSixteen()){
+            handOutDealerCard();
+        }
+    }
+
     private void removeCard(int index) {
         deck.remove(index);
     }
