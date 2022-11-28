@@ -9,6 +9,7 @@ import static view.resource.OutputContent.FORMAT_ASK_HIT_OR_STAY;
 import static view.resource.OutputContent.FORMAT_INFORM_DISTRIBUTED;
 import static view.resource.OutputContent.MESSAGE_ASK_PLAYERS_NAME;
 import static view.resource.OutputContent.MESSAGE_INFORM_DEALER_BLACKJACK;
+import static view.resource.OutputContent.MESSAGE_INFORM_TOTAL_EARNINGS;
 
 import domain.card.CardDistributor;
 import model.BlackJackGame;
@@ -60,9 +61,9 @@ public class GameController {
     }
 
     private void checkBlackJackAndPlay() {
+        blackJackGame.updateEarningsByBlackJack();
         if (blackJackGame.isDealerBlackJack()) {
             outputView.printMessage(MESSAGE_INFORM_DEALER_BLACKJACK);
-            blackJackGame.updateEarningsByBlackJack();
             return;
         }
         play();
@@ -74,7 +75,6 @@ public class GameController {
                 .forEach(this::hitUntilPlayerWant);
         outputView.printBlankLine();
         hitIfDealerValid();
-        outputView.printBlankLine();
         blackJackGame.updateEarningsWithOutBlackJack();
     }
 
@@ -112,7 +112,8 @@ public class GameController {
 
     private void showResult() {
         outputView.printOpenedCardsWithResult(blackJackGame.openAllUserCards(true));
-        // TODO 형식에 맞게 출력 구현
-        System.out.println(blackJackGame.getEarnings());
+        outputView.printBlankLine();
+        outputView.printMessage(MESSAGE_INFORM_TOTAL_EARNINGS);
+        outputView.printEarnings(blackJackGame.getEarnings(), playerNames);
     }
 }

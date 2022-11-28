@@ -5,6 +5,7 @@ public enum OutputContent {
     MESSAGE_ASK_PLAYERS_NAME("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)"),
     MESSAGE_INFORM_DEALER_HIT("딜러는 16 이하라 한 장의 카드를 더 받았습니다."),
     MESSAGE_INFORM_DEALER_BLACKJACK("딜러가 블랙잭이므로 바로 결산을 진행합니다."),
+    MESSAGE_INFORM_TOTAL_EARNINGS("## 최종 수익"),
 
     FORMAT_ASK_BETTING_MONEY("%s의 베팅 금액은?"),
     FORMAT_INFORM_DISTRIBUTED("딜러와 %s에게 2장의 카드를 나누었습니다."),

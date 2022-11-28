@@ -1,14 +1,18 @@
 package view;
 
 import static view.resource.Format.LIST_DELIMITER;
+import static view.resource.OutputContent.FORMAT_DEALER_EARNING;
 import static view.resource.OutputContent.FORMAT_OPEN_DEALER_CARDS;
 import static view.resource.OutputContent.FORMAT_OPEN_PLAYER_CARDS;
 import static view.resource.OutputContent.FORMAT_OPEN_RESULT;
+import static view.resource.OutputContent.FORMAT_PLAYER_EARNING;
 
 import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.user.User;
+import model.Earning;
+import model.Earnings;
 import model.OpenedCardsDto;
 import view.resource.OutputContent;
 import view.resource.SymbolDisplay;
@@ -78,12 +82,14 @@ public class OutputView {
         return symbolDisplay + typeDisplay;
     }
 
-//    public void printEarnings(Earnings earnings, List<String> playerNames) {
-//        ConsolePrinter.printFormattedLine(FORMAT_DEALER_EARNING, earnings.getDealerEarning());
-//        for (String playerName : playerNames) {
-//            ConsolePrinter.printFormattedLine(FORMAT_PLAYER_EARNING, playerName, earnings.findPlayerEarningByName(playerName).getEarning());
-//        }
-//    }
+    public void printEarnings(Earnings earnings, List<String> playerNames) {
+        ConsolePrinter.printFormattedLine(FORMAT_DEALER_EARNING, earnings.getDealerEarning());
+        // TODO earnings에서 바로 순서대로 꺼내도록 리팩토링
+        for (String playerName : playerNames) {
+            Earning earning = earnings.findPlayerEarningByName(playerName);
+            ConsolePrinter.printFormattedLine(FORMAT_PLAYER_EARNING, playerName, earning.getEarning());
+        }
+    }
 
     public void printBlankLine() {
         ConsolePrinter.printLine("");
