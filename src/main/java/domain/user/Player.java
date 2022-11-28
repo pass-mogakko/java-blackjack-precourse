@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 게임 참여자를 의미하는 객체
  */
-public class Player {
+public class Player implements Participants {
     private final String name;
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
@@ -20,6 +20,14 @@ public class Player {
 
     public void addCard(Card card) {
         cards.add(card);
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public List<Card> getCards() {
+        return this.cards;
     }
 
     // TODO 추가 기능 구현

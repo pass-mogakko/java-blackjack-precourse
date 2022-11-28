@@ -8,14 +8,24 @@ import java.util.List;
 /**
  * 게임 딜러를 의미하는 객체
  */
-public class Dealer {
+public class Dealer implements Participants {
+
+    private static final int FIRST_CARD_INDEX = 0;
+
     private final List<Card> cards = new ArrayList<>();
 
-    public Dealer() {}
+    public Dealer() {
+    }
 
     public void addCard(Card card) {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
+    public Card getFirstCard() {
+        return cards.get(FIRST_CARD_INDEX);
+    }
+
+    public List<Card> getCards() {
+        return this.cards;
+    }
 }
