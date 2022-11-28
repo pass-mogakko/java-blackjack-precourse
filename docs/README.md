@@ -139,52 +139,7 @@
        - [ ] 사용자 입력 외 범위에서 예외 발생 시 전달받은 에러 메시지를 출력한다. (그 후 컨트롤러에서 프로그램 종료)
 
 ## 클래스 설계
-### Domain
-- card
-  - Card
-  - CardFactory
-  - Symbol
-  - Type
-  - Deck* : 셔플된 트럼프 카드 한 세트를 덱으로 관리하는 클래스
-- rule
-  - BettingRule
-  - ParticipantsRule
-  - ScoreRule
-- user
-  - User
-  - Dealer : User를 상속
-  - Player : User를 상속
-- rule
-  - BettingRule
-  - ParticipantsRule
-  - ScoreRule
-
-### Model
-- BlackjackGame
-  - 딜러, 플레이어, 트럼프 카드를 관리하는 클래스
-- EarningCalculator
-  - 한 플레이어 - 딜러 간의 수익 결과를 계산하는 클래스
-- OpenedCardsDto
-  - 딜러, 플레이어의 공개 카드 정보를 뷰에 전달하기 위해 저장하는 클래스
-- EarningsDto
-  - 딜러, 플레이어의 수익 정보를 뷰에 전달하기 위해 저장하는 클래스
-
-### View
-- OutputView
-  - 사용자 상호작용 중 출력을 담당하는 클래스
-- InputVIew
-  - 사용자 상호작용 중 입력을 담당하는 클래스
-- resource
-  - OutputContent
-    - 출력할 메시지, 메시지 형식을 상수로 저장하는 클래스
-  - Format
-    - 입출력 시 사용하는 포맷(구분자)을 상수로 저장하는 클래스
-  - Command
-    - 게임 진행 시 사용자가 선택하는 키워드를 상수로 저장하는 클래스
-
-### Controller
-- GameController
-  - 전체 게임 흐름 및 Model-View 상호작용을 관리하는 클래스
+![클래스 다이어그램](class-diagram.png)
 
 
 ## 단위 테스트 목록
@@ -216,3 +171,13 @@
   - [x] 블랙잭 여부에 따라 다르게 수익 계산
   - [x] 각 플레이어의 푸쉬(동점), 승리, 패배, 버스트에 따라 다르게 수익 계산
   - [x] 딜러가 버스트이면 버스트 제외한 플레이어 모두 베팅 금액만큼 수익 계산
+
+## 리팩토링 목록
+- [ ] 클래스 분리
+  - [ ] InputView, OutputView 검증로직 메소드를 Validator 클래스로 분리
+  - [ ] BlackJackGame의 멤버 변수 players를 일급 콜렉션 클래스로 분리
+- [ ] 메소드 중복 최소화
+  - [ ] EarningCalculator의 계산 메소드 하나로 줄이기
+- [ ] 클래스 설계 검토
+  - [ ] 로직 수행 객체와 Dto 구분하기
+  - [ ] GameController에서 모델 로직 수행할 필요 없게 만들기
