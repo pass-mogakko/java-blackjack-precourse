@@ -27,25 +27,19 @@ public class BlackJackController {
     }
 
     public void run() {
-        handOutFirstTime();
-        moreCardByPlayers(blackJackGame.getUsers().getPlayers());
+        divideCardsFirstTime();
+        divideMoreCardToPlayers(blackJackGame.getUsers().getPlayers());
         divideMoreCardToDealer();
 
         UsersDTO dto = blackJackGame.getUsers();
         outputView.printAllResult(dto);
     }
 
-    private void handOutFirstTime() {
-        blackJackGame.handOutFirstTime();
+    private void divideCardsFirstTime() {
+        blackJackGame.divideFirstTime();
         UsersDTO dto = blackJackGame.getUsers();
         outputView.printHandOut(dto.getPlayers().getPlayers());
         outputView.printHandOutResult(dto);
-    }
-
-    private void moreCardByPlayers(Players players) {
-        players.getPlayers()
-                .stream()
-                .forEach(player -> moreCard(player));
     }
 
     private void divideMoreCardToDealer() {
@@ -55,17 +49,23 @@ public class BlackJackController {
         }
     }
 
-    private void moreCard(Player player) {
+    private void divideMoreCardToPlayers(Players players) {
+        players.getPlayers()
+                .stream()
+                .forEach(player -> divideMoreCardToPlayer(player));
+    }
+
+    private void divideMoreCardToPlayer(Player player) {
         MoreCard moreCard;
         do {
             moreCard = inputView.inputMoreMoreDivide(player);
-            handOutMoreCard(player, moreCard);
+            divideMoreCardByCoomand(player, moreCard);
         } while (moreCard.equals(MoreCard.YES));
     }
 
-    private void handOutMoreCard(Player player, MoreCard moreCard) {
+    private void divideMoreCardByCoomand(Player player, MoreCard moreCard) {
         if (moreCard.equals(MoreCard.YES)) {
-            blackJackGame.handOutMoreCardOfPlayer(player.getName());
+            blackJackGame.divideMoreCardOfPlayer(player.getName());
             outputView.printPlayerCard(player);
         }
         return;
@@ -73,12 +73,12 @@ public class BlackJackController {
 
     private BlackJackGame initBlackJackGame() {
         Dealer dealer = new Dealer();
-        Players players = applyParticipation();
+        Players players = createParticipants();
         Deck deck = new Deck(CardFactory.create());
         return new BlackJackGame(dealer, players, deck);
     }
 
-    private Players applyParticipation() {
+    private Players createParticipants() {
         List<NewPlayerDTO> players = inputView.inputPlayers();
         betting(players);
         return PlayerConverter.convertPlayers(players);

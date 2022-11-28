@@ -17,12 +17,12 @@ public class BlackJackGame {
         this.deck = deck;
     }
 
-    public void handOutFirstTime() {
+    public void divideFirstTime() {
         dealer.addCards(deck.handOutFirstTime());
         players.addCardsFirstTime(deck);
     }
 
-    public void handOutMoreCardOfPlayer(String name) {
+    public void divideMoreCardOfPlayer(String name) {
         players.handOutMoreCardByName(name,deck.handOutMoreCard());
     }
 

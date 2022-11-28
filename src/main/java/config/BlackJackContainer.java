@@ -1,7 +1,6 @@
 package config;
 
 import controller.BlackJackController;
-import service.BlackJackGame;
 import view.InputView;
 import view.OutputView;
 
