@@ -6,15 +6,17 @@ import domain.card.Card;
 import domain.card.Symbol;
 import domain.card.Type;
 import domain.user.Dealer;
-import domain.user.Player;
+import domain.user.Players;
+import model.dto.Earnings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 class EarningCalculatorTest {
@@ -33,7 +35,7 @@ class EarningCalculatorTest {
     void calculateEarningsByBlackJack(List<Card> dealerCards, List<List<Card>> playerCards) {
         Dealer dealer = new Dealer();
         dealerCards.forEach(dealer::addCard);
-        List<Player> players = setPlayers(playerCards);
+        Players players = setPlayers(playerCards);
 
         earningCalculator.calculateEarningsByBlackJack(players, dealer);
         Earnings earnings = earningCalculator.getEarnings();
@@ -64,7 +66,7 @@ class EarningCalculatorTest {
     void calculateEarningsWithoutBlackJack(List<Card> dealerCards, List<List<Card>> playerCards) {
         Dealer dealer = new Dealer();
         dealerCards.forEach(dealer::addCard);
-        List<Player> players = setPlayers(playerCards);
+        Players players = setPlayers(playerCards);
 
         earningCalculator.calculateEarningsWithoutBlackJack(players, dealer);
         Earnings earnings = earningCalculator.getEarnings();
@@ -83,7 +85,7 @@ class EarningCalculatorTest {
         Dealer dealer = new Dealer();
         dealerCards.forEach(dealer::addCard);
         dealer.addCard(new Card(Symbol.TEN, Type.HEART));
-        List<Player> players = setPlayers(playerCards);
+        Players players = setPlayers(playerCards);
 
         earningCalculator.calculateEarningsWithoutBlackJack(players, dealer);
         Earnings earnings = earningCalculator.getEarnings();
@@ -108,19 +110,16 @@ class EarningCalculatorTest {
         return Stream.of(Arguments.of(dealerCards, playerCards));
     }
 
-    private List<Player> setPlayers(List<List<Card>> playerCards) {
-        List<Player> players = List.of(
-                new Player("pobi", 10_000), new Player("jason", 20_000), new Player("joon", 10_000)
+    private Players setPlayers(List<List<Card>> playerCards) {
+        Map<String, Double> playersToEnroll = new LinkedHashMap<>(
+                Map.of("pobi", 10_000.0, "jason", 20_000.0, "joon", 10_000.0)
         );
+        Players players = new Players(playersToEnroll);
         for (int index = 0; index < playerCards.size(); index++) {
             List<Card> playerCard = playerCards.get(index);
-            Player player = players.get(index);
-            playerCard.forEach(player::addCard);
+            String playerName = playerNames.get(index);
+            playerCard.forEach(card -> players.addCardByName(playerName, card));
         }
         return players;
-    }
-
-    @Test
-    void calculateEarningsWithoutBlackJack() {
     }
 }

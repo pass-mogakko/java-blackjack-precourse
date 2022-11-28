@@ -2,7 +2,9 @@ package model;
 
 import domain.user.Dealer;
 import domain.user.Player;
+import domain.user.Players;
 import domain.user.User;
+import model.dto.Earnings;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -19,7 +21,7 @@ public class EarningCalculator {
         return earnings;
     }
 
-    public void calculateEarningsByBlackJack(List<Player> players, Dealer dealer) {
+    public void calculateEarningsByBlackJack(Players players, Dealer dealer) {
         if (dealer.isBlackJack()) {
             calculateEarningAsLose(players, player -> !player.isBlackJack());
             return;
@@ -27,7 +29,7 @@ public class EarningCalculator {
         calculateEarningAsBlackJackWin(players, User::isBlackJack);
     }
 
-    public void calculateEarningsWithoutBlackJack(List<Player> players, Dealer dealer) {
+    public void calculateEarningsWithoutBlackJack(Players players, Dealer dealer) {
         if (dealer.isBust()) {
             calculateEarningAsWin(players, player -> !player.isBust());
             return;
@@ -54,25 +56,22 @@ public class EarningCalculator {
     }
 
     // TODO 메소드 하나로 수정하기. Lose=(-1), BlackJackWin=(1.5), Win=(1)
-    private void calculateEarningAsLose(List<Player> players, Predicate<Player> playerStatus) {
-        players.stream()
-                .filter(playerStatus)
+    private void calculateEarningAsLose(Players players, Predicate<Player> playerStatus) {
+        players.filterByStatus(playerStatus)
                 .forEach(player -> earnings.moveEarningFromDealerToPlayer(
                         player.getName(),(-1)*player.getBettingMoney())
                 );
     }
 
-    private void calculateEarningAsBlackJackWin(List<Player> players, Predicate<Player> playerStatus) {
-        players.stream()
-                .filter(playerStatus)
+    private void calculateEarningAsBlackJackWin(Players players, Predicate<Player> playerStatus) {
+        players.filterByStatus(playerStatus)
                 .forEach(player -> earnings.moveEarningFromDealerToPlayer(
                         player.getName(),(1.5)*player.getBettingMoney())
                 );
     }
 
-    private void calculateEarningAsWin(List<Player> players, Predicate<Player> playerStatus) {
-        players.stream()
-                .filter(playerStatus)
+    private void calculateEarningAsWin(Players players, Predicate<Player> playerStatus) {
+        players.filterByStatus(playerStatus)
                 .forEach(player -> earnings.moveEarningFromDealerToPlayer(
                         player.getName(),(1)*player.getBettingMoney())
                 );

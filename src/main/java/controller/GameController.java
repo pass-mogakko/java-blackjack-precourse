@@ -13,7 +13,7 @@ import static view.resource.OutputContent.MESSAGE_INFORM_TOTAL_EARNINGS;
 
 import domain.card.CardDistributor;
 import model.BlackJackGame;
-import model.OpenedCardsDto;
+import model.dto.Opening;
 import view.InputView;
 import view.OutputView;
 import view.resource.OutputContent;
@@ -31,7 +31,7 @@ public class GameController {
 
     public void run(CardDistributor distributor) {
         initializeGame(distributor);
-        deal();
+        startGame();
         checkBlackJackAndPlay();
         showResult();
     }
@@ -52,11 +52,11 @@ public class GameController {
         return bettingMoney;
     }
 
-    private void deal() {
-        blackJackGame.distributeCardsForStart();
-        OpenedCardsDto cards = blackJackGame.openAllUserCards(false);
+    private void startGame() {
+        blackJackGame.deal();
+        Opening opening = blackJackGame.open(false);
         outputView.printFormattedMessage(FORMAT_INFORM_DISTRIBUTED, playerNames);
-        outputView.printOpenedCards(cards);
+        outputView.printOpening(opening);
         outputView.printBlankLine();
     }
 
@@ -70,8 +70,7 @@ public class GameController {
     }
 
     private void play() {
-        playerNames.stream()
-                .filter(name -> !blackJackGame.isPlayerBlackJack(name))
+        blackJackGame.getNotBlackJackPlayersName()
                 .forEach(this::hitUntilPlayerWant);
         outputView.printBlankLine();
         hitIfDealerValid();
@@ -79,7 +78,7 @@ public class GameController {
     }
 
     private void hitIfDealerValid() {
-        while (blackJackGame.addCardToDealerIfValid()) {
+        while (blackJackGame.hitDealer()) {
             outputView.printMessage(OutputContent.MESSAGE_INFORM_DEALER_HIT);
         }
     }
@@ -98,7 +97,7 @@ public class GameController {
 
     private int addCardIfToHit(boolean toHitMore, String playerName) {
         if (toHitMore) {
-            blackJackGame.addCardToPlayer(playerName);
+            blackJackGame.hitPlayer(playerName);
             outputView.printOpenedCards(blackJackGame.openPlayerCards(playerName));
             return 1;
         }
@@ -111,7 +110,7 @@ public class GameController {
     }
 
     private void showResult() {
-        outputView.printOpenedCardsWithResult(blackJackGame.openAllUserCards(true));
+        outputView.printResult(blackJackGame.open(true));
         outputView.printBlankLine();
         outputView.printMessage(MESSAGE_INFORM_TOTAL_EARNINGS);
         outputView.printEarnings(blackJackGame.getEarnings(), playerNames);

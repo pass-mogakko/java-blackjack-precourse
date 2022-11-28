@@ -6,6 +6,4 @@ package domain.user;
 public class Dealer extends User {
 
     public Dealer() {}
-
-    // TODO 추가 기능 구현
 }

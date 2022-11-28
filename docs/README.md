@@ -173,11 +173,12 @@
   - [x] 딜러가 버스트이면 버스트 제외한 플레이어 모두 베팅 금액만큼 수익 계산
 
 ## 리팩토링 목록
-- [ ] 클래스 분리
-  - [ ] InputView, OutputView 검증로직 메소드를 Validator 클래스로 분리
-  - [ ] BlackJackGame의 멤버 변수 players를 일급 콜렉션 클래스로 분리
+- [x] 클래스 분리
+  - [x] InputView, OutputView 검증로직 메소드를 Validator 클래스로 분리
+  - [x] OutputView의 카드 정보 변환 로직 메소드를 Converter 클래스로 분리
+  - [x] BlackJackGame의 멤버 변수 players를 일급 콜렉션 클래스로 분리
+- [x] 클래스 설계 검토
+  - [x] 로직 수행 객체와 Dto 구분하기 (getter, setter 검토)
+  - [X] GameController에서 모델 로직 수행할 필요 없게 만들기
 - [ ] 메소드 중복 최소화
   - [ ] EarningCalculator의 계산 메소드 하나로 줄이기
-- [ ] 클래스 설계 검토
-  - [ ] 로직 수행 객체와 Dto 구분하기
-  - [ ] GameController에서 모델 로직 수행할 필요 없게 만들기
