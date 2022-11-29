@@ -4,7 +4,8 @@ import domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
-import util.BlackJackCalculator;
+import util.TotalCalculator;
+import util.ResultCalculator;
 
 /**
  * 게임 참여자를 의미하는 객체
@@ -33,12 +34,12 @@ public class Player implements Participants {
     }
 
     public boolean isBlackJack() {
-        return BlackJackCalculator.calculate(cards) == 21;
+        return ResultCalculator.isBlackJack(cards);
     }
 
     @Override
     public int getTotal() {
-        return (int) BlackJackCalculator.calculate(cards);
+        return (int) TotalCalculator.calculate(cards);
     }
 
     public String getName() {

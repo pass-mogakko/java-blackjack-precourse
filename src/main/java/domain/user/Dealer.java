@@ -4,7 +4,8 @@ import domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
-import util.BlackJackCalculator;
+import util.TotalCalculator;
+import util.ResultCalculator;
 
 /**
  * 게임 딜러를 의미하는 객체
@@ -29,7 +30,7 @@ public class Dealer implements Participants {
 
     @Override
     public int getTotal() {
-        return (int) BlackJackCalculator.calculateTotal(cards);
+        return (int) TotalCalculator.calculateTotal(cards);
     }
 
     public Card getFirstCard() {
@@ -37,7 +38,7 @@ public class Dealer implements Participants {
     }
 
     public boolean isBlackJack() {
-        return getTotal() == 21;
+        return ResultCalculator.isBlackJack(cards);
     }
 
     public List<Card> getCards() {

@@ -4,7 +4,7 @@ import domain.card.Card;
 import domain.card.Symbol;
 import java.util.List;
 
-public class BlackJackCalculator {
+public class TotalCalculator {
 
     public static double calculate(List<Card> cards) {
         if (cards.contains(Symbol.ACE)) {
