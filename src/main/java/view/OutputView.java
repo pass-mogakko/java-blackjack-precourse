@@ -60,6 +60,26 @@ public class OutputView {
         System.out.println(MORE_CARD_TO_DEALER);
     }
 
+    // 수익 출력
+    public void printProfit(List<Player> players, Map<Player, GameResult> gameResult) {
+        System.out.println(FINAL_PROFIT);
+        int dealerProfit = -1 * players.stream()
+                .mapToInt(player -> ProfitCalculator.calculateProfit((int) player.getBettingMoney(), gameResult.get(player)))
+                .sum();
+
+        printDealerProfit(dealerProfit);
+        players.stream()
+                .forEach(player -> printPlayerProfit(player, gameResult));
+    }
+
+    private void printDealerProfit(int dealerProfit) {
+        System.out.println("딜러: " + dealerProfit);
+    }
+
+    private void printPlayerProfit(Player player, Map<Player, GameResult> result) {
+        System.out.println(player.getName() + View.COLON + ProfitCalculator.calculateProfit((int) player.getBettingMoney(), result.get(player)));
+    }
+
     private void printDealerCardFirstTime(Dealer dealer) {
         System.out.println(View.DEALER + View.COLON + getCardView(dealer.getFirstCard()));
     }
