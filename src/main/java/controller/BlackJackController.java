@@ -39,6 +39,7 @@ public class BlackJackController {
         divideMoreCardToDealer();
         UsersDTO dto = blackJackGame.getUsers();
         printResult(dto);
+        printProfit(dto, blackJackGame.getResult());
     }
 
     private void divideCardsFirstTime() {
@@ -97,6 +98,11 @@ public class BlackJackController {
 
     private void printResult(UsersDTO dto) {
         outputView.printFinalResult(dto);
+    }
+
+    private void printProfit(UsersDTO dto, Result result) {
+        blackJackGame.addResult(dto.getPlayers().getPlayers());
+        outputView.printProfit(dto.getPlayers().getPlayers(), result.getResult());
     }
 
 }
