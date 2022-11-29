@@ -29,13 +29,8 @@ public class BlackJackController {
 
     public void run() {
         divideCardsFirstTime();
-        if (blackJackGame.isDealerBlackJack()) {
-            blackJackGame.addBlackJackResult();
-            blackJackGame.addResult(blackJackGame.getNotBlackJackPlayers());
-            outputView.printProfit(blackJackGame.getPlayers().getPlayers(), blackJackGame.getResult().getResult());
-            return;
-        }
-        divideMoreCardToPlayers(blackJackGame.getNotBlackJackPlayers());
+        blackJackGame.checkBlackJack();
+        divideMoreCardToPlayers(blackJackGame.getNoResultPlayers());
         divideMoreCardToDealer();
         UsersDTO dto = blackJackGame.getUsers();
         printResult(dto);

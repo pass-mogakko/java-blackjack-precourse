@@ -1,5 +1,6 @@
 package service;
 
+import domain.GameResult;
 import domain.Result;
 import domain.card.Deck;
 import domain.user.Dealer;
@@ -7,6 +8,8 @@ import domain.user.Player;
 import domain.user.Players;
 import dto.UsersDTO;
 import java.util.List;
+import java.util.stream.Collectors;
+import util.ResultCalculator;
 
 public class BlackJackGame {
 
@@ -20,6 +23,21 @@ public class BlackJackGame {
         this.players = players;
         this.deck = deck;
         this.result = new Result();
+    }
+
+    public void checkBlackJack() {
+        if (!dealer.isBlackJack()) {
+            checkPlayerBlackJack();
+        }
+        if(dealer.isBlackJack()) {
+            result.putResults(players.getBlackJackPlayers(),GameResult.DRAW);
+            result.putResults(players.getNotBlackJackPlayers(),GameResult.LOSE);
+        }
+    }
+
+    private void checkPlayerBlackJack() {
+        players.getBlackJackPlayers()
+                .forEach(player -> result.putResult(player, GameResult.BLACKJACK));
     }
 
     public void divideFirstTime() {
@@ -37,13 +55,20 @@ public class BlackJackGame {
         }
     }
 
+    public List<Player> getNoResultPlayers() {
+        return players.getPlayers()
+                .stream()
+                .filter(player -> !result.hasResultByPlayer(player))
+                .collect(Collectors.toList());
+    }
+
     public void addBlackJackResult() {
         result.putBlackJackPlayersResult(players.getBlackJackPlayers());
     }
 
     public void addResult(List<Player> players) {
         players.stream()
-                .forEach(player -> result.addCompareResult(dealer, player));
+                .forEach(player -> result.putResult(player, ResultCalculator.compare(dealer.getCards(), player.getCards())));
     }
 
     public boolean isMoreCardToDealer() {
