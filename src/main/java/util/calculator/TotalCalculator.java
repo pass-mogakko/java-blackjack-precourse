@@ -1,4 +1,4 @@
-package util;
+package util.calculator;
 
 import domain.card.Card;
 import domain.card.Symbol;

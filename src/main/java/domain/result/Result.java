@@ -1,8 +1,7 @@
-package domain;
+package domain.result;
 
-import domain.user.Dealer;
+import domain.status.GameResult;
 import domain.user.Player;
-import domain.user.Players;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

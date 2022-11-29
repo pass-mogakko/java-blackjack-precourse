@@ -1,9 +1,8 @@
 package view;
 
 import constants.View;
-import domain.GameResult;
-import domain.ProfitCalculator;
-import domain.Result;
+import domain.status.GameResult;
+import util.calculator.ProfitCalculator;
 import domain.card.Card;
 import domain.card.Symbol;
 import domain.card.Type;
@@ -33,7 +32,6 @@ public class OutputView {
         printPlayersCards(players.getPlayers());
     }
 
-    // 결과 출력
     public void printFinalResult(UsersDTO usersDTO) {
         printDealerResult(usersDTO.getDealer());
         Players players = usersDTO.getPlayers();
@@ -42,14 +40,12 @@ public class OutputView {
                 .forEach(player -> printPlayerResult(player));
     }
 
-    // 딜러 결과 출력
     private void printDealerResult(Dealer dealer) {
         printDealerCards(dealer);
         printResult(dealer);
         lineBreak();
     }
 
-    // 플레이어 결과 출력
     private void printPlayerResult(Player player) {
         System.out.print(getPlayerCards(player));
         printResult(player);
@@ -64,7 +60,6 @@ public class OutputView {
         System.out.println(MORE_CARD_TO_DEALER);
     }
 
-    // 수익 출력
     public void printProfit(List<Player> players, Map<Player, GameResult> gameResult) {
         System.out.println(FINAL_PROFIT);
         int dealerProfit = -1 * players.stream()
@@ -88,18 +83,15 @@ public class OutputView {
         System.out.println(View.DEALER + View.COLON + getCardView(dealer.getFirstCard()));
     }
 
-    // 딜러의 카드 출력
     private void printDealerCards(Dealer dealer) {
         System.out.print(View.DEALER + View.COLON + getCardsView(dealer.getCards()));
     }
-    
-    // 플레이어들의 카드 출력
+
     private void printPlayersCards(List<Player> players) {
         players.stream()
                 .forEach(player -> printPlayerCards(player));
     }
-    
-    // 플레이어 카드 출력
+
     public void printPlayerCards(Player player) {
         System.out.println(getPlayerCards(player));
     }
@@ -115,7 +107,6 @@ public class OutputView {
         return String.join(", ", playerNames);
     }
 
-    // '스페이드5, 클럽2' 와 같은 출력문 얻기
     private String getCardsView(List<Card> cards) {
         List<String> cardsView = cards.stream()
                 .map(card -> getCardView(card))
@@ -123,14 +114,12 @@ public class OutputView {
         return String.join(", ", cardsView);
     }
 
-    // '스페이드5' 와 같은 출력문 얻기
     private String getCardView(Card card) {
         Type type = card.getType();
         Symbol symbol = card.getSymbol();
         return type.getTypeKoreanName() + symbol.getScore();
     }
 
-    // 줄바꿈 기능
     private void lineBreak() {
         System.out.println();
     }

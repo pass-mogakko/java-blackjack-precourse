@@ -1,7 +1,7 @@
 package view;
 
 import constants.View;
-import domain.MoreCard;
+import domain.status.MoreCard;
 import domain.user.Player;
 import dto.NewPlayerDTO;
 import java.util.Arrays;

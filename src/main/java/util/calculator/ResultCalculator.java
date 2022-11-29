@@ -1,6 +1,6 @@
-package util;
+package util.calculator;
 
-import domain.GameResult;
+import domain.status.GameResult;
 import domain.card.Card;
 import java.util.List;
 

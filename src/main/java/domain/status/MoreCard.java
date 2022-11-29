@@ -1,4 +1,4 @@
-package domain;
+package domain.status;
 
 import java.util.Arrays;
 

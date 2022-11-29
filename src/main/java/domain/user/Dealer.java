@@ -4,8 +4,8 @@ import domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
-import util.TotalCalculator;
-import util.ResultCalculator;
+import util.calculator.TotalCalculator;
+import util.calculator.ResultCalculator;
 
 /**
  * 게임 딜러를 의미하는 객체

@@ -1,7 +1,7 @@
 package controller;
 
-import domain.MoreCard;
-import domain.Result;
+import domain.status.MoreCard;
+import domain.result.Result;
 import domain.card.CardFactory;
 import domain.card.Deck;
 import domain.user.Dealer;

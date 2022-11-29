@@ -1,7 +1,7 @@
 package service;
 
-import domain.GameResult;
-import domain.Result;
+import domain.status.GameResult;
+import domain.result.Result;
 import domain.card.Deck;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -9,7 +9,7 @@ import domain.user.Players;
 import dto.UsersDTO;
 import java.util.List;
 import java.util.stream.Collectors;
-import util.ResultCalculator;
+import util.calculator.ResultCalculator;
 
 public class BlackJackGame {
 
