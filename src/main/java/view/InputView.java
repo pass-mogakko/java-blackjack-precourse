@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import util.converter.NewPlayerConverter;
+import util.validator.Validator;
 
 public class InputView {
 
@@ -19,22 +20,22 @@ public class InputView {
 
     public List<NewPlayerDTO> inputPlayers() {
         System.out.println(INPUT_PLAYERS);
-        List<String> players = Arrays.asList(readLine().split(ARRAY_DIVIDER));
-        // validate
+        String participants = readLine();
+        List<String> players = Arrays.asList(participants.split(ARRAY_DIVIDER));
         return NewPlayerConverter.convertNewPlayersDTO(players);
     }
 
     public int inputBettingAmount(NewPlayerDTO newPlayerDTO) {
         System.out.printf(INPUT_BETTING_AMOUNT,newPlayerDTO.getName());
         String bettingMoney = readLine();
-        // validate
+        Validator.validateBettingMoney(bettingMoney);
         return NewPlayerConverter.convertBettingMoney(bettingMoney);
     }
 
     public MoreCard inputMoreMoreDivide(Player player) {
         System.out.printf(INPUT_MORE_CARDS + View.LINE_BREAK,player.getName());
         String command = readLine();
-        // validate
+        Validator.validateCommand(command);
         return MoreCard.getMoreCardByCommand(command);
     }
 
