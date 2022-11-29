@@ -4,6 +4,7 @@ import domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
+import util.BlackJackCalculator;
 
 /**
  * 게임 참여자를 의미하는 객체
@@ -31,11 +32,13 @@ public class Player implements Participants {
                 .equals(name);
     }
 
+    public boolean isBlackJack() {
+        return BlackJackCalculator.calculate(cards) == 21;
+    }
+
     @Override
     public int getTotal() {
-        return cards.stream()
-                .mapToInt(card -> card.getSymbol().getScore())
-                .sum();
+        return (int) BlackJackCalculator.calculate(cards);
     }
 
     public String getName() {
@@ -48,6 +51,12 @@ public class Player implements Participants {
 
     public List<Card> getCards() {
         return this.cards;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Player anotherPlayer = (Player) obj;
+        return this.name.equals(anotherPlayer.getName());
     }
 
     // TODO 추가 기능 구현

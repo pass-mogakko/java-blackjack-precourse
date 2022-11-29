@@ -4,6 +4,7 @@ import domain.card.Card;
 
 import java.util.ArrayList;
 import java.util.List;
+import util.BlackJackCalculator;
 
 /**
  * 게임 딜러를 의미하는 객체
@@ -28,13 +29,15 @@ public class Dealer implements Participants {
 
     @Override
     public int getTotal() {
-        return cards.stream()
-                .mapToInt(card -> card.getSymbol().getScore())
-                .sum();
+        return (int) BlackJackCalculator.calculateTotal(cards);
     }
 
     public Card getFirstCard() {
         return cards.get(FIRST_CARD_INDEX);
+    }
+
+    public boolean isBlackJack() {
+        return getTotal() == 21;
     }
 
     public List<Card> getCards() {

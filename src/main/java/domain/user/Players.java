@@ -13,14 +13,6 @@ public class Players {
         this.players = players;
     }
 
-    @Override
-    public String toString() {
-        List<String> playerNames = players.stream()
-                .map(player -> player.getName())
-                .collect(Collectors.toList());
-        return String.join(", ",playerNames);
-    }
-
     public List<Player> getPlayers() {
         return this.players;
     }
@@ -36,6 +28,26 @@ public class Players {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException());
         player.addCard(card);
+    }
+
+    public List<Player> getNotBlackJackPlayers() {
+        return players.stream()
+                .filter(player -> !player.isBlackJack())
+                .collect(Collectors.toList());
+    }
+
+    public List<Player> getBlackJackPlayers() {
+        return players.stream()
+                .filter(player -> player.isBlackJack())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String toString() {
+        List<String> playerNames = players.stream()
+                .map(player -> player.getName())
+                .collect(Collectors.toList());
+        return String.join(", ",playerNames);
     }
 
 }
