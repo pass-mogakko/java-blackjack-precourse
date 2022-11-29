@@ -16,6 +16,8 @@ public class OutputView {
 
     public static final String FIRST_HAND_OUT_MESSAGE = View.DEALER + "와 %s에게 2장의 카드를 나누었습니다.";
     public static final String MORE_CARD_TO_DEALER = "딜러는 16이하라 한장의 카드를 더 받았습니다.";
+    public static final String FINAL_RESULT = " - 결과: %d";
+    public static final String FINAL_PROFIT = "## 최종수익";
 
     public void printHandOut(List<Player> players) {
         System.out.printf(FIRST_HAND_OUT_MESSAGE + View.LINE_BREAK, getPlayerNames(players));
@@ -27,10 +29,31 @@ public class OutputView {
         printPlayerCards(players.getPlayers());
     }
 
-    public void printAllResult(UsersDTO usersDTO) {
-        printDealerCards(usersDTO.getDealer());
+    // 결과 출력
+    public void printFinalResult(UsersDTO usersDTO) {
+        printDealerResult(usersDTO.getDealer());
         Players players = usersDTO.getPlayers();
-        printPlayerCards(players.getPlayers());
+        players.getPlayers()
+                .stream()
+                .forEach(player -> printPlayerResult(player));
+    }
+
+    // 딜러 결과 출력
+    private void printDealerResult(Dealer dealer) {
+        printDealerCards(dealer);
+        printResult(dealer);
+        lineBreak();
+    }
+
+    // 플레이어 결과 출력
+    private void printPlayerResult(Player player) {
+        System.out.print(getPlayerCards(player));
+        printResult(player);
+        lineBreak();
+    }
+
+    private void printResult(Participants participants) {
+        System.out.printf(FINAL_RESULT, participants.getTotal());
     }
 
     public void printMoreCardToDealer() {

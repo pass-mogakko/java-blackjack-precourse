@@ -1,6 +1,7 @@
 package controller;
 
 import domain.MoreCard;
+import domain.Result;
 import domain.card.CardFactory;
 import domain.card.Deck;
 import domain.user.Dealer;
@@ -28,11 +29,16 @@ public class BlackJackController {
 
     public void run() {
         divideCardsFirstTime();
-        divideMoreCardToPlayers(blackJackGame.getUsers().getPlayers());
+        if (blackJackGame.isDealerBlackJack()) {
+            blackJackGame.addBlackJackResult();
+            blackJackGame.addResult(blackJackGame.getNotBlackJackPlayers());
+            outputView.printProfit(blackJackGame.getPlayers().getPlayers(), blackJackGame.getResult().getResult());
+            return;
+        }
+        divideMoreCardToPlayers(blackJackGame.getNotBlackJackPlayers());
         divideMoreCardToDealer();
-
         UsersDTO dto = blackJackGame.getUsers();
-        outputView.printAllResult(dto);
+        printResult(dto);
     }
 
     private void divideCardsFirstTime() {
@@ -87,6 +93,10 @@ public class BlackJackController {
     private void betting(List<NewPlayerDTO> players) {
         players.stream()
                 .forEach(player -> player.setBettingMoney(inputView.inputBettingAmount(player)));
+    }
+
+    private void printResult(UsersDTO dto) {
+        outputView.printFinalResult(dto);
     }
 
 }
