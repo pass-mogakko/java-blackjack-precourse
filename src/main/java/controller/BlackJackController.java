@@ -56,9 +56,8 @@ public class BlackJackController {
         }
     }
 
-    private void divideMoreCardToPlayers(Players players) {
-        players.getPlayers()
-                .stream()
+    private void divideMoreCardToPlayers(List<Player> players) {
+        players.stream()
                 .forEach(player -> divideMoreCardToPlayer(player));
     }
 
@@ -73,7 +72,7 @@ public class BlackJackController {
     private void divideMoreCardByCoomand(Player player, MoreCard moreCard) {
         if (moreCard.equals(MoreCard.YES)) {
             blackJackGame.divideMoreCardOfPlayer(player.getName());
-            outputView.printPlayerCard(player);
+            outputView.printPlayerCards(player);
         }
         return;
     }

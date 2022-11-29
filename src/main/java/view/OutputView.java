@@ -1,15 +1,19 @@
 package view;
 
-
 import constants.View;
+import domain.GameResult;
+import domain.ProfitCalculator;
+import domain.Result;
 import domain.card.Card;
 import domain.card.Symbol;
 import domain.card.Type;
 import domain.user.Dealer;
+import domain.user.Participants;
 import domain.user.Player;
 import domain.user.Players;
 import dto.UsersDTO;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class OutputView {
@@ -26,7 +30,7 @@ public class OutputView {
     public void printHandOutResult(UsersDTO usersDTO) {
         printDealerCardFirstTime(usersDTO.getDealer());
         Players players = usersDTO.getPlayers();
-        printPlayerCards(players.getPlayers());
+        printPlayersCards(players.getPlayers());
     }
 
     // 결과 출력
@@ -84,38 +88,51 @@ public class OutputView {
         System.out.println(View.DEALER + View.COLON + getCardView(dealer.getFirstCard()));
     }
 
+    // 딜러의 카드 출력
     private void printDealerCards(Dealer dealer) {
-        System.out.println(View.DEALER + View.COLON + getCardsView(dealer.getCards()));
+        System.out.print(View.DEALER + View.COLON + getCardsView(dealer.getCards()));
     }
-
-
-    private void printPlayerCards(List<Player> players) {
+    
+    // 플레이어들의 카드 출력
+    private void printPlayersCards(List<Player> players) {
         players.stream()
-                .forEach(player -> printPlayerCard(player));
+                .forEach(player -> printPlayerCards(player));
+    }
+    
+    // 플레이어 카드 출력
+    public void printPlayerCards(Player player) {
+        System.out.println(getPlayerCards(player));
     }
 
-    public void printPlayerCard(Player player) {
-        System.out.println(player.getName() + View.CARD + View.COLON + getCardsView(player.getCards()));
+    private String getPlayerCards(Player player) {
+        return player.getName() + View.CARD + View.COLON + getCardsView(player.getCards());
     }
 
     private String getPlayerNames(List<Player> players) {
         List<String> playerNames = players.stream()
                 .map(player -> player.getName())
                 .collect(Collectors.toList());
-        return String.join(", ",playerNames);
+        return String.join(", ", playerNames);
     }
 
+    // '스페이드5, 클럽2' 와 같은 출력문 얻기
     private String getCardsView(List<Card> cards) {
         List<String> cardsView = cards.stream()
                 .map(card -> getCardView(card))
                 .collect(Collectors.toList());
-        return String.join(", ",cardsView);
+        return String.join(", ", cardsView);
     }
 
+    // '스페이드5' 와 같은 출력문 얻기
     private String getCardView(Card card) {
         Type type = card.getType();
         Symbol symbol = card.getSymbol();
         return type.getTypeKoreanName() + symbol.getScore();
+    }
+
+    // 줄바꿈 기능
+    private void lineBreak() {
+        System.out.println();
     }
 
 }
